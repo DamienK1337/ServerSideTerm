@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Connection.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Items.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restaurants.cs" />
     <Compile Include="Settings.cs" />

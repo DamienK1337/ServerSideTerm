@@ -10,34 +10,6 @@
 namespace OwlsEat {
     
     
-    public partial class RestaurantHomePage
-    {
-        
-        /// <summary>
-        /// DivBrowsebyCusine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBrowsebyCusine;
-        
-        /// <summary>
-        /// ddlCuisine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCuisine;
-        
-        /// <summary>
-        /// gvRestaurant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRestaurant;
+    public partial class RestaurantHomePage {
     }
 }
