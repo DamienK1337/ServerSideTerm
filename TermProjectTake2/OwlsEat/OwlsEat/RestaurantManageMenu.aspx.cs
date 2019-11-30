@@ -41,8 +41,20 @@ namespace OwlsEat
 
                 gvItems.DataSource = objDB.GetDataSet(strSQL);
                 gvItems.DataBind();
+
+
+                
+
+                ddlItemID.DataSource = objDB.GetDataSet(strSQL);
+                ddlItemID.DataTextField = "Title";
+                ddlItemID.DataValueField = "ItemID";
+                ddlItemID.DataBind();
+
+             
+
             }
         }
+
         void ValidateItemInformation()
         {
             if (txtItemTitle.Text == "")
@@ -89,7 +101,7 @@ namespace OwlsEat
         protected void lnkBtnChangePassword_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
-            ChangeSecurtiyQuestions.Visible = false;
+          
         }
 
 
@@ -291,21 +303,23 @@ namespace OwlsEat
                 }
             }
         }
-    
 
         protected void lnkBtnCreateItems_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
+            CreateMenu.Visible = false;
+            ViewAndEditItems.Visible = false;
+            ViewAndEditMenu.Visible = false;
             CreateItems.Visible = true;
-            ChangeSecurtiyQuestions.Visible = false;
-
-
+            gvItems.Visible = false;
         }
 
         protected void lnkBtnCreateMenu_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
             CreateItems.Visible = false;
+            ViewAndEditItems.Visible = false;
+            ViewAndEditMenu.Visible = false;
             CreateMenu.Visible = true;
             gvItems.Visible = true;
 
@@ -394,16 +408,84 @@ namespace OwlsEat
             lblConfirm.Visible = false;
             CreateItems.Visible = false;
             CreateMenu.Visible = false;
-            gvEditItems.Visible = true;
+            ViewAndEditItems.Visible = true;
+            ViewAndEditMenu.Visible = false;
+            ddlItemID.Visible = true;
         }
+
         protected void lnkBtnViewMenus_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
             CreateItems.Visible = false;
             CreateMenu.Visible = false;
+            ViewAndEditItems.Visible = false;
+            ViewAndEditMenu.Visible = true;
             gvItems.Visible = false;
         }
 
+        protected void btnEditItem_Click(object sender, EventArgs e)
+        {
+            if (UpdateInformationError.Count == 0)
+            {
 
+                string ItemTitle = txtItemTitle1.Text;
+                string ItemImgUrl = txtItemImgUrl1.Text;
+                string ItemDescription = txtItemDescription.Text;
+                float ItemPrice = float.Parse(txtItemPrice1.Text);
+                int ItemID = int.Parse(txtItemID.Text);
+
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPUpdateItemInfo";
+
+
+                objCommand.Parameters.AddWithValue("@ItemID", ItemID);
+                objCommand.Parameters.AddWithValue("@Title", ItemTitle);
+                objCommand.Parameters.AddWithValue("@Image", ItemImgUrl);
+                objCommand.Parameters.AddWithValue("@Description", ItemDescription);
+                objCommand.Parameters.AddWithValue("@Price", ItemPrice);
+
+                var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                if (ResponseReceived == 1)
+                {
+                    ViewAndEditItems.Visible = false;
+                    lblConfirm.Text = "Thank you for updating your items!";
+                    lblConfirm.Visible = true;
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < UpdateInformationError.Count; i++)
+                {
+                    lblConfirm.Text = "Failed";
+                    lblConfirm.Visible = true;
+                    Response.Write(UpdateInformationError[i] + "<br/>");
+                }
+            }
+        }
+
+        protected void ddlItemID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnEditItem.Visible = true;
+
+            DBConnect objdb = new DBConnect();
+
+            string selectedItem = ddlItemID.SelectedValue;
+
+            string grabCustom = "Select * FROM TPItems where ItemID ='" + selectedItem + "'";
+            DataSet myAccount = objDB.GetDataSet(grabCustom);
+          
+                int ItemID = (int)objDB.GetField("ItemID", 0);
+                txtItemID.Text = ItemID.ToString();
+                txtItemTitle1.Text = (string)objDB.GetField("Title", 0);
+                txtItemImgUrl1.Text = (string)objDB.GetField("Image", 0);
+                txtItemDescription.Text = (string)objDB.GetField("Description", 0);
+                double dbprice = (double)objDB.GetField("Price", 0);
+                txtItemPrice1.Text = dbprice.ToString();
+
+          
+            
+
+        }
     }
 }
