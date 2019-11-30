@@ -130,24 +130,71 @@
 
         </div>
 
-        <div class="Securtiy Questions" visible="false" runat="server" id="ChangeSecurtiyQuestions">
+        <div class="View And Edit Items" visible="false" runat="server" id="ViewAndEditItems">
 
-            <div id="SubmitQuestions" runat="server">
-                <asp:Label runat="server" Text="Please Submit Current Password" ID="lblCurrentPassword1"></asp:Label>
-                <asp:TextBox runat="server" ID="txtCurrentPassword1"></asp:TextBox>
+            <asp:DropDownList ID="ddlItemID" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
+                <Items>
+                    <asp:ListItem  disabled="disabled">Select Item</asp:ListItem>
+                </Items>
+            </asp:DropDownList>
+
+
+            <div id="EditItems" runat="server">
+                <asp:Label runat="server" Text="Title*" ID="lblItemTitle1"></asp:Label>
+                <asp:TextBox runat="server" ID="txtItemTitle1"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="" ID="lblConfirmPw"></asp:Label>
+                <asp:Label runat="server" Text="Description" ID="lblItemDescription"></asp:Label>
+                <asp:TextBox runat="server" ID="txtItemDescription"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Enter Security Question" ID="lblSecurityQuestion"></asp:Label>
-                <asp:TextBox runat="server" ID="txtSecurityQuestion"></asp:TextBox>
+                <asp:Label runat="server" Text="Please place Image Url" ID="lblItemImgUrl1"></asp:Label>
+                <asp:TextBox runat="server" ID="txtItemImgUrl1"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Enter Answer" ID="lblAnswer"></asp:Label>
-                <asp:TextBox runat="server" ID="txtAnswer"></asp:TextBox>
+                <asp:Label runat="server" Text="Price*" ID="lblItemPrice1"></asp:Label>
+                <asp:TextBox runat="server" ID="txtItemPrice1"></asp:TextBox>
+                 <br />
+                <asp:TextBox runat="server" ID="txtItemID" Visible="False"></asp:TextBox>
+                <br />
                 <br />
             </div>
 
 
-            <asp:Button CssClass="btn-outline-primary" ID="btnSubmitQuestion" runat="server" Text="Update Security" OnClick="btnSubmitQuestion_Click" />
+            <asp:Button CssClass="btn-outline-primary" ID="btnEditItem" runat="server" Text="Edit Item" OnClick="btnEditItem_Click" />
+
+            <br />
+
+
+
+        </div>
+
+                <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu">
+
+            <asp:DropDownList ID="ddlMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
+                <Items>
+                    <asp:ListItem  disabled="disabled">Select Item</asp:ListItem>
+                </Items>
+            </asp:DropDownList>
+
+
+            <div id="EditMenus" runat="server">
+                <asp:Label runat="server" Text="Title*" ID="Label1"></asp:Label>
+                <asp:TextBox runat="server" ID="TextBox1"></asp:TextBox>
+                <br />
+                <asp:Label runat="server" Text="Description" ID="Label2"></asp:Label>
+                <asp:TextBox runat="server" ID="TextBox2"></asp:TextBox>
+                <br />
+                <asp:Label runat="server" Text="Please place Image Url" ID="Label3"></asp:Label>
+                <asp:TextBox runat="server" ID="TextBox3"></asp:TextBox>
+                <br />
+                <asp:Label runat="server" Text="Price*" ID="Label4"></asp:Label>
+                <asp:TextBox runat="server" ID="TextBox4"></asp:TextBox>
+                 <br />
+                <asp:TextBox runat="server" ID="TextBox5" Visible="False"></asp:TextBox>
+                <br />
+                <br />
+            </div>
+
+
+            <asp:Button CssClass="btn-outline-primary" ID="Button1" runat="server" Text="Edit Item" OnClick="btnEditItem_Click" />
 
             <br />
 
