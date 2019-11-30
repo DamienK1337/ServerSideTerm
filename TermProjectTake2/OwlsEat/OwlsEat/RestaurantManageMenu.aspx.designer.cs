@@ -40,13 +40,22 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnCreateMenu;
         
         /// <summary>
-        /// lnkBtnChangeSecurityQuestion control.
+        /// lnkBtnViewItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnChangeSecurityQuestion;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewItems;
+        
+        /// <summary>
+        /// lnkBtnViewMenus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewMenus;
         
         /// <summary>
         /// lblConfirm control.
@@ -227,6 +236,15 @@ namespace OwlsEat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMenuImage;
+        
+        /// <summary>
+        /// gvItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvItems;
         
         /// <summary>
         /// btnCreateMenu control.

@@ -25,11 +25,23 @@ namespace OwlsEat
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (string.IsNullOrEmpty(Session["userEmail"] as string))
             {
                 Response.Redirect("NoAccess.aspx");
             }
+
+            string userId = Session["userID"].ToString();
+
             CreateItems.Visible = false;
+            gvItems.Visible = false;
+            if (!IsPostBack)
+            {
+                String strSQL = "SELECT * FROM TPItems where RestaurantID=" + Session["userid"].ToString() + ";";
+
+                gvItems.DataSource = objDB.GetDataSet(strSQL);
+                gvItems.DataBind();
+            }
         }
         void ValidateItemInformation()
         {
@@ -295,11 +307,44 @@ namespace OwlsEat
             lblConfirm.Visible = false;
             CreateItems.Visible = false;
             CreateMenu.Visible = true;
+            gvItems.Visible = true;
+
+
         }
 
         protected void btnCreateMenu_Click(object sender, EventArgs e)
         {
             ValidateItemInformation();
+            ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
+            int count = 0;                              // used to count the number of selected products
+            // Iterate through the rows (records) of the GridView and store the ProductNumber
+            // for each row that is checked
+
+            for (int row = 0; row < gvItems.Rows.Count; row++)
+            {
+                CheckBox CBox;
+                // Get the reference for the chkSelect control in the current row
+
+                CBox = (CheckBox)gvItems.Rows[row].FindControl("chkSelect");
+                if (CBox.Checked)
+
+                {
+                    String ItemID = "";
+                    // Get the ProductNumber from the BoundField from the GridView for the current row
+
+                    // and store the value in the array of selected products.
+
+                    ItemID = gvItems.Rows[row].Cells[1].Text;
+                    arrProducts.Add(ItemID);
+                    count = count + 1;
+
+                }
+
+            }
+
+
+
+
 
             if (UpdateInformationError.Count == 0)
             {
@@ -338,5 +383,27 @@ namespace OwlsEat
                 }
             }
         }
+
+        protected void gvItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkBtnViewItems_Click(object sender, EventArgs e)
+        {
+            lblConfirm.Visible = false;
+            CreateItems.Visible = false;
+            CreateMenu.Visible = false;
+            gvEditItems.Visible = true;
+        }
+        protected void lnkBtnViewMenus_Click(object sender, EventArgs e)
+        {
+            lblConfirm.Visible = false;
+            CreateItems.Visible = false;
+            CreateMenu.Visible = false;
+            gvItems.Visible = false;
+        }
+
+
     }
 }

@@ -1,13 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RestaurantMaster.Master" AutoEventWireup="true" CodeBehind="RestaurantManageMenu.aspx.cs" Inherits="OwlsEat.RestaurantManageMenu" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+           <script src = "https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin = "anonymous"> </script>
+        <script src="JS/bootstrap.js"></script>
+        <script src="JS/bootstrap.bundle.min.js"></script>
+        <link href="CSS/bootstrap.min.css" rel="stylesheet" />
+        <!-- Custom styles for this template -->
+        <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
+           <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
 
-            <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/" />
-
-    <!-- Bootstrap core CSS -->
-    <link href="CSS/bootstrap.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-
-    <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div class="vertical-nav bg-white" id="sidebar">
@@ -38,7 +40,13 @@
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark font-italic">
                     <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                    <asp:LinkButton ID="lnkBtnChangeSecurityQuestion" CssClass="buttonClass" runat="server" OnClick="lnkBtnChangeSecurityQuestion_Click">Update Security Question</asp:LinkButton>
+                    <asp:LinkButton ID="lnkBtnViewItems" CssClass="buttonClass" runat="server" OnClick="lnkBtnViewItems_Click">View & Edit Items</asp:LinkButton>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnViewMenus" CssClass="buttonClass" runat="server" OnClick="lnkBtnViewMenus_Click">View & Edit Menus</asp:LinkButton>
                 </a>
             </li>
 
@@ -73,7 +81,7 @@
                 <asp:TextBox runat="server" ID="txtItemImgUrl"></asp:TextBox>
                 <br />
                 <asp:Label runat="server" Text="Price*" ID="lblItemPrice"></asp:Label>
-                <asp:TextBox runat="server" ID="txtItemPrice" OnTextChanged="txtItemPrice_TextChanged"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtItemPrice"></asp:TextBox>
                 <br />
                 <br />
             </div>
@@ -89,6 +97,7 @@
 
         <div class="Create Menu" visible="false" runat="server" id="CreateMenu">
 
+
             <div id="MenuDetails" runat="server">
                 <asp:Label runat="server" Text="Title*" ID="lblMenuTitle"></asp:Label>
                 <asp:TextBox runat="server" ID="txtMenuTitle"></asp:TextBox>
@@ -101,13 +110,23 @@
                 <br />
                 <br />
             </div>
-
+            <asp:GridView ID="gvItems" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
+                <Columns>
+                    <asp:TemplateField HeaderText="Select Item">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkSelect" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
+                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
+                </Columns>
+            </asp:GridView>
 
             <asp:Button CssClass="btn-outline-primary" ID="btnCreateMenu" runat="server" Text="Create Menu" OnClick="btnCreateMenu_Click" />
 
             <br />
-
-
 
         </div>
 

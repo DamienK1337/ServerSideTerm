@@ -1,13 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RestaurantMaster.Master" AutoEventWireup="true" CodeBehind="RestaurantHomePage.aspx.cs" Inherits="OwlsEat.RestaurantHomePage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/" />
+           <script src = "https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin = "anonymous"> </script>
+        <script src="JS/bootstrap.js"></script>
+        <script src="JS/bootstrap.bundle.min.js"></script>
+        <link href="CSS/bootstrap.min.css" rel="stylesheet" />
+        <!-- Custom styles for this template -->
+        <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
+           <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
 
-    <!-- Bootstrap core CSS -->
-    <link href="CSS/bootstrap.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet" />
-    <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
