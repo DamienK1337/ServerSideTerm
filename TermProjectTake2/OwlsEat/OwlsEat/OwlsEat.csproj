@@ -88,6 +88,7 @@
     <Content Include="RestaurantHomePage.aspx" />
     <Content Include="CustomerHomePage.aspx" />
     <Content Include="RestaurantSettings.aspx" />
+    <Content Include="RestaurantManageMenu.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerMaster.Master.cs">
@@ -163,6 +164,13 @@
     </Compile>
     <Compile Include="RestaurantHomePage.aspx.designer.cs">
       <DependentUpon>RestaurantHomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantManageMenu.aspx.cs">
+      <DependentUpon>RestaurantManageMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RestaurantManageMenu.aspx.designer.cs">
+      <DependentUpon>RestaurantManageMenu.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

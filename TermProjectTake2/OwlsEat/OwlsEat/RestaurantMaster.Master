@@ -33,7 +33,7 @@
                   <a class="nav-link" href="#">Current Orders</a>
               </li>
                  <li class="nav-item active">
-                  <a class="nav-link" href="#">Manage Menu</a>
+                  <a class="nav-link" href="RestaurantManageMenu.aspx">Manage Menu</a>
               </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="#">View Current Balance</a>

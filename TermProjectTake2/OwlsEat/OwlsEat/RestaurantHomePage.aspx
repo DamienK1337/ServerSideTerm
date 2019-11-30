@@ -10,14 +10,5 @@
     <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="DivBrowsebyCusine" runat="server">
-        <asp:DropDownList ID="ddlCuisine" runat="server" OnSelectedIndexChanged="ddlCuisine_SelectedIndexChanged" AutoPostBack="True">
-        </asp:DropDownList>
-    </div>
-    <asp:GridView ID="gvRestaurant" runat="server" AutoGenerateColumns="False">
-        <Columns>
-            <asp:BoundField DataField="RestaurantName" HeaderText="Restaurant Name" />
-            <asp:BoundField DataField="ImgURL" HeaderText="ImgURL" />
-        </Columns>
-    </asp:GridView>
+  
 </asp:Content>

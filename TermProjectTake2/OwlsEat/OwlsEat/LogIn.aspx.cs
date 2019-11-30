@@ -134,7 +134,9 @@ namespace OwlsEat
                     //might need to switch this to a UserAccount Object, not sure tho
                     Session.Add("userEmail", txtEmail.Text);
                     Session.Add("userPassword", txtPassword.Text);
-					Session.Add("userType", UserType);
+                    Session.Add("userID", objDB.GetField("CustomerID", 0));
+                    Session.Add("userType", UserType);
+
 
 					//if (objDB.GetField("LoginPreference", 0) != System.DBNull.Value)
 					//{
@@ -269,7 +271,8 @@ namespace OwlsEat
 					//might need to switch this to a UserAccount Object, not sure tho
 					Session.Add("userEmail", txtEmail.Text);
 					Session.Add("userPassword", txtPassword.Text);
-					Session.Add("userType", UserType);
+                    Session.Add("userID", objDB.GetField("RestaurantID", 0));
+                    Session.Add("userType", UserType);
 
 					if (objDB.GetField("LoginPreference", 0) != System.DBNull.Value)
 					{
