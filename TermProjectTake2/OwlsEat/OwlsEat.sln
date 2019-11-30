@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwlsEat", "OwlsEat\OwlsEat.csproj", "{8FCF5039-4FB1-4B8C-ACFF-127B1C576574}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{ECBE722A-0D3F-4104-8E19-B69D32B849F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FCF5039-4FB1-4B8C-ACFF-127B1C576574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCF5039-4FB1-4B8C-ACFF-127B1C576574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCF5039-4FB1-4B8C-ACFF-127B1C576574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCF5039-4FB1-4B8C-ACFF-127B1C576574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECBE722A-0D3F-4104-8E19-B69D32B849F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBE722A-0D3F-4104-8E19-B69D32B849F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBE722A-0D3F-4104-8E19-B69D32B849F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBE722A-0D3F-4104-8E19-B69D32B849F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA728677-2902-4943-9CBC-A9342F1B1BA3}
+	EndGlobalSection
+EndGlobal
