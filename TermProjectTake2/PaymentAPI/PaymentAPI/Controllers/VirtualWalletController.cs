@@ -12,7 +12,7 @@ using System.Data;
 namespace PaymentAPI.Controllers
 {
 	[Produces("application/json")]
-	[Route("api/service")]
+	[Route("api/service/PaymentGateway")]
 	
 
 	public class VirtualWalletController : Controller
@@ -21,9 +21,8 @@ namespace PaymentAPI.Controllers
 		//Create Virtual Wallet for any user
 		//Store Procedures Complete
 		[HttpPost("CreateVW")]
-		public Boolean Post([FromBody] VWHolder newVW)
-		{
-
+		public Boolean Post([FromBody] VWHolder newVW, MerchantID newMID, WebAPI newWebKey) { 
+			
 			var Result = newVW.AddCustomer();
 
 			return Result;
