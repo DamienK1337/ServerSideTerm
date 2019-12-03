@@ -189,9 +189,17 @@ namespace OwlsEat
                 else
                 {
 
+
+
+
 					MerchantID m12 = new MerchantID();
 					WebAPI w12 = new WebAPI();
 					VWHolder VW12 = new VWHolder();
+
+					VW12.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
+					VW12.Password = txtPassword.ToString();
+					VW12.Email = txtEmail.ToString();
+					VW12.CreditCard = "12345679023";
 
 					string test = ExecuteCallToWebAPI(VW12,m12,w12);
 
@@ -209,7 +217,7 @@ namespace OwlsEat
 						BillingAddress = CustomerBillingAddress,
 						SecurityAnswer = SecurityAnswer,
 						SecurityQuestion = SecurityQuestion,
-						VWID = "632993"
+						VWID = test
 						
 					};
 
@@ -461,41 +469,70 @@ namespace OwlsEat
 		public string ExecuteCallToWebAPI( VWHolder newVW, MerchantID CurrMerchant , WebAPI CurrAPIKey)
 
 		{
-			newVW.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
-			newVW.Password = txtPassword.ToString();
-			newVW.Email = txtEmail.ToString();
+			string Fname = txtFirstName.Text;
+			string Lname = txtLastName.Text;
+			string pword = txtPassword.Text;
+			string emailadd = txtEmail.Text;
+			 
+
+
+
+			newVW.Name = Fname + " " + Lname;
+			newVW.Password = pword;
+			newVW.Email = emailadd;
 
 			JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
 			String jsonVWHolder = js.Serialize(newVW);
 
+			try
 
-			CurrMerchant.MerchantIDKey = "78735";
-			CurrAPIKey.WebAPIKey = "7636";
+			{
+				CurrMerchant.MerchantIDKey = "78735";
+				CurrAPIKey.WebAPIKey = "7636";
 
-			String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/CreateVW";
+				String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/CreateVW";
 
-			url = url + "/"+ CurrMerchant.MerchantIDKey + "/" + CurrAPIKey.WebAPIKey;
-			WebRequest request = WebRequest.Create(url);
-			request.Method = "POST";
-			request.ContentLength = jsonVWHolder.Length;
-			request.ContentType = "application/json";
+				url = url + "/" + CurrMerchant.MerchantIDKey + "/" + CurrAPIKey.WebAPIKey;
+				WebRequest request = WebRequest.Create(url);
+				request.Method = "POST";
+				request.ContentLength = jsonVWHolder.Length;
+				request.ContentType = "application/json";
+
+				// Write the JSON data to the Web Request
+
+				StreamWriter writer = new StreamWriter(request.GetRequestStream());
+
+				writer.Write(jsonVWHolder);
+
+				writer.Flush();
+
+				writer.Close();
+
+				// Create an HTTP Web Request and get the HTTP Web Response from the server.
 
 
-			// Create an HTTP Web Request and get the HTTP Web Response from the server.
+				WebResponse response = request.GetResponse();
+				Stream theDataStream = response.GetResponseStream();
+				StreamReader reader = new StreamReader(theDataStream);
+				String data = reader.ReadToEnd();
 
+				reader.Close();
+				response.Close();
 
-			WebResponse response = request.GetResponse();
-			Stream theDataStream = response.GetResponseStream();
-			StreamReader reader = new StreamReader(theDataStream);
-			String data = reader.ReadToEnd();
+				
 
-			reader.Close();
-			response.Close();
+				lblText.Text = data;
 
-			lblText.Text = data;
+				return data;
+			}
+			catch (Exception ex)
 
-			return data;
+			{
+				string hi= "hello";
+				lblText.Text = "Error: " + ex.Message;
+				return hi;
 
+			}
 
 		}
 
