@@ -12,6 +12,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Utilities;
+using System.Web.Script.Serialization;  // needed for JSON serializers
+
+
+
+using System.Net;                       // needed for the Web Request
+
+
 
 namespace OwlsEat
 {
@@ -25,7 +32,6 @@ namespace OwlsEat
 		string FullAddress;
 		string FullBillingAddress;
 
-		
 		
 		
 
@@ -182,19 +188,29 @@ namespace OwlsEat
                 }
                 else
                 {
-                    //Register 
-                    Customer newCustomer = new Customer
-                    {
 
-                        FirstName = CustomerFirstName,
-                        LastName = CustomerLastName,
-                        PhoneNumber = CustomerPhoneNumber,
-                        Email = CustomerEmail,
-                        Password = CustomerPassword,
-                        DeliveryAddress = CustomerDeliveryAddress,
-                        BillingAddress = CustomerBillingAddress,
+					MerchantID m12 = new MerchantID();
+					WebAPI w12 = new WebAPI();
+					VWHolder VW12 = new VWHolder();
+
+					string test = ExecuteCallToWebAPI(VW12,m12,w12);
+
+
+					//Register 
+					Customer newCustomer = new Customer
+					{
+
+						FirstName = CustomerFirstName,
+						LastName = CustomerLastName,
+						PhoneNumber = CustomerPhoneNumber,
+						Email = CustomerEmail,
+						Password = CustomerPassword,
+						DeliveryAddress = CustomerDeliveryAddress,
+						BillingAddress = CustomerBillingAddress,
 						SecurityAnswer = SecurityAnswer,
-						SecurityQuestion = SecurityQuestion
+						SecurityQuestion = SecurityQuestion,
+						VWID = "632993"
+						
 					};
 
 
@@ -442,47 +458,44 @@ namespace OwlsEat
         }
 
 
-		private double ExecuteCallToWebAPI( VWHolder , double value1, double value2)
+		public string ExecuteCallToWebAPI( VWHolder newVW, MerchantID CurrMerchant , WebAPI CurrAPIKey)
 
 		{
+			newVW.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
+			newVW.Password = txtPassword.ToString();
+			newVW.Email = txtEmail.ToString();
 
-			String url = "http://cis-iis2.temple.edu/users/pascucci/CIS3342/CoreWebAPI/api/Calculator/" + operation;
+			JavaScriptSerializer js = new JavaScriptSerializer();  //Coverts Object into JSON String
+			String jsonVWHolder = js.Serialize(newVW);
 
-			url = url + "/" + value1 + "/" + value2;
 
+			CurrMerchant.MerchantIDKey = "78735";
+			CurrAPIKey.WebAPIKey = "7636";
+
+			String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/CreateVW";
+
+			url = url + "/"+ CurrMerchant.MerchantIDKey + "/" + CurrAPIKey.WebAPIKey;
+			WebRequest request = WebRequest.Create(url);
+			request.Method = "POST";
+			request.ContentLength = jsonVWHolder.Length;
+			request.ContentType = "application/json";
 
 
 			// Create an HTTP Web Request and get the HTTP Web Response from the server.
 
-			WebRequest request = WebRequest.Create(url);
 
 			WebResponse response = request.GetResponse();
-
-
-
-			// Read the data from the Web Response, which requires working with streams.
-
 			Stream theDataStream = response.GetResponseStream();
-
 			StreamReader reader = new StreamReader(theDataStream);
-
 			String data = reader.ReadToEnd();
 
 			reader.Close();
-
 			response.Close();
 
+			lblText.Text = data;
 
+			return data;
 
-			// Deserialize a JSON string into a double.
-
-			JavaScriptSerializer js = new JavaScriptSerializer();
-
-			double result = js.Deserialize<double>(data);
-
-
-
-			return result;
 
 		}
 

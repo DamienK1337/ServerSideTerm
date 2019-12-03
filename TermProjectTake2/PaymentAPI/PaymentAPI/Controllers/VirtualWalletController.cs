@@ -20,7 +20,7 @@ namespace PaymentAPI.Controllers
 
 		//Create Virtual Wallet for any user
 		//Store Procedures Complete
-		[HttpPost("CreateVW")]
+		[HttpPost("CreateVW/{newMID}/{newWebKey}")]
 		public string Post([FromBody] VWHolder newVW, MerchantID newMID, WebAPI newWebKey) {
 			string Result ="";
 			if ((newMID.MerchantIDKey == "78735") && (newWebKey.WebAPIKey == "7636"))
