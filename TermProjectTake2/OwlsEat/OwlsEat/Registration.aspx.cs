@@ -26,6 +26,8 @@ namespace OwlsEat
 		string FullBillingAddress;
 
 		
+		
+		
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,6 +37,8 @@ namespace OwlsEat
 			RegisterButtonDiv.Visible = false;
 			ChkBoxSameAddressDiv.Visible = false;
 
+			
+			
 		}
 
         void ValidateUserRegistration()
@@ -437,6 +441,50 @@ namespace OwlsEat
 
         }
 
-       
-    }
+
+		private double ExecuteCallToWebAPI( VWHolder , double value1, double value2)
+
+		{
+
+			String url = "http://cis-iis2.temple.edu/users/pascucci/CIS3342/CoreWebAPI/api/Calculator/" + operation;
+
+			url = url + "/" + value1 + "/" + value2;
+
+
+
+			// Create an HTTP Web Request and get the HTTP Web Response from the server.
+
+			WebRequest request = WebRequest.Create(url);
+
+			WebResponse response = request.GetResponse();
+
+
+
+			// Read the data from the Web Response, which requires working with streams.
+
+			Stream theDataStream = response.GetResponseStream();
+
+			StreamReader reader = new StreamReader(theDataStream);
+
+			String data = reader.ReadToEnd();
+
+			reader.Close();
+
+			response.Close();
+
+
+
+			// Deserialize a JSON string into a double.
+
+			JavaScriptSerializer js = new JavaScriptSerializer();
+
+			double result = js.Deserialize<double>(data);
+
+
+
+			return result;
+
+		}
+
+	}
 }

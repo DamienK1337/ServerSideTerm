@@ -37,11 +37,11 @@ namespace PaymentAPI.Models
 
 			SqlCommand objCommand = new SqlCommand();
 
-		
-			
 
-			DataSet ds = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='4895'");
 
+
+			//DataSet ds = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='4895'");
+			DataSet ds = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='" + this.VWIDReceiver +"'");
 			foreach (DataRow record in ds.Tables[0].Rows)
 			{
 
@@ -63,8 +63,8 @@ namespace PaymentAPI.Models
 			SqlCommand objCommand = new SqlCommand();
 
 
-			DataSet ds2 = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='5336'");
-
+			//DataSet ds2 = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='5336'");
+			DataSet ds2 = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='" + this.VWIDSender +"'");
 			foreach (DataRow record in ds2.Tables[0].Rows)
 			{
 
