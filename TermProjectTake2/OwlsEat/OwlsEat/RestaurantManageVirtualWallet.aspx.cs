@@ -117,7 +117,7 @@ namespace OwlsEat
 
                 try
                 {
-                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/FundAccount/";
+                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/FundAccount";
 
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
