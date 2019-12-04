@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace PaymentAPI.Models
 {
-	public class WebAPI
+	public class Merchant
 	{
-		public String WebAPIKey { get; set; }
+		public String MerchantID { get; set; }
+		
 	}
 }

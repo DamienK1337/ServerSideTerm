@@ -20,55 +20,90 @@ namespace PaymentAPI.Controllers
 
 		//Create Virtual Wallet for any user
 		//Store Procedures Complete
-		[HttpPost("CreateVW")]
-		public Boolean Post([FromBody] VWHolder newVW, MerchantID newMID, WebAPI newWebKey) { 
-			
-			var Result = newVW.AddCustomer();
+		[HttpPost("CreateVW/{MerchantID}/{APIKey}")]
+		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
+		{
+			string Result = "test";
+			if ((MerchantID == "78735") && (Key == "7636"))
+			{
+				Result = newVW.AddCustomer();
+
+
+
+				//if(Result == true)
+				//{
+				//	return true;
+				//}
+				//else
+				//{
+				//	return false;
+				//}
+				return Result;
+			}
+			else { 
 
 			return Result;
+		}
 
 		}
-		//GEt Transactions based on VWID REveiver ID
+		//Get Transactions based on VWID REveiver ID
 		//Sotre Procedures Complete
-		[HttpGet("GetTransactions")]
-		public List<Transactions> Get()
+		[HttpGet("GetTransactions/{newVW}/{MerchantIDKey}/{newWebKey}")]
+		public List<Transactions> Get(string newVW, string MerchantID, string Key)
 		{
-			DBConnect objDB = new DBConnect();
-			SqlCommand objCommand = new SqlCommand();
+			//Get(Object VWHolder, Object MerchantID, Object APIKey)
 
-			objCommand.CommandType = CommandType.StoredProcedure;
-			objCommand.CommandText = "TPGetTransaction";
-			objCommand.Parameters.Clear();
+			Merchant newMD = new Merchant();
+			APIKey newWB = new APIKey();
 
-			string VWIDReceiver = "1234";
-
-			objCommand.Parameters.AddWithValue("@VWIDReceiver", VWIDReceiver);
-			DataSet ds = objDB.GetDataSetUsingCmdObj(objCommand);
+			newMD.MerchantID = MerchantID;
+			newWB.Key = Key;
 
 
-			
 			List<Transactions> TransactionsList = new List<Transactions>();
-
-
-			foreach (DataRow record in ds.Tables[0].Rows)
+			if ((newMD.MerchantID == "78735") && (newWB.Key == "7636"))
 			{
-				Transactions newTrans = new Transactions();
-				newTrans.VWIDReceiver = record["VWIDReceiver"].ToString();
-				newTrans.VWIDSender = record["VWIDSender"].ToString();
-				newTrans.Amount = record["Amount"].ToString();
-				newTrans.Date = record["Date"].ToString();
+				DBConnect objDB = new DBConnect();
+				SqlCommand objCommand = new SqlCommand();
+
+				objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.CommandText = "TPGetTransaction";
+				objCommand.Parameters.Clear();
+
+				string VWIDReceiver = newVW;
+				
+				//string VWIDReceiver = newVW.VWID;
+				objCommand.Parameters.AddWithValue("@VWIDReceiver", VWIDReceiver);
+				DataSet ds = objDB.GetDataSetUsingCmdObj(objCommand);
 
 
-				TransactionsList.Add(newTrans);
+
+
+				foreach (DataRow record in ds.Tables[0].Rows)
+				{
+					Transactions newTrans = new Transactions();
+					newTrans.VWIDReceiver = record["VWIDReceiver"].ToString();
+					newTrans.VWIDSender = record["VWIDSender"].ToString();
+					newTrans.Amount = record["Amount"].ToString();
+					newTrans.Date = record["Date"].ToString();
+
+
+					TransactionsList.Add(newTrans);
+				}
 			}
 			return TransactionsList;
+			
+
 		}
 		//Post Method that process Transactions
 		//Store Procedures Complete
 		[HttpPost("ProcessPayment")]
-		public Boolean Post([FromBody] Transactions newTransaction)
+		public Boolean Post([FromBody] Transactions newTransaction, Merchant newMID, APIKey newWebKey)
 		{
+			if ((newMID.MerchantID == "78735") && (newWebKey.Key == "7636"))
+			{
 
+			
 			string VWIDReceiver = newTransaction.VWIDReceiver;
 			string VWIDSender = newTransaction.VWIDSender;
 			DateTime dt = DateTime.Now;
@@ -123,14 +158,22 @@ namespace PaymentAPI.Controllers
 
 
 			if (responsereceived > 0)
+				{
+					return true;
+				}
 
-				return true;
+				else { return false; }	
+			
+
+
+
+			}
 			return false;
 		}
 		//Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
 		[HttpPut("UpdatePaymentAccount/{VWHolder}")]
-		public void UpdatePaymentAccount([FromBody] VWHolder curVW)
+		public void UpdatePaymentAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
 		{
 			DBConnect objDB = new DBConnect();
 			SqlCommand objCommand = new SqlCommand();
@@ -150,7 +193,7 @@ namespace PaymentAPI.Controllers
 		//Funding Account
 		//Store Procedure Complete
 		[HttpPut("FundAccount/{VWHolder}")]
-		public void FundAccount([FromBody] VWHolder curVW)
+		public void FundAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
 		{
 			DBConnect objDB = new DBConnect();
 			SqlCommand objCommand = new SqlCommand();

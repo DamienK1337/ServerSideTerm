@@ -23,6 +23,8 @@ namespace Utilities
 
 		public string SecurityAnswer  { get; set; }
 
+		public String VWID { get; set; }
+
         public Customer()
         {
 
@@ -51,7 +53,7 @@ namespace Utilities
 			objCommand.Parameters.AddWithValue("@BillingAddress", BillingAddress);
 			objCommand.Parameters.AddWithValue("@SecurityQuestion", SecurityQuestion);
 			objCommand.Parameters.AddWithValue("@SecurityAnswer", SecurityAnswer);
-
+			objCommand.Parameters.AddWithValue("@VWID", VWID);
 
 			var result = objDB.DoUpdateUsingCmdObj(objCommand);
 
