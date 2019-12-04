@@ -23,6 +23,7 @@ namespace Utilities
 		public string SecurityAnswer { get; set; }
 		public string ImgURL { get; set; }
 
+		public string VWID { get; set; }
 
 
 		public Restaurants()
@@ -55,6 +56,7 @@ namespace Utilities
 			objCommand.Parameters.AddWithValue("@SecurityQuestion", SecurityQuestion);
 			objCommand.Parameters.AddWithValue("@SecurityAnswer", SecurityAnswer);
 			objCommand.Parameters.AddWithValue("@ImgURL", ImgURL);
+			objCommand.Parameters.AddWithValue("@VWID", VWID);
 
 			var result = objDB.DoUpdateUsingCmdObj(objCommand);
 

@@ -24,15 +24,16 @@ namespace PaymentAPI.Models
 
 		public int FundsToAdd { get; set; }
 
+		string checkemail;
 		public VWHolder()
 		{
 
 		}
 
 
-		public bool AddCustomer()
+		public string  AddCustomer()
 		{
-			bool added = true;
+			
 
 			DBConnect objDB = new DBConnect();
 
@@ -45,6 +46,8 @@ namespace PaymentAPI.Models
 			int _max = 9999;
 			Random rdm = new Random();
 			VWID = rdm.Next(_min, _max).ToString();
+
+			// This is just used to assign the merchant information to the new VWID to see which merchant issued the Virtual Wallet
 
 			DataSet ds = objDB.GetDataSet("SELECT * FROM TPMerchant WHERE CompanyName='76ers'");
 
@@ -67,9 +70,12 @@ namespace PaymentAPI.Models
 
 			var result = objDB.DoUpdateUsingCmdObj(objCommand);
 
-			if (result == -1)
-				added = false;
-			return added;
+			if (result != -1)
+			{
+				return VWID;
+			}
+				
+			return VWID;
 		}
 
 	
@@ -102,6 +108,67 @@ namespace PaymentAPI.Models
 			}
 
 			return CurrentBalance;
+		}
+
+		public bool CheckIfInCustomer(string useremail)
+		{
+			//bool added = true;
+			DBConnect objDB = new DBConnect();
+
+			SqlCommand objCommand = new SqlCommand();
+			objCommand.CommandType = CommandType.StoredProcedure;
+
+			DataSet ds = objDB.GetDataSet("SELECT * FROM TPCustomers WHERE Email='" + useremail + "'");
+
+			
+
+			foreach (DataRow record in ds.Tables[0].Rows)
+			{
+
+				checkemail = record["Email"].ToString();
+				
+
+			}
+			if (checkemail != "")
+			{
+				return true;
+			}
+
+
+
+			else
+			{
+				return false;
+			}
+
+
+		
+
+			
+		}
+
+		public bool UpdateCustomerDB(int VWID)
+		{
+			bool added = true;
+			DBConnect objDB = new DBConnect();
+
+			SqlCommand objCommand = new SqlCommand();
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPAddVWHolder";
+
+			objCommand.Parameters.AddWithValue("@Name", VWID);
+			objCommand.Parameters.AddWithValue("@Password", Password);
+			objCommand.Parameters.AddWithValue("@Email", Email);
+			objCommand.Parameters.AddWithValue("@CreditCard", CreditCard);
+			objCommand.Parameters.AddWithValue("@VWID", VWID);
+			objCommand.Parameters.AddWithValue("@APIKey", APIKey);
+			objCommand.Parameters.AddWithValue("@MerchantID", MerchantID);
+
+			var result = objDB.DoUpdateUsingCmdObj(objCommand);
+
+			if (result == -1)
+				added = false;
+			return added;
 		}
 
 	}
