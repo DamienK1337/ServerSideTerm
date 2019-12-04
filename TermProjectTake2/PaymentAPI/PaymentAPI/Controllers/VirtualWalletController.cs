@@ -20,11 +20,11 @@ namespace PaymentAPI.Controllers
 
 		//Create Virtual Wallet for any user
 		//Store Procedures Complete
-		[HttpPost("CreateVW/{MerchantID}/{WebAPI}")]
-		public string Post([FromBody] VWHolder newVW, string MerchantID, string WebAPI)
+		[HttpPost("CreateVW/{MerchantID}/{APIKey}")]
+		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
 		{
 			string Result = "test";
-			if ((MerchantID == "78735") && (WebAPI == "7636"))
+			if ((MerchantID == "78735") && (Key == "7636"))
 			{
 				Result = newVW.AddCustomer();
 
@@ -46,22 +46,22 @@ namespace PaymentAPI.Controllers
 		}
 
 		}
-		//GEt Transactions based on VWID REveiver ID
+		//Get Transactions based on VWID REveiver ID
 		//Sotre Procedures Complete
 		[HttpGet("GetTransactions/{newVW}/{MerchantIDKey}/{newWebKey}")]
-		public List<Transactions> Get(string newVW, string MerchantIDKey, string WebAPIKey)
+		public List<Transactions> Get(string newVW, string MerchantID, string Key)
 		{
-			//Get(Object VWHolder, Object MerchantID, Object WebAPI)
+			//Get(Object VWHolder, Object MerchantID, Object APIKey)
 
-			MerchantID newMD = new MerchantID();
-			WebAPI newWB = new WebAPI();
+			Merchant newMD = new Merchant();
+			APIKey newWB = new APIKey();
 
-			newMD.MerchantIDKey = MerchantIDKey;
-			newWB.WebAPIKey = WebAPIKey;
+			newMD.MerchantID = MerchantID;
+			newWB.Key = Key;
 
 
 			List<Transactions> TransactionsList = new List<Transactions>();
-			if ((newMD.MerchantIDKey == "78735") && (newWB.WebAPIKey == "7636"))
+			if ((newMD.MerchantID == "78735") && (newWB.Key == "7636"))
 			{
 				DBConnect objDB = new DBConnect();
 				SqlCommand objCommand = new SqlCommand();
@@ -98,9 +98,9 @@ namespace PaymentAPI.Controllers
 		//Post Method that process Transactions
 		//Store Procedures Complete
 		[HttpPost("ProcessPayment")]
-		public Boolean Post([FromBody] Transactions newTransaction, MerchantID newMID, WebAPI newWebKey)
+		public Boolean Post([FromBody] Transactions newTransaction, Merchant newMID, APIKey newWebKey)
 		{
-			if ((newMID.MerchantIDKey == "78735") && (newWebKey.WebAPIKey == "7636"))
+			if ((newMID.MerchantID == "78735") && (newWebKey.Key == "7636"))
 			{
 
 			
@@ -173,7 +173,7 @@ namespace PaymentAPI.Controllers
 		//Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
 		[HttpPut("UpdatePaymentAccount/{VWHolder}")]
-		public void UpdatePaymentAccount([FromBody] VWHolder curVW, MerchantID newMID, WebAPI newWebKey)
+		public void UpdatePaymentAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
 		{
 			DBConnect objDB = new DBConnect();
 			SqlCommand objCommand = new SqlCommand();
@@ -193,7 +193,7 @@ namespace PaymentAPI.Controllers
 		//Funding Account
 		//Store Procedure Complete
 		[HttpPut("FundAccount/{VWHolder}")]
-		public void FundAccount([FromBody] VWHolder curVW, MerchantID newMID, WebAPI newWebKey)
+		public void FundAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
 		{
 			DBConnect objDB = new DBConnect();
 			SqlCommand objCommand = new SqlCommand();

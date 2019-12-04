@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentAPI.Models
+namespace Utilities
 {
-	public class WebAPI
+	public class APIKey
 	{
-		public String WebAPIKey { get; set; }
+		public String Key { get; set; }
 	}
 }

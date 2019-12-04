@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Utilities
 {
-	public class MerchantID
+	public class Merchant
 	{
-		public String MerchantIDKey { get; set; }
+		public String MerchantID { get; set; }
 	}
 }

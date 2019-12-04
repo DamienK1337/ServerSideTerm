@@ -23,7 +23,7 @@ namespace Utilities
 
 		public string SecurityAnswer  { get; set; }
 
-		public string VWID { get; set; }
+		public String VWID { get; set; }
 
         public Customer()
         {

@@ -192,8 +192,8 @@ namespace OwlsEat
 
 
 
-					MerchantID m12 = new MerchantID();
-					WebAPI w12 = new WebAPI();
+					Merchant m12 = new Merchant();
+					APIKey w12 = new APIKey();
 					VWHolder VW12 = new VWHolder();
 
 					VW12.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
@@ -228,6 +228,8 @@ namespace OwlsEat
                         //User Registered 
                         //Save UserEmail in Session Called UserEmail
                         Session.Add("userEmail", txtEmail.Text.ToString());
+                        Session.Add("userPassword", txtPassword.Text.ToString());
+                        Session.Add("userVWID", test);
                         RegisterUserDetails.Visible = false;
                         PreferencesDiv.Visible = true;
 
@@ -250,9 +252,19 @@ namespace OwlsEat
                 }
                 else
                 {
+                    Merchant m12 = new Merchant();
+                    APIKey w12 = new APIKey();
+                    VWHolder VW12 = new VWHolder();
 
-					//Register 
-					Restaurants newRestaurants = new Restaurants
+                    VW12.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
+                    VW12.Password = txtPassword.ToString();
+                    VW12.Email = txtEmail.ToString();
+                    VW12.CreditCard = "12345679023";
+
+                    string test = ExecuteCallToWebAPI(VW12, m12, w12);
+
+                    //Register 
+                    Restaurants newRestaurants = new Restaurants
 					{
 
 						Email = RestaurantEmail,
@@ -265,7 +277,8 @@ namespace OwlsEat
 						RestaurantName = restaurantName,
 						Location = RestaurantLocation,
 						SecurityAnswer = SecurityAnswer,
-						SecurityQuestion = SecurityQuestion
+						SecurityQuestion = SecurityQuestion,
+                        VWID = test
                     };
 
                     var ResponseReceived = newRestaurants.AddAddRestaurant();
@@ -274,6 +287,8 @@ namespace OwlsEat
                         //User Registered 
                         //Save UserEmail in Session Called UserEmail
                         Session.Add("userEmail", txtEmail.Text.ToString());
+                        Session.Add("userPassword", txtPassword.Text.ToString());
+                        Session.Add("userVWID", test);
                         RegisterUserDetails.Visible = false;
                         PreferencesDiv.Visible = true;
 
@@ -453,12 +468,12 @@ namespace OwlsEat
             //}
             if (ddlUserTypeID.SelectedValue == "Restaurant")
             {
-                Response.Redirect("RestaurantHomePage.aspx");
+                Response.Redirect("Login.aspx");
             }
 
             if (ddlUserTypeID.SelectedValue == "Customer")
             {
-                Response.Redirect("CustomerHomePage.aspx");
+                Response.Redirect("Login.aspx");
             }
            
          
@@ -466,7 +481,7 @@ namespace OwlsEat
         }
 
 
-		public string ExecuteCallToWebAPI( VWHolder newVW, MerchantID CurrMerchant , WebAPI CurrAPIKey)
+		public string ExecuteCallToWebAPI( VWHolder newVW, Merchant CurrMerchant , APIKey CurrAPIKey)
 
 		{
 			string Fname = txtFirstName.Text;
@@ -487,12 +502,12 @@ namespace OwlsEat
 			try
 
 			{
-				CurrMerchant.MerchantIDKey = "78735";
-				CurrAPIKey.WebAPIKey = "7636";
+				CurrMerchant.MerchantID = "78735";
+				CurrAPIKey.Key = "7636";
 
 				String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/CreateVW";
 
-				url = url + "/" + CurrMerchant.MerchantIDKey + "/" + CurrAPIKey.WebAPIKey;
+				url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 				WebRequest request = WebRequest.Create(url);
 				request.Method = "POST";
 				request.ContentLength = jsonVWHolder.Length;
@@ -514,14 +529,16 @@ namespace OwlsEat
 				WebResponse response = request.GetResponse();
 				Stream theDataStream = response.GetResponseStream();
 				StreamReader reader = new StreamReader(theDataStream);
-				String data = reader.ReadToEnd();
+                string data1 = reader.ReadToEnd();
 
 				reader.Close();
 				response.Close();
 
-				
+                string data = data1.Trim('"');
 
-				lblText.Text = data;
+
+                lblText.Text = data;
+
 
 				return data;
 			}

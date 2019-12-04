@@ -31,7 +31,7 @@
 									<br />
 								<label id="lblPassword">Password:</label>
 									<br />
-								<asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
+								<asp:TextBox ID="txtPassword"  textmode="Password"  CssClass="form-control" runat="server"></asp:TextBox>
 
 
 								<br />
