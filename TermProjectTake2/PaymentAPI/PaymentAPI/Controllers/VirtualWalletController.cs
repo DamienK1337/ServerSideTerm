@@ -22,7 +22,7 @@ namespace PaymentAPI.Controllers
 
         //Create Virtual Wallet for any user
         //Store Procedures Complete
-        [HttpPost("CreateVW/{MerchantID}/{APIKey}")]
+        [HttpPost("CreateVW/{MerchantID}/{Key}")]
 		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
 		{
 			string Result = "test";
@@ -175,12 +175,11 @@ namespace PaymentAPI.Controllers
 		//Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
 		[HttpPut("UpdatePaymentAccount/{VWHolder}")]
-		public void UpdatePaymentAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
+		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-			DBConnect objDB = new DBConnect();
-			SqlCommand objCommand = new SqlCommand();
-			string VWID = "5336";
-			objCommand.CommandType = CommandType.StoredProcedure;
+            string VWID = curVW.VWID;
+
+            objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPUpdatePaymentAccount";
 
 			objCommand.Parameters.AddWithValue("@VWID", VWID);
@@ -194,7 +193,7 @@ namespace PaymentAPI.Controllers
 
 		//Funding Account
 		//Store Procedure Complete
-		[HttpPut("FundAccount/{MerchantID}/{APIKey}")]
+		[HttpPut("FundAccount/{MerchantID}/{Key}")]
 		public Boolean FundAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
 
