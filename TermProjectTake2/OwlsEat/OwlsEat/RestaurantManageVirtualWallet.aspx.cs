@@ -79,11 +79,12 @@ namespace OwlsEat
 
 
             GetBalance.Visible = true;
-
+            FundAccount.Visible = false;
         }
 
         protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
         {
+            GetBalance.Visible = false;
             FundAccount.Visible = true;
         }
 
