@@ -89,6 +89,7 @@
     <Content Include="CustomerHomePage.aspx" />
     <Content Include="RestaurantSettings.aspx" />
     <Content Include="RestaurantManageMenu.aspx" />
+    <Content Include="CustomersBrowse.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerMaster.Master.cs">
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="RestaurantManageMenu.aspx.designer.cs">
       <DependentUpon>RestaurantManageMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomersBrowse.aspx.cs">
+      <DependentUpon>CustomersBrowse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomersBrowse.aspx.designer.cs">
+      <DependentUpon>CustomersBrowse.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
