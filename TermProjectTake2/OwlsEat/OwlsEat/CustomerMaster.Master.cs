@@ -14,7 +14,10 @@ namespace OwlsEat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
         }
 
         protected void btnSignout_Click(object sender, EventArgs e)

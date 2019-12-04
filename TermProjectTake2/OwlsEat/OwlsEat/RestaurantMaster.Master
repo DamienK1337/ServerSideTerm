@@ -36,7 +36,7 @@
                   <a class="nav-link" href="RestaurantManageMenu.aspx">Manage Menu</a>
               </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">View Current Balance</a>
+                  <a class="nav-link" href="RestaurantManageVirtualWallet.aspx">Manage Virtual Wallet</a>
               </li>
                  <li class="nav-item active">
                   <a class="nav-link" href="RestaurantSettings.aspx">Restaurant Settings</a>

@@ -20,12 +20,6 @@ namespace OwlsEat
             {
                 Response.Redirect("NoAccess.aspx");
             }
-            else
-            {
-                if (!IsPostBack)
-                    ShowCuisine();
-                //ShowRestaurantByCuisine();
-            }
         }
 
         public void ShowCuisine()

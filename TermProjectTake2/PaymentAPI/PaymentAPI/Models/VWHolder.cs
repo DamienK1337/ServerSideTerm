@@ -10,7 +10,12 @@ namespace PaymentAPI.Models
 {
 	public class VWHolder
 	{
-		public String Name { get; set; }
+
+        DBConnect objDB = new DBConnect();
+        SqlCommand objCommand = new SqlCommand();
+
+
+        public String Name { get; set; }
 		public String Password { get; set; }
 		public String Email { get; set; }
 		public String CreditCard { get; set; }
@@ -82,18 +87,12 @@ namespace PaymentAPI.Models
 
 		public int GetCurrentBalance()
 		{
-			DBConnect objDB = new DBConnect();
-			SqlCommand objCommand = new SqlCommand();
-
-
-			//DataSet ds2 = objDB.GetDataSet("SELECT Balance FROM TPVWHolder WHERE VWID='5336'");
-
+			
 			DataSet MyCurrentBalance = new DataSet();
 			objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPGetCurrentBalance";
 			objCommand.Parameters.Clear();
 
-			VWID = "5336";
 
 			objCommand.Parameters.AddWithValue("@VWID", VWID);
 			MyCurrentBalance = objDB.GetDataSetUsingCmdObj(objCommand);

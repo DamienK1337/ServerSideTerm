@@ -17,10 +17,12 @@ namespace PaymentAPI.Controllers
 
 	public class VirtualWalletController : Controller
 	{
+        DBConnect objDB = new DBConnect();
+        SqlCommand objCommand = new SqlCommand();
 
-		//Create Virtual Wallet for any user
-		//Store Procedures Complete
-		[HttpPost("CreateVW/{MerchantID}/{APIKey}")]
+        //Create Virtual Wallet for any user
+        //Store Procedures Complete
+        [HttpPost("CreateVW/{MerchantID}/{APIKey}")]
 		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
 		{
 			string Result = "test";
@@ -46,8 +48,8 @@ namespace PaymentAPI.Controllers
 		}
 
 		}
-		//Get Transactions based on VWID REveiver ID
-		//Sotre Procedures Complete
+		//Get Transactions based on VWID Receiver ID
+		//Store Procedures Complete
 		[HttpGet("GetTransactions/{newVW}/{MerchantIDKey}/{newWebKey}")]
 		public List<Transactions> Get(string newVW, string MerchantID, string Key)
 		{
@@ -192,41 +194,51 @@ namespace PaymentAPI.Controllers
 
 		//Funding Account
 		//Store Procedure Complete
-		[HttpPut("FundAccount/{VWHolder}")]
-		public void FundAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
+		[HttpPut("FundAccount/{MerchantID}/{APIKey}")]
+		public Boolean FundAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-			DBConnect objDB = new DBConnect();
-			SqlCommand objCommand = new SqlCommand();
 
-			int currentBal = curVW.GetCurrentBalance();
+            if ((MerchantID == "78735") && (Key == "7636"))
+            {
 
-			int AmountToAdd = curVW.FundsToAdd;
+                string VWID = curVW.VWID;
 
-			int NewBalance = currentBal + AmountToAdd;
+                int currentBal = curVW.GetCurrentBalance();
 
-			//DataSet MyCurrentBalance = new DataSet();
-			objCommand.CommandType = CommandType.StoredProcedure;
-			objCommand.CommandText = "TPAddToBalance";
-			objCommand.Parameters.Clear();
+                int AmountToAdd = curVW.FundsToAdd;
 
-			string VWID = "5336";
+                int NewBalance = currentBal + AmountToAdd;
 
-			objCommand.Parameters.AddWithValue("@VWID", VWID);
-			objCommand.Parameters.AddWithValue("@NewBalance", NewBalance);
-			
-			int responsereceived;
-			responsereceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                
 
+                //DataSet MyCurrentBalance = new DataSet();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPAddToBalance";
+                objCommand.Parameters.Clear();
 
+               
 
+                objCommand.Parameters.AddWithValue("@VWID", VWID);
+                objCommand.Parameters.AddWithValue("@NewBalance", NewBalance);
 
-			
+                int ResponseReceived;
+                ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                if(ResponseReceived == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        
 		}
 
-
-
 	}
-
-
 
 }
