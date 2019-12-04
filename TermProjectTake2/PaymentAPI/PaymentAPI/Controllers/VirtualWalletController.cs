@@ -22,7 +22,7 @@ namespace PaymentAPI.Controllers
 
         //Create Virtual Wallet for any user
         //Store Procedures Complete
-        [HttpPost("CreateVW/{MerchantID}/{APIKey}")]
+        [HttpPost("CreateVW/{MerchantID}/{Key}")]
 		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
 		{
 			string Result = "test";
@@ -193,7 +193,7 @@ namespace PaymentAPI.Controllers
 
 		//Funding Account
 		//Store Procedure Complete
-		[HttpPut("FundAccount/{MerchantID}/{APIKey}")]
+		[HttpPut("FundAccount/{MerchantID}/{Key}")]
 		public Boolean FundAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
 
