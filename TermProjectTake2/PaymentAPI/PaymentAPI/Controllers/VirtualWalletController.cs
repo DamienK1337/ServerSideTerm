@@ -175,12 +175,11 @@ namespace PaymentAPI.Controllers
 		//Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
 		[HttpPut("UpdatePaymentAccount/{VWHolder}")]
-		public void UpdatePaymentAccount([FromBody] VWHolder curVW, Merchant newMID, APIKey newWebKey)
+		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-			DBConnect objDB = new DBConnect();
-			SqlCommand objCommand = new SqlCommand();
-			string VWID = "5336";
-			objCommand.CommandType = CommandType.StoredProcedure;
+            string VWID = curVW.VWID;
+
+            objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPUpdatePaymentAccount";
 
 			objCommand.Parameters.AddWithValue("@VWID", VWID);
