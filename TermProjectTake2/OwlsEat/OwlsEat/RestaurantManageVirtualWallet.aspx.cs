@@ -84,7 +84,7 @@ namespace OwlsEat
 
         protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
         {
-          
+            FundAccount.Visible = true;
         }
 
 
