@@ -373,9 +373,6 @@ namespace OwlsEat
 
                 int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
-                userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;
-
-                Session.Add("userSettings", userSettings);
             }
 
 
@@ -388,84 +385,7 @@ namespace OwlsEat
 
                 int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
-               
-                userSettings.LoginPreference = LoginPreferenceDropDown.SelectedValue;
-
-                Session.Add("userSettings", userSettings);
             }
-
-            String plainTextEmail = txtEmail.Text;
-            String plainTextPassword = txtPassword.Text;
-            String encryptedEmail;
-            String encryptedPassword;
-
-            System.Text.UTF8Encoding encoder = new UTF8Encoding();
-            Byte[] emailBytes;
-            Byte[] passwordBytes;
-
-            emailBytes = encoder.GetBytes(plainTextEmail);
-            passwordBytes = encoder.GetBytes(plainTextPassword);
-
-            RijndaelManaged rmEncryption = new RijndaelManaged();
-            MemoryStream memStream = new MemoryStream();
-            CryptoStream encryptionStream = new CryptoStream(memStream, rmEncryption.CreateEncryptor(key, vector), CryptoStreamMode.Write);
-
-            if (userSettings.LoginPreference == "Auto-Login")
-            {
-                //Email
-                encryptionStream.Write(emailBytes, 0, emailBytes.Length);
-                encryptionStream.FlushFinalBlock();
-
-                memStream.Position = 0;
-                Byte[] encryptedEmailBytes = new byte[memStream.Length];
-                memStream.Read(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-
-                encryptionStream.Close();
-                memStream.Close();
-
-                //password
-                memStream = new MemoryStream();
-                encryptionStream = new CryptoStream(memStream, rmEncryption.CreateEncryptor(key, vector), CryptoStreamMode.Write);
-
-                encryptionStream.Write(passwordBytes, 0, passwordBytes.Length);
-                encryptionStream.FlushFinalBlock();
-
-                memStream.Position = 0;
-                Byte[] encryptedPasswordBytes = new byte[memStream.Length];
-                memStream.Read(encryptedPasswordBytes, 0, encryptedPasswordBytes.Length);
-
-                encryptionStream.Close();
-                memStream.Close();
-
-                encryptedEmail = Convert.ToBase64String(encryptedEmailBytes);
-                encryptedPassword = Convert.ToBase64String(encryptedPasswordBytes);
-
-                HttpCookie myCookie = new HttpCookie("LoginCookie");
-                myCookie.Values["Email"] = encryptedEmail;
-                myCookie.Expires = new DateTime(2021, 2, 1);
-                myCookie.Values["Password"] = encryptedPassword;
-                myCookie.Expires = new DateTime(2021, 2, 1);
-                Response.Cookies.Add(myCookie);
-            }
-            //else if (userSettings.LoginPreference == "Fast-Login")
-            //{
-            //    encryptionStream.Write(emailBytes, 0, emailBytes.Length);
-            //    encryptionStream.FlushFinalBlock();
-
-            //    memStream.Position = 0;
-            //    Byte[] encryptedEmailBytes = new byte[memStream.Length];
-            //    memStream.Read(encryptedEmailBytes, 0, encryptedEmailBytes.Length);
-
-            //    encryptionStream.Close();
-            //    memStream.Close();
-
-            //    encryptedEmail = Convert.ToBase64String(encryptedEmailBytes);
-
-            //    HttpCookie myCookie = new HttpCookie("LoginCookie");
-            //    myCookie.Values["Email"] = encryptedEmail;
-            //    myCookie.Expires = new DateTime(2020, 2, 1);
-            //    Response.Cookies.Add(myCookie);
-            //}
             if (ddlUserTypeID.SelectedValue == "Restaurant")
             {
                 Response.Redirect("Login.aspx");

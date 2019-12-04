@@ -79,6 +79,7 @@
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="CustomStyleSheet\UserStyleSheet.css" />
     <Content Include="Global.asax" />
+    <Content Include="JS\jquery-3.4.1.min.js" />
     <Content Include="LogIn.aspx" />
     <Content Include="NoAccess.aspx" />
     <Content Include="PasswordRecovery.aspx" />
