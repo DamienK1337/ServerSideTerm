@@ -22,6 +22,7 @@ namespace OwlsEat
 
         ArrayList UpdateInformationError = new ArrayList();
 
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,8 +34,7 @@ namespace OwlsEat
 
             string userId = Session["userID"].ToString();
 
-            CreateItems.Visible = false;
-            gvItems.Visible = false;
+
             if (!IsPostBack)
             {
                 String strSQL = "SELECT * FROM TPItems where RestaurantID=" + Session["userid"].ToString() + ";";
@@ -43,13 +43,12 @@ namespace OwlsEat
                 gvItems.DataBind();
 
 
-                
-
                 ddlItemID.DataSource = objDB.GetDataSet(strSQL);
                 ddlItemID.DataTextField = "Title";
                 ddlItemID.DataValueField = "ItemID";
                 ddlItemID.DataBind();
 
+                AddItemsToMenu.Visible = true;
              
 
             }
@@ -124,6 +123,7 @@ namespace OwlsEat
                 objCommand.Parameters.AddWithValue("@Description", ItemDescription);
                 objCommand.Parameters.AddWithValue("@Price", ItemPrice);
                 objCommand.Parameters.AddWithValue("@Image", ItemImgUrl);
+                objCommand.Parameters.AddWithValue("@RestaurantID", Session["userID"].ToString());
 
                 var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
                 if (ResponseReceived == 1)
@@ -152,7 +152,7 @@ namespace OwlsEat
             ViewAndEditItems.Visible = false;
             ViewAndEditMenu.Visible = false;
             CreateItems.Visible = true;
-            gvItems.Visible = false;
+
         }
 
         protected void lnkBtnCreateMenu_Click(object sender, EventArgs e)
@@ -162,65 +162,39 @@ namespace OwlsEat
             ViewAndEditItems.Visible = false;
             ViewAndEditMenu.Visible = false;
             CreateMenu.Visible = true;
-            gvItems.Visible = true;
-
-
+           
+            MenuDetails.Visible = true;
+            AddItemsToMenu.Visible = false;
         }
 
         protected void btnCreateMenu_Click(object sender, EventArgs e)
         {
-            ValidateItemInformation();
-            ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
-            int count = 0;                              // used to count the number of selected products
-            // Iterate through the rows (records) of the GridView and store the ProductNumber
-            // for each row that is checked
-
-            for (int row = 0; row < gvItems.Rows.Count; row++)
-            {
-                CheckBox CBox;
-                // Get the reference for the chkSelect control in the current row
-
-                CBox = (CheckBox)gvItems.Rows[row].FindControl("chkSelect");
-                if (CBox.Checked)
-
-                {
-                    String ItemID = "";
-                    // Get the ProductNumber from the BoundField from the GridView for the current row
-
-                    // and store the value in the array of selected products.
-
-                    ItemID = gvItems.Rows[row].Cells[1].Text;
-                    arrProducts.Add(ItemID);
-                    count = count + 1;
-
-                }
-
-            }
-
+            ValidateMenu();
             if (UpdateInformationError.Count == 0)
             {
 
-                string ItemTitle = txtMenuTitle.Text;
-                string ItemImgUrl = txtMenuImage.Text;
-                string ItemDescription = txtMenuDescription.Text;
-                float ItemPrice = float.Parse(txtItemPrice.Text);
+                string MenuName = txtMenuTitle.Text;
+                string MenuImgUrl = txtMenuImage.Text;
+                string MenuDescription = txtMenuDescription.Text;
+
 
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPInsertMenu";
 
-                objCommand.Parameters.AddWithValue("@Title", ItemTitle);
-                objCommand.Parameters.AddWithValue("@Description", ItemDescription);
-                objCommand.Parameters.AddWithValue("@Price", ItemPrice);
-                objCommand.Parameters.AddWithValue("@Image", ItemImgUrl);
-                objCommand.Parameters.AddWithValue("@ItemID", Session["userID"].ToString());
-                objCommand.Parameters.AddWithValue("@RestaurantID", Session["userID"].ToString());
+                objCommand.Parameters.AddWithValue("@MenuName", MenuName);
+                objCommand.Parameters.AddWithValue("@MenuDesc", MenuDescription);
+                objCommand.Parameters.AddWithValue("@ImgUrl", MenuImgUrl);
 
                 var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
                 if (ResponseReceived == 1)
                 {
 
-                    lblConfirm.Text = "Thank you for creating an Menu!";
-                    lblConfirm.Visible = true;
+                    lblConfirm1.Text = "Thank you for creating an Menu!";
+                    lblConfirm1.Visible = true;
+                   
+                    MenuDetails.Visible = false;
+                    txtMenuTitle.Text = MenuName;
+                    AddItemsToMenu.Visible = true;
                 }
 
             }
@@ -228,16 +202,11 @@ namespace OwlsEat
             {
                 for (int i = 0; i < UpdateInformationError.Count; i++)
                 {
-                    lblConfirm.Text = "Failed";
-                    lblConfirm.Visible = true;
+                    lblConfirm1.Text = "Failed";
+                    lblConfirm1.Visible = true;
                     Response.Write(UpdateInformationError[i] + "<br/>");
                 }
             }
-        }
-
-        protected void gvItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void lnkBtnViewItems_Click(object sender, EventArgs e)
@@ -257,7 +226,7 @@ namespace OwlsEat
             CreateMenu.Visible = false;
             ViewAndEditItems.Visible = false;
             ViewAndEditMenu.Visible = true;
-            gvItems.Visible = false;
+
         }
 
         protected void btnEditItem_Click(object sender, EventArgs e)
@@ -323,6 +292,69 @@ namespace OwlsEat
           
             
 
+        }
+
+
+        protected void btnAddItemstoMenu_Click(object sender, EventArgs e)
+        {
+            ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
+            int count = 0;                              // used to count the number of selected products
+            // Iterate through the rows (records) of the GridView and store the ProductNumber
+            // for each row that is checked
+
+            for (int row = 0; row < gvItems.Rows.Count; row++)
+            {
+                CheckBox CBox;
+                // Get the reference for the chkSelect control in the current row
+
+                CBox = (CheckBox)gvItems.Rows[row].FindControl("chkSelect");
+                if (CBox.Checked)
+
+                {
+                    String ItemID = "";
+                    // Get the ProductNumber from the BoundField from the GridView for the current row
+
+                    // and store the value in the array of selected products.
+
+                    ItemID = gvItems.Rows[row].Cells[1].Text;
+                    arrProducts.Add(ItemID);
+                    count = count + 1;
+
+                }
+
+            }
+
+         
+            foreach (string s in arrProducts)
+            {
+
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPAddItemsToMenu";
+
+                objCommand.Parameters.AddWithValue("@MenuName", txtMenuTitle.Text.ToString());
+
+                //objCommand.Parameters[0].Value = s;
+                objCommand.Parameters.AddWithValue("@ItemID", s);
+                var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                objCommand.Parameters.Clear();
+                if (ResponseReceived == 1)
+                {
+
+                    lblConfirm.Text = "Thank you for creating an Menu!";
+                    lblConfirm.Visible = true;
+                }
+
+
+                else
+                {
+
+                    lblConfirm.Text = "Failed";
+                    lblConfirm.Visible = true;
+
+                }
+            }
+
+            //var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
         }
     }
 }
