@@ -55,6 +55,29 @@ namespace OwlsEat
 
         }
 
+        void ValidatePaymentInformation()
+        {
+            if (txtPaymentMethodName.Text == "")
+            {
+                UpdateInformationError.Add("Enter Amount");
+
+            }
+            if (txtAccountNumber.Text == "")
+            {
+                UpdateInformationError.Add("Please Upload Image");
+            }
+            if (txtInitialBalance.Text == "")
+            {
+                UpdateInformationError.Add("Enter Description");
+            }
+            if (ddlAccountType.SelectedValue == "Select")
+            {
+                UpdateInformationError.Add("Select Account Type");
+            }
+
+        }
+
+
         protected void lnkBtnGetBalance_Click(object sender, EventArgs e)
         {
             //string VWID = 
@@ -89,11 +112,9 @@ namespace OwlsEat
         }
 
 
-
-
         protected void lnkBtnUpdatePaymentAccount_Click(object sender, EventArgs e)
         {
-
+            UpdateVirtualWallet.Visible = true;
         }
 
         protected void btnFund_Click(object sender, EventArgs e)
@@ -122,7 +143,75 @@ namespace OwlsEat
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
                     WebRequest request = WebRequest.Create(url);
-                    request.Method = "PUT";
+                    request.Method = "POST";
+                    request.ContentLength = jsonCreditCard.Length;
+                    request.ContentType = "application/json";
+
+
+                    StreamWriter writer = new StreamWriter(request.GetRequestStream());
+                    writer.Write(jsonCreditCard);
+                    writer.Flush();
+                    writer.Close();
+
+                    WebResponse response = request.GetResponse();
+                    Stream theDataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(theDataStream);
+                    String data = reader.ReadToEnd();
+                    reader.Close();
+                    response.Close();
+                    if (data == "true")
+                    {
+                        Response.Write("Funds added");
+                    }
+                    else
+                    {
+                        Response.Write("Error Occured on the database.");
+                    }
+                }
+                catch (Exception errorException)
+                {
+                    Response.Write(errorException.Message);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < UpdateInformationError.Count; i++)
+                {
+                    Response.Write(UpdateInformationError[i] + " <br/>");
+                }
+            }
+        }
+
+        protected void btnUpdateInfo_Click(object sender, EventArgs e)
+        {
+            ValidatePaymentInformation();
+
+            if (!(UpdateInformationError.Count > 0))
+            {
+                Merchant CurrMerchant = new Merchant();
+                APIKey CurrAPIKey = new APIKey();
+
+                CurrMerchant.MerchantID = "78735";
+                CurrAPIKey.Key = "7636";
+
+
+                VWHolder newVW = new VWHolder();
+                newVW.PaymentMethodName = txtPaymentMethodName.ToString();
+                newVW.AccountNumber = txtAccountNumber.Text.ToString();
+                newVW.AccountType = ddlAccountType.SelectedValue.ToString();
+                newVW.CurrentBalance = int.Parse(txtInitialBalance.Text.ToString());
+                newVW.VWID = Session["userVWID"].ToString();
+                JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
+                String jsonCreditCard = js.Serialize(newVW);
+
+                try
+                {
+                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/UpdatePaymentAccount";
+
+                    url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
+
+                    WebRequest request = WebRequest.Create(url);
+                    request.Method = "POST";
                     request.ContentLength = jsonCreditCard.Length;
                     request.ContentType = "application/json";
 
