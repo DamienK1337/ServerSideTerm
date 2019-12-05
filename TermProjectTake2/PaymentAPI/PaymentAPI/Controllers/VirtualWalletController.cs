@@ -42,9 +42,10 @@ namespace PaymentAPI.Controllers
         //Get Transactions based on VWID Receiver ID
 		//Store Procedures Complete
 		[HttpGet("GetTransactions/{newVW}/{MerchantID}/{Key}")]
-		public List<Transactions> Get(string newVW, string MerchantID, string Key)
+    public List<Transactions> Get([FromBody] VWHolder curVW, string MerchantID, string Key)
+
 		{
-			//Get(Object VWHolder, Object MerchantID, Object APIKey)
+			
 
 			Merchant newMD = new Merchant();
 			APIKey newWB = new APIKey();
@@ -63,7 +64,7 @@ namespace PaymentAPI.Controllers
 				objCommand.CommandText = "TPGetTransaction";
 				objCommand.Parameters.Clear();
 
-				string VWIDReceiver = newVW;
+				string VWIDReceiver = curVW.VWID;
 				
 				//string VWIDReceiver = newVW.VWID;
 				objCommand.Parameters.AddWithValue("@VWIDReceiver", VWIDReceiver);
@@ -167,6 +168,7 @@ namespace PaymentAPI.Controllers
 		
         //Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
+
 		[HttpPost("UpdatePaymentAccount/{MerchantID}/{Key}")]
 		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
@@ -189,8 +191,10 @@ namespace PaymentAPI.Controllers
                 ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
 
             }
+
 		}
 
+		//Method is POST for now MUST CHANGE TO PUT Later
 		//Funding Account
 		//Store Procedure Complete
 		[HttpPost("FundAccount/{MerchantID}/{Key}")]

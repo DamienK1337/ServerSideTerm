@@ -144,6 +144,7 @@ namespace OwlsEat
 
                     WebRequest request = WebRequest.Create(url);
                     request.Method = "POST";
+
                     request.ContentLength = jsonCreditCard.Length;
                     request.ContentType = "application/json";
 
@@ -212,6 +213,7 @@ namespace OwlsEat
 
                     WebRequest request = WebRequest.Create(url);
                     request.Method = "POST";
+
                     request.ContentLength = jsonCreditCard.Length;
                     request.ContentType = "application/json";
 
