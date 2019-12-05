@@ -23,23 +23,13 @@ namespace PaymentAPI.Controllers
         //Create Virtual Wallet for any user
         //Store Procedures Complete
         [HttpPost("CreateVW/{MerchantID}/{Key}")]
-		public string Post([FromBody] VWHolder newVW, string MerchantID, string Key)
+		public string CreateVW([FromBody] VWHolder newVW, string MerchantID, string Key)
 		{
 			string Result = "test";
 			if ((MerchantID == "78735") && (Key == "7636"))
 			{
 				Result = newVW.AddCustomer();
 
-
-
-				//if(Result == true)
-				//{
-				//	return true;
-				//}
-				//else
-				//{
-				//	return false;
-				//}
 				return Result;
 			}
 			else { 
@@ -48,10 +38,12 @@ namespace PaymentAPI.Controllers
 		}
 
 		}
-		//Get Transactions based on VWID Receiver ID
+		
+        //Get Transactions based on VWID Receiver ID
 		//Store Procedures Complete
 		[HttpGet("GetTransactions/{newVW}/{MerchantID}/{Key}")]
-		public List<Transactions> Get([FromBody] VWHolder curVW, string MerchantID, string Key)
+    public List<Transactions> Get([FromBody] VWHolder curVW, string MerchantID, string Key)
+
 		{
 			
 
@@ -97,9 +89,10 @@ namespace PaymentAPI.Controllers
 			
 
 		}
+
 		//Post Method that process Transactions
 		//Store Procedures Complete
-		[HttpPost("ProcessPayment")]
+		[HttpPost("ProcessPayment/{MerchantID}/{Key}")]
 		public Boolean Post([FromBody] Transactions newTransaction, Merchant newMID, APIKey newWebKey)
 		{
 			if ((newMID.MerchantID == "78735") && (newWebKey.Key == "7636"))
@@ -172,30 +165,33 @@ namespace PaymentAPI.Controllers
 			}
 			return false;
 		}
-		//Put Method For Updating Customer PaymentAccount
+		
+        //Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
-		[HttpPost("UpdatePaymentAccount/{VWHolder}/{MerchantID}/{Key}")]
+
+		[HttpPost("UpdatePaymentAccount/{MerchantID}/{Key}")]
 		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-			if ((MerchantID == "78735") && (Key == "7636"))
-			{
+            if ((MerchantID == "78735") && (Key == "7636"))
+            {
 
-				string VWID = curVW.VWID;
+                string VWID = curVW.VWID;
 
 
-				objCommand.CommandType = CommandType.StoredProcedure;
-				objCommand.CommandText = "TPUpdatePaymentAccount";
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPUpdatePaymentAccount";
 
-				objCommand.Parameters.AddWithValue("@PaymentMethodName", curVW.PaymentMethodName);
-				objCommand.Parameters.AddWithValue("@AccountNumber", curVW.AccountNumber);
-				objCommand.Parameters.AddWithValue("@AccountType", curVW.AccountType);
-				objCommand.Parameters.AddWithValue("@Balance", curVW.CurrentBalance);
-				objCommand.Parameters.AddWithValue("@VWID", VWID);
+                objCommand.Parameters.AddWithValue("@PaymentMethodName", curVW.PaymentMethodName);
+                objCommand.Parameters.AddWithValue("@AccountNumber", curVW.AccountNumber);
+                objCommand.Parameters.AddWithValue("@AccountType", curVW.AccountType);
+                objCommand.Parameters.AddWithValue("@Balance", curVW.CurrentBalance);
+                objCommand.Parameters.AddWithValue("@VWID", VWID);
 
-				int ResponseReceived;
-				ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                int ResponseReceived;
+                ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
 
-			}
+            }
+
 		}
 
 		//Method is POST for now MUST CHANGE TO PUT Later

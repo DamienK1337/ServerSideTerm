@@ -91,28 +91,30 @@
         <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet">
 
 
-
-
-            <div id="AmountToFund" runat="server">
-                <asp:Label runat="server" Text="Title*" ID="lblItemTitle1"></asp:Label>
-                <asp:TextBox runat="server" ID="txtItemTitle1"></asp:TextBox>
+            <div id="PaymentMethod" runat="server">
+                <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
+                <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Description" ID="lblItemDescription"></asp:Label>
-                <asp:TextBox runat="server" ID="txtItemDescription"></asp:TextBox>
+                <asp:Label runat="server" Text="Account Type" ID="lblAccountType"></asp:Label>
+                <asp:DropDownList ID="ddlAccountType" CssClass="form-control" required="" runat="server" AutoPostBack="True"  AppendDataBoundItems="True">
+                    <Items>
+                        <asp:ListItem disabled="disabled">Select Item</asp:ListItem>
+                        <asp:ListItem>Savings</asp:ListItem>
+                        <asp:ListItem>Checking</asp:ListItem>
+                        <asp:ListItem>Credit</asp:ListItem>
+                    </Items>
+                </asp:DropDownList>
+                <asp:Label runat="server" Text="Account Number" ID="lblAccountNumber"></asp:Label>
+                <asp:TextBox runat="server" ID="txtAccountNumber"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Please place Image Url" ID="lblItemImgUrl1"></asp:Label>
-                <asp:TextBox runat="server" ID="txtItemImgUrl1"></asp:TextBox>
-                <br />
-                <asp:Label runat="server" Text="Price*" ID="lblItemPrice1"></asp:Label>
-                <asp:TextBox runat="server" ID="txtItemPrice1"></asp:TextBox>
-                 <br />
-                <asp:TextBox runat="server" ID="txtItemID" Visible="False"></asp:TextBox>
+                <asp:Label runat="server" Text="Intitial Balance" ID="lblInitialBalance"></asp:Label>
+                <asp:TextBox runat="server" ID="txtInitialBalance"></asp:TextBox>
                 <br />
                 <br />
             </div>
 
 
-            <asp:Button CssClass="btn-outline-primary" ID="btnEditItem" runat="server" Text="Edit Item" />
+            <asp:Button CssClass="btn-outline-primary" ID="btnUpdateInfo" runat="server" Text="Update Info" OnClick="btnUpdateInfo_Click" />
 
             <br />
 
