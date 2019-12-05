@@ -14,20 +14,21 @@ namespace PaymentAPI.Models
         DBConnect objDB = new DBConnect();
         SqlCommand objCommand = new SqlCommand();
 
-
-        public String Name { get; set; }
+		public String VWID { get; set; }
+		public String Name { get; set; }
 		public String Password { get; set; }
 		public String Email { get; set; }
-		public String CreditCard { get; set; }
-		public String VWID { get; set; }
-
-		public String APIKey { get; set; }
-
-		public String MerchantID { get; set; }
+		public String AccountNumber { get; set; }
+		public String PaymentMethodName { get; set; }
+		public String AccountType { get; set; }
 
 		public int CurrentBalance { get; set; }
 
 		public int FundsToAdd { get; set; }
+
+		public String APIKey { get; set; }
+
+		public String MerchantID { get; set; }
 
 		string checkemail;
 		public VWHolder()
@@ -68,7 +69,7 @@ namespace PaymentAPI.Models
 			objCommand.Parameters.AddWithValue("@Name", Name);
 			objCommand.Parameters.AddWithValue("@Password", Password);
 			objCommand.Parameters.AddWithValue("@Email", Email);
-			objCommand.Parameters.AddWithValue("@CreditCard", CreditCard);
+			objCommand.Parameters.AddWithValue("@CreditCard", AccountNumber);
 			objCommand.Parameters.AddWithValue("@VWID", VWID);
 			objCommand.Parameters.AddWithValue("@APIKey", APIKey);
 			objCommand.Parameters.AddWithValue("@MerchantID", MerchantID);
@@ -158,7 +159,7 @@ namespace PaymentAPI.Models
 			objCommand.Parameters.AddWithValue("@Name", VWID);
 			objCommand.Parameters.AddWithValue("@Password", Password);
 			objCommand.Parameters.AddWithValue("@Email", Email);
-			objCommand.Parameters.AddWithValue("@CreditCard", CreditCard);
+			objCommand.Parameters.AddWithValue("@CreditCard", AccountNumber);
 			objCommand.Parameters.AddWithValue("@VWID", VWID);
 			objCommand.Parameters.AddWithValue("@APIKey", APIKey);
 			objCommand.Parameters.AddWithValue("@MerchantID", MerchantID);

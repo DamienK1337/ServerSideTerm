@@ -11,9 +11,9 @@ namespace Utilities
     public class DBConnect
     {
 		//Connection String for on Campus
-		//String SqlConnectString = "server=cis-mssql1.temple.edu;Database=fa19_3342_tuf05666;User id=tuf05666;Password=ad7ieWae";
+		String SqlConnectString = "server=cis-mssql1.temple.edu;Database=fa19_3342_tuf05666;User id=tuf05666;Password=ad7ieWae";
 		//Connection String using Putty
-		String SqlConnectString = "server=127.0.0.1,5555;Database=fa19_3342_tuf05666;User id=tuf05666;Password=ad7ieWae";
+		//String SqlConnectString = "server=127.0.0.1,5555;Database=fa19_3342_tuf05666;User id=tuf05666;Password=ad7ieWae";
 		SqlConnection myConnectionSql;
         SqlCommand objCmd;
         SqlDataReader objDataReader;
