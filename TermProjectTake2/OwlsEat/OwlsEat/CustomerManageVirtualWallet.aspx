@@ -14,7 +14,8 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	<div class="vertical-nav bg-white" id="sidebar">
+	
+    <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
                 <img runat="server" id="imgAvatar" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />
@@ -55,6 +56,11 @@
 
         </ul>
     </div>
+
+     <!-- End vertical navbar -->
+
+
+    <!-- Page content holder -->
     <div class="page-content p-5" id="content">
 
 

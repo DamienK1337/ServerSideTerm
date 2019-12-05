@@ -38,18 +38,19 @@
               <li class="nav-item active">
                   <a class="nav-link" href="#">Browse Restaurants</a>
               </li>
-                 <li class="nav-item active">
+              <li class="nav-item active">
                   <a class="nav-link" href="#">Orders</a>
               </li>
-                <li class="nav-item active">
+              <li class="nav-item active">
                   <a class="nav-link" href="#">Cart</a>
               </li>
-                 <li class="nav-item active">
+              <li class="nav-item active">
+                  <a class="nav-link" href="CustomerManageVirtualWallet.aspx">Manage Virtual Wallet</a>
+              </li>
+              <li class="nav-item active">
                   <a class="nav-link" href="CustomerSettings.aspx">Customer Settings</a>
               </li>
-                 <li class="nav-item active">
-                  <a class="nav-link" href="CustomerManageVirtualWallet.aspx">Customer Manage Virtual Wallet</a>
-              </li>
+
           </ul>
           <ul class="nav navbar-nav ml-auto">
               <asp:Label ID="lblWelcome" runat="server" ForeColor="White"></asp:Label>

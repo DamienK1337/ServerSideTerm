@@ -121,6 +121,8 @@
                     <asp:BoundField DataField="Description" HeaderText="Description" />
                     <asp:BoundField DataField="Image" HeaderText="Image" />
                     <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                    <asp:ButtonField runat="Server" HeaderText="AddToMenu" Text="AddToMenu" CommandName="AddToMenu" />
                 </Columns>
             </asp:GridView>
 
