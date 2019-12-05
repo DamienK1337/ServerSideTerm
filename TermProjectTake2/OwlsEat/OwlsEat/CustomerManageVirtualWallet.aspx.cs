@@ -164,6 +164,7 @@ namespace OwlsEat
 		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
 		{
 			//ValidateItemInformation();
+			ViewTransaction.Visible = true;
 
 			if (!(UpdateInformationError.Count > 0))
 			{

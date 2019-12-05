@@ -95,7 +95,7 @@
 
         </div>
 
-        <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet">
+        <div class="ViewTrans" visible="false" runat="server" id="ViewTransaction">
 
 
 
@@ -116,13 +116,14 @@
                 <asp:TextBox runat="server" ID="txtItemID" Visible="False"></asp:TextBox>
                 <br />
                 <br />
+				    <asp:GridView ID="gvTransactions" runat="server">
+			</asp:GridView>
             </div>
 
 
             <asp:Button CssClass="btn-outline-primary" ID="btnEditItem" runat="server" Text="Edit Item" />
 
-            <asp:GridView ID="gvTransactions" runat="server">
-			</asp:GridView>
+        
 
             <br />
 

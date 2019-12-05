@@ -41,7 +41,7 @@ namespace PaymentAPI.Controllers
 		
         //Get Transactions based on VWID Receiver ID
 		//Store Procedures Complete
-		[HttpGet("GetTransactions/{newVW}/{MerchantID}/{Key}")]
+		[HttpGet("GetTransactions/{MerchantID}/{Key}")]
     public List<Transactions> Get([FromBody] VWHolder curVW, string MerchantID, string Key)
 
 		{

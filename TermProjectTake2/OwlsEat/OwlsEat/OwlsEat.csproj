@@ -92,6 +92,7 @@
     <Content Include="RestaurantManageMenu.aspx" />
     <Content Include="RestaurantManageVirtualWallet.aspx" />
     <Content Include="CustomerManageVirtualWallet.aspx" />
+    <Content Include="CustomerBrowse.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerMaster.Master.cs">
@@ -188,6 +189,13 @@
     </Compile>
     <Compile Include="CustomerManageVirtualWallet.aspx.designer.cs">
       <DependentUpon>CustomerManageVirtualWallet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerBrowse.aspx.cs">
+      <DependentUpon>CustomerBrowse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerBrowse.aspx.designer.cs">
+      <DependentUpon>CustomerBrowse.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
