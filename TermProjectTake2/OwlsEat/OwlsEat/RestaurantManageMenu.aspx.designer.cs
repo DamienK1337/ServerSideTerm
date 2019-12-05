@@ -184,6 +184,15 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuDetails;
         
         /// <summary>
+        /// lblConfirm1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblConfirm1;
+        
+        /// <summary>
         /// lblMenuTitle control.
         /// </summary>
         /// <remarks>
@@ -238,6 +247,24 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.TextBox txtMenuImage;
         
         /// <summary>
+        /// btnCreateMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateMenu;
+        
+        /// <summary>
+        /// AddItemsToMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddItemsToMenu;
+        
+        /// <summary>
         /// gvItems control.
         /// </summary>
         /// <remarks>
@@ -247,13 +274,13 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.GridView gvItems;
         
         /// <summary>
-        /// btnCreateMenu control.
+        /// btnAddItemstoMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateMenu;
+        protected global::System.Web.UI.WebControls.Button btnAddItemstoMenu;
         
         /// <summary>
         /// ViewAndEditItems control.

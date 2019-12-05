@@ -99,6 +99,8 @@
 
 
             <div id="MenuDetails" runat="server">
+                <asp:Label runat="server" Text="Title*" ID="lblConfirm1"></asp:Label>
+
                 <asp:Label runat="server" Text="Title*" ID="lblMenuTitle"></asp:Label>
                 <asp:TextBox runat="server" ID="txtMenuTitle"></asp:TextBox>
                 <br />
@@ -109,8 +111,13 @@
                 <asp:TextBox runat="server" ID="txtMenuImage"></asp:TextBox>
                 <br />
                 <br />
+         <asp:Button CssClass="btn-outline-primary" ID="btnCreateMenu" runat="server" Text="Create Menu" OnClick="btnCreateMenu_Click" />
+
             </div>
-            <asp:GridView ID="gvItems" runat="server" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
+
+              <div id="AddItemsToMenu" runat="server">
+
+            <asp:GridView ID="gvItems" runat="server"  AutoGenerateColumns="False">
                 <Columns>
                     <asp:TemplateField HeaderText="Select Item">
                         <ItemTemplate>
@@ -122,11 +129,12 @@
                     <asp:BoundField DataField="Image" HeaderText="Image" />
                     <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
                     <asp:BoundField DataField="Title" HeaderText="Title" />
-                    <asp:ButtonField runat="Server" HeaderText="AddToMenu" Text="AddToMenu" CommandName="AddToMenu" />
                 </Columns>
             </asp:GridView>
 
-            <asp:Button CssClass="btn-outline-primary" ID="btnCreateMenu" runat="server" Text="Create Menu" OnClick="btnCreateMenu_Click" />
+         <asp:Button CssClass="btn-outline-primary" ID="btnAddItemstoMenu" runat="server" Text="Add Items To Menu" OnClick="btnAddItemstoMenu_Click" />
+
+              </div>
 
             <br />
 
@@ -168,7 +176,7 @@
 
         </div>
 
-                <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu">
+        <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu">
 
             <asp:DropDownList ID="ddlMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
