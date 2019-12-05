@@ -184,6 +184,24 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuDetails;
         
         /// <summary>
+        /// lblConfirm1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblConfirm1;
+        
+        /// <summary>
+        /// txtMenuID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMenuID;
+        
+        /// <summary>
         /// lblMenuTitle control.
         /// </summary>
         /// <remarks>
@@ -238,6 +256,24 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.TextBox txtMenuImage;
         
         /// <summary>
+        /// btnCreateMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateMenu;
+        
+        /// <summary>
+        /// AddItemsToMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddItemsToMenu;
+        
+        /// <summary>
         /// gvItems control.
         /// </summary>
         /// <remarks>
@@ -247,13 +283,13 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.GridView gvItems;
         
         /// <summary>
-        /// btnCreateMenu control.
+        /// btnAddItemstoMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateMenu;
+        protected global::System.Web.UI.WebControls.Button btnAddItemstoMenu;
         
         /// <summary>
         /// ViewAndEditItems control.
@@ -382,13 +418,13 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ViewAndEditMenu;
         
         /// <summary>
-        /// ddlMenus control.
+        /// ddlEditMenus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMenus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEditMenus;
         
         /// <summary>
         /// EditMenus control.
@@ -400,93 +436,129 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditMenus;
         
         /// <summary>
-        /// Label1 control.
+        /// lblMenuName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblMenuName;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txtMenuName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtMenuName1;
         
         /// <summary>
-        /// Label2 control.
+        /// lblMenuDescription1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblMenuDescription1;
         
         /// <summary>
-        /// TextBox2 control.
+        /// txtMenuDescription1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtMenuDescription1;
         
         /// <summary>
-        /// Label3 control.
+        /// lblMenuImgUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblMenuImgUrl;
         
         /// <summary>
-        /// TextBox3 control.
+        /// txtMenuImgUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtMenuImgUrl;
         
         /// <summary>
-        /// Label4 control.
+        /// btnEditMenus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Button btnEditMenus;
         
         /// <summary>
-        /// TextBox4 control.
+        /// ddlAddOrRemove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAddOrRemove;
         
         /// <summary>
-        /// TextBox5 control.
+        /// divAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAdd;
         
         /// <summary>
-        /// Button1 control.
+        /// gvAddMenuItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.GridView gvAddMenuItems;
+        
+        /// <summary>
+        /// btnAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdd;
+        
+        /// <summary>
+        /// divRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRemove;
+        
+        /// <summary>
+        /// gvRemoveMenuItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRemoveMenuItems;
+        
+        /// <summary>
+        /// btnRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRemove;
     }
 }
