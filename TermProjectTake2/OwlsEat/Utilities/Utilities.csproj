@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restaurants.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Transactions.cs" />
     <Compile Include="VWHolder.cs" />
     <Compile Include="APIKey.cs" />
   </ItemGroup>

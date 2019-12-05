@@ -50,10 +50,10 @@ namespace PaymentAPI.Controllers
 		}
 		//Get Transactions based on VWID Receiver ID
 		//Store Procedures Complete
-		[HttpGet("GetTransactions/{newVW}/{MerchantIDKey}/{newWebKey}")]
-		public List<Transactions> Get(string newVW, string MerchantID, string Key)
+		[HttpGet("GetTransactions/{newVW}/{MerchantID}/{Key}")]
+		public List<Transactions> Get([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-			//Get(Object VWHolder, Object MerchantID, Object APIKey)
+			
 
 			Merchant newMD = new Merchant();
 			APIKey newWB = new APIKey();
@@ -72,7 +72,7 @@ namespace PaymentAPI.Controllers
 				objCommand.CommandText = "TPGetTransaction";
 				objCommand.Parameters.Clear();
 
-				string VWIDReceiver = newVW;
+				string VWIDReceiver = curVW.VWID;
 				
 				//string VWIDReceiver = newVW.VWID;
 				objCommand.Parameters.AddWithValue("@VWIDReceiver", VWIDReceiver);
@@ -174,26 +174,34 @@ namespace PaymentAPI.Controllers
 		}
 		//Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
-		[HttpPut("UpdatePaymentAccount/{VWHolder}")]
+		[HttpPost("UpdatePaymentAccount/{VWHolder}/{MerchantID}/{Key}")]
 		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
-            string VWID = curVW.VWID;
+			if ((MerchantID == "78735") && (Key == "7636"))
+			{
 
-            objCommand.CommandType = CommandType.StoredProcedure;
-			objCommand.CommandText = "TPUpdatePaymentAccount";
+				string VWID = curVW.VWID;
 
-			objCommand.Parameters.AddWithValue("@VWID", VWID);
-			objCommand.Parameters.AddWithValue("@CreditCard", curVW.CreditCard);
 
-			int responsereceived;
-			responsereceived = objDB.DoUpdateUsingCmdObj(objCommand);
+				objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.CommandText = "TPUpdatePaymentAccount";
 
-		
+				objCommand.Parameters.AddWithValue("@PaymentMethodName", curVW.PaymentMethodName);
+				objCommand.Parameters.AddWithValue("@AccountNumber", curVW.AccountNumber);
+				objCommand.Parameters.AddWithValue("@AccountType", curVW.AccountType);
+				objCommand.Parameters.AddWithValue("@Balance", curVW.CurrentBalance);
+				objCommand.Parameters.AddWithValue("@VWID", VWID);
+
+				int ResponseReceived;
+				ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+
+			}
 		}
 
+		//Method is POST for now MUST CHANGE TO PUT Later
 		//Funding Account
 		//Store Procedure Complete
-		[HttpPut("FundAccount/{MerchantID}/{Key}")]
+		[HttpPost("FundAccount/{MerchantID}/{Key}")]
 		public Boolean FundAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
 
