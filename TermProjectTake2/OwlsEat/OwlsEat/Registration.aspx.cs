@@ -199,7 +199,7 @@ namespace OwlsEat
 					VW12.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
 					VW12.Password = txtPassword.ToString();
 					VW12.Email = txtEmail.ToString();
-					VW12.CreditCard = "12345679023";
+					VW12.AccountNumber = "12345679023";
 
 					string test = ExecuteCallToWebAPI(VW12,m12,w12);
 
@@ -259,7 +259,7 @@ namespace OwlsEat
                     VW12.Name = txtFirstName.ToString() + "" + txtLastName.ToString();
                     VW12.Password = txtPassword.ToString();
                     VW12.Email = txtEmail.ToString();
-                    VW12.CreditCard = "12345679023";
+                    VW12.AccountNumber = "12345679023";
 
                     string test = ExecuteCallToWebAPI(VW12, m12, w12);
 

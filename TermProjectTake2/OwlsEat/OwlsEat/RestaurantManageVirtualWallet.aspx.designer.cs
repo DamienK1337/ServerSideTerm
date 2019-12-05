@@ -148,102 +148,93 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl UpdateVirtualWallet;
         
         /// <summary>
-        /// AmountToFund control.
+        /// PaymentMethod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AmountToFund;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PaymentMethod;
         
         /// <summary>
-        /// lblItemTitle1 control.
+        /// lblTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemTitle1;
+        protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
-        /// txtItemTitle1 control.
+        /// txtPaymentMethodName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemTitle1;
+        protected global::System.Web.UI.WebControls.TextBox txtPaymentMethodName;
         
         /// <summary>
-        /// lblItemDescription control.
+        /// lblAccountType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemDescription;
+        protected global::System.Web.UI.WebControls.Label lblAccountType;
         
         /// <summary>
-        /// txtItemDescription control.
+        /// ddlAccountType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemDescription;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccountType;
         
         /// <summary>
-        /// lblItemImgUrl1 control.
+        /// lblAccountNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemImgUrl1;
+        protected global::System.Web.UI.WebControls.Label lblAccountNumber;
         
         /// <summary>
-        /// txtItemImgUrl1 control.
+        /// txtAccountNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemImgUrl1;
+        protected global::System.Web.UI.WebControls.TextBox txtAccountNumber;
         
         /// <summary>
-        /// lblItemPrice1 control.
+        /// lblInitialBalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemPrice1;
+        protected global::System.Web.UI.WebControls.Label lblInitialBalance;
         
         /// <summary>
-        /// txtItemPrice1 control.
+        /// txtInitialBalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemPrice1;
+        protected global::System.Web.UI.WebControls.TextBox txtInitialBalance;
         
         /// <summary>
-        /// txtItemID control.
+        /// btnUpdateInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtItemID;
-        
-        /// <summary>
-        /// btnEditItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditItem;
+        protected global::System.Web.UI.WebControls.Button btnUpdateInfo;
     }
 }
