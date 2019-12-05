@@ -99,9 +99,10 @@
 
 
             <div id="MenuDetails" runat="server">
-                <asp:Label runat="server" Text="Title*" ID="lblConfirm1"></asp:Label>
-
-                <asp:Label runat="server" Text="Title*" ID="lblMenuTitle"></asp:Label>
+                 <asp:Label runat="server" Text="" ID="lblConfirm1" Visible="False"></asp:Label>
+                <asp:TextBox runat="server" ID="txtMenuID" Visible="False"></asp:TextBox>
+                   <br />
+                <asp:Label runat="server" Text="Menu Name*" ID="lblMenuTitle"></asp:Label>
                 <asp:TextBox runat="server" ID="txtMenuTitle"></asp:TextBox>
                 <br />
                 <asp:Label runat="server" Text="Menu Description" ID="lblMenuDescription"></asp:Label>
@@ -178,36 +179,81 @@
 
         <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu">
 
-            <asp:DropDownList ID="ddlMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
+            <asp:DropDownList ID="ddlEditMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlEditMenus_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
-                    <asp:ListItem  disabled="disabled">Select Item</asp:ListItem>
+                    <asp:ListItem  disabled="disabled">Select Menu</asp:ListItem>
                 </Items>
             </asp:DropDownList>
 
 
             <div id="EditMenus" runat="server">
-                <asp:Label runat="server" Text="Title*" ID="Label1"></asp:Label>
-                <asp:TextBox runat="server" ID="TextBox1"></asp:TextBox>
+
+                <asp:Label runat="server" Text="Menu Name*" ID="lblMenuName"></asp:Label>
+                <asp:TextBox runat="server" ID="txtMenuName1"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Description" ID="Label2"></asp:Label>
-                <asp:TextBox runat="server" ID="TextBox2"></asp:TextBox>
+                <asp:Label runat="server" Text="Menu Description" ID="lblMenuDescription1"></asp:Label>
+                <asp:TextBox runat="server" ID="txtMenuDescription1"></asp:TextBox>
                 <br />
-                <asp:Label runat="server" Text="Please place Image Url" ID="Label3"></asp:Label>
-                <asp:TextBox runat="server" ID="TextBox3"></asp:TextBox>
-                <br />
-                <asp:Label runat="server" Text="Price*" ID="Label4"></asp:Label>
-                <asp:TextBox runat="server" ID="TextBox4"></asp:TextBox>
-                 <br />
-                <asp:TextBox runat="server" ID="TextBox5" Visible="False"></asp:TextBox>
+                <asp:Label runat="server" Text="Please place Image Url" ID="lblMenuImgUrl"></asp:Label>
+                <asp:TextBox runat="server" ID="txtMenuImgUrl"></asp:TextBox>
                 <br />
                 <br />
             </div>
 
 
-            <asp:Button CssClass="btn-outline-primary" ID="Button1" runat="server" Text="Edit Item" OnClick="btnEditItem_Click" />
+            <asp:Button CssClass="btn-outline-primary" ID="btnEditMenus" runat="server" Text="Edit Menu" OnClick="btnEditMenus_Click" />
 
             <br />
 
+            <asp:DropDownList ID="ddlAddOrRemove" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAddOrRemove_SelectedIndexChanged" AppendDataBoundItems="True" Visible="False">
+                <Items>
+                    <asp:ListItem disabled="disabled">How do you want to edit Menus?</asp:ListItem>
+                    <asp:ListItem Value="Add">Add Items To Current Menu</asp:ListItem>
+                    <asp:ListItem Value="Remove">Remove Items From Current Menu</asp:ListItem>
+                </Items>
+            </asp:DropDownList>
+
+            <div id="divAdd" runat="server">
+
+            <asp:GridView ID="gvAddMenuItems" runat="server"  AutoGenerateColumns="False">
+                <Columns>
+                    <asp:TemplateField HeaderText="Select Item">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkSelect1" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
+                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                </Columns>
+            </asp:GridView>
+        
+                <asp:Button CssClass="btn-outline-primary" ID="btnAdd" runat="server" Text="Add To Menu" OnClick="btnAdd_Click" />
+
+            </div>
+
+            <div id="divRemove" runat="server">
+
+            <asp:GridView ID="gvRemoveMenuItems" runat="server"  AutoGenerateColumns="False">
+                <Columns>
+                    <asp:TemplateField HeaderText="Select Item">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkSelect2" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
+                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                </Columns>
+            </asp:GridView>
+
+                <asp:Button CssClass="btn-outline-primary" ID="btnRemove" runat="server" Text="Remove from Menu" OnClick="btnRemove_Click" />
+
+            </div>
 
 
         </div>
