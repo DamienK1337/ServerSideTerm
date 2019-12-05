@@ -110,7 +110,7 @@
                 <br />
                 <br />
             </div>
-            <asp:GridView ID="gvItems" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
+            <asp:GridView ID="gvItems" runat="server" OnSelectedIndexChanged="gvItems_SelectedIndexChanged">
                 <Columns>
                     <asp:TemplateField HeaderText="Select Item">
                         <ItemTemplate>

@@ -148,13 +148,13 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.Button btnFund;
         
         /// <summary>
-        /// UpdateVirtualWallet control.
+        /// ViewTransaction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UpdateVirtualWallet;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ViewTransaction;
         
         /// <summary>
         /// AmountToFund control.
@@ -247,15 +247,6 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.TextBox txtItemID;
         
         /// <summary>
-        /// btnEditItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditItem;
-        
-        /// <summary>
         /// gvTransactions control.
         /// </summary>
         /// <remarks>
@@ -263,5 +254,14 @@ namespace OwlsEat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTransactions;
+        
+        /// <summary>
+        /// btnEditItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditItem;
     }
 }
