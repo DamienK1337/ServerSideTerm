@@ -20,9 +20,9 @@ namespace PaymentAPI.Models
 		public string Date { get; set; }
 
 
-		public int SenderBalance { get; set; }
+		public double SenderBalance { get; set; }
 
-		public int ReceiverBalance { get; set; }
+		public double ReceiverBalance { get; set; }
 
 		
 
@@ -31,7 +31,7 @@ namespace PaymentAPI.Models
 
 		}
 
-		public int FindReceiverBalance()
+		public double FindReceiverBalance()
 		{
 			DBConnect objDB = new DBConnect();
 
@@ -47,7 +47,7 @@ namespace PaymentAPI.Models
 
 				string rb =record["Balance"].ToString();
 
-				ReceiverBalance = int.Parse(rb);
+				ReceiverBalance = double.Parse(rb);
 
 			}
 
@@ -56,7 +56,7 @@ namespace PaymentAPI.Models
 			return ReceiverBalance;
 		}
 
-		public int FindSenderBalance()
+		public double FindSenderBalance()
 		{
 			DBConnect objDB = new DBConnect();
 
@@ -70,7 +70,7 @@ namespace PaymentAPI.Models
 
 				string sb = record["Balance"].ToString();
 
-				SenderBalance = int.Parse(sb);
+				SenderBalance = double.Parse(sb);
 
 			}
 
