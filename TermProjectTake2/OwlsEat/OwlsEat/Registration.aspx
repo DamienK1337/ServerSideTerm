@@ -113,6 +113,9 @@
                                 <div id="PreferencesDiv" runat="server" visible="false">
                                     <asp:Label runat="server" Text="Preferences & Payment Method" ID="lblPreferences"></asp:Label>
                                     <br />
+                                    <br />
+                                    <br />
+                                    <br />
                                     <div id="PaymentMethod" runat="server">
                                         <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>

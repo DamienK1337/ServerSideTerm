@@ -83,6 +83,28 @@ namespace OwlsEat
 
         }
 
+        void ValidateEditItemInformation()
+        {
+            if (txtItemTitle1.Text == "")
+            {
+                UpdateInformationError.Add("Enter Item");
+
+            }
+            if (txtItemImgUrl1.Text == "")
+            {
+                UpdateInformationError.Add("Please Upload Image");
+            }
+            if (txtItemDescription.Text == "")
+            {
+                UpdateInformationError.Add("Enter Description");
+            }
+            if (txtItemPrice1.Text == "")
+            {
+                UpdateInformationError.Add("Enter Price");
+            }
+
+        }
+
         void ValidateMenu()
         {
 
@@ -197,58 +219,71 @@ namespace OwlsEat
 
         protected void btnCreateMenu_Click(object sender, EventArgs e)
         {
+            Utilities.Menu menu = new Utilities.Menu();
+           
+
             ValidateMenu();
             if (UpdateInformationError.Count == 0)
             {
-
                 string MenuName = txtMenuTitle.Text;
-                string MenuImgUrl = txtMenuImage.Text;
-                string MenuDescription = txtMenuDescription.Text;
-
-
-                objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "TPInsertMenu";
-
-                objCommand.Parameters.AddWithValue("@MenuName", MenuName);
-                objCommand.Parameters.AddWithValue("@MenuDesc", MenuDescription);
-                objCommand.Parameters.AddWithValue("@ImgUrl", MenuImgUrl);
-                objCommand.Parameters.AddWithValue("@RestaurantID", Session["userid"].ToString());
-
-
-
-                var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
-                if (ResponseReceived == 1)
+                menu.MenuName = MenuName;
+                Boolean flag = menu.CheckIfMenuExists(MenuName);
+                if (flag == true)
                 {
-                    objCommand.Parameters.Clear();
+                    Response.Write("Menu already exists");
+                }
+                else
+                {
+
+                    MenuName = txtMenuTitle.Text;
+                    string MenuImgUrl = txtMenuImage.Text;
+                    string MenuDescription = txtMenuDescription.Text;
+
+
                     objCommand.CommandType = CommandType.StoredProcedure;
-                    objCommand.CommandText = "TPGetMenusByMenuName";
+                    objCommand.CommandText = "TPInsertMenu";
 
                     objCommand.Parameters.AddWithValue("@MenuName", MenuName);
-                    DataSet myAccount = objDB.GetDataSetUsingCmdObj(objCommand);
+                    objCommand.Parameters.AddWithValue("@MenuDesc", MenuDescription);
+                    objCommand.Parameters.AddWithValue("@ImgUrl", MenuImgUrl);
+                    objCommand.Parameters.AddWithValue("@RestaurantID", Session["userid"].ToString());
 
-                    int MenuID = (int)objDB.GetField("MenuID", 0);
 
-                    lblConfirm1.Text = "Thank you for creating an Menu!";
-                    lblConfirm1.Visible = true;
 
-                    MenuDetails.Visible = false;
-                    txtMenuTitle.Text = MenuName;
-                    txtMenuID.Text = MenuID.ToString();
-                    AddItemsToMenu.Visible = true;
-                }
+                    var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+                    if (ResponseReceived == 1)
+                    {
+                        objCommand.Parameters.Clear();
+                        objCommand.CommandType = CommandType.StoredProcedure;
+                        objCommand.CommandText = "TPGetMenusByMenuName";
 
-            }
-            else
-            {
-                for (int i = 0; i < UpdateInformationError.Count; i++)
-                {
-                    lblConfirm1.Text = "Failed";
-                    lblConfirm1.Visible = true;
-                    Response.Write(UpdateInformationError[i] + "<br/>");
+                        objCommand.Parameters.AddWithValue("@MenuName", MenuName);
+                        DataSet myAccount = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                        int MenuID = (int)objDB.GetField("MenuID", 0);
+
+                        lblConfirm1.Text = "Thank you for creating an Menu!";
+                        lblConfirm1.Visible = true;
+
+                        MenuDetails.Visible = false;
+                        txtMenuTitle.Text = MenuName;
+                        txtMenuID.Text = MenuID.ToString();
+                        AddItemsToMenu.Visible = true;
+                    }
+
+
+                    else
+                    {
+                        for (int i = 0; i < UpdateInformationError.Count; i++)
+                        {
+                            lblConfirm1.Text = "Failed";
+                            lblConfirm1.Visible = true;
+                            Response.Write(UpdateInformationError[i] + "<br/>");
+                        }
+                    }
                 }
             }
         }
-
         protected void lnkBtnViewItems_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
@@ -272,7 +307,7 @@ namespace OwlsEat
 
         protected void btnEditItem_Click(object sender, EventArgs e)
         {
-            ValidateItemInformation();
+            ValidateEditItemInformation();
 
             if (UpdateInformationError.Count == 0)
             {

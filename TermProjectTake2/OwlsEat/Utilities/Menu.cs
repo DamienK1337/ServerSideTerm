@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,37 +21,27 @@ namespace Utilities
 
         }
 
+        public Boolean CheckIfMenuExists(String MenuName)
+        {
+            DBConnect dbConnection = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPCheckIfMenuExists";
+            SqlParameter inputParameter = new SqlParameter("@MenuName", MenuName);
+            inputParameter.Direction = ParameterDirection.Input;
+            inputParameter.SqlDbType = SqlDbType.NVarChar;
+            objCommand.Parameters.Add(inputParameter);
 
+            DataSet MenuNameDataSet = dbConnection.GetDataSetUsingCmdObj(objCommand);
+            if (MenuNameDataSet.Tables[0].Rows.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
-        //public bool AddAddRestaurant()
-        //{
-        //    bool added = true;
-
-        //    DBConnect objDB = new DBConnect();
-
-        //    SqlCommand objCommand = new SqlCommand();
-        //    objCommand.CommandType = CommandType.StoredProcedure;
-
-        //    objCommand.CommandText = "TPAddRestaurant";
-
-
-        //    objCommand.Parameters.AddWithValue("@Email", Email);
-        //    objCommand.Parameters.AddWithValue("@Password", Password);
-        //    objCommand.Parameters.AddWithValue("@FirstName", FirstName);
-        //    objCommand.Parameters.AddWithValue("@LastName", LastName);
-        //    objCommand.Parameters.AddWithValue("@Cuisine", Cuisine);
-        //    objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
-        //    objCommand.Parameters.AddWithValue("@Location", Location);
-        //    objCommand.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
-        //    objCommand.Parameters.AddWithValue("@SecurityQuestion", SecurityQuestion);
-        //    objCommand.Parameters.AddWithValue("@SecurityAnswer", SecurityAnswer);
-        //    objCommand.Parameters.AddWithValue("@ImgURL", ImgURL);
-
-        //    var result = objDB.DoUpdateUsingCmdObj(objCommand);
-
-        //    if (result == -1)
-        //        added = false;
-        //    return added;
-        //}
     }
 }
