@@ -99,21 +99,24 @@ namespace OwlsEat
                 string newNum = String.Format("{0:c}", formatToMoney);
                 txtVirtualWalletBalance.Text = newNum;
             }
-
-
-            GetBalance.Visible = true;
             FundAccount.Visible = false;
+            GetBalance.Visible = true;
+            UpdateVirtualWallet.Visible = false;
         }
 
         protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
         {
-            GetBalance.Visible = false;
             FundAccount.Visible = true;
+            GetBalance.Visible = false;
+            UpdateVirtualWallet.Visible = false;
+
         }
 
 
         protected void lnkBtnUpdatePaymentAccount_Click(object sender, EventArgs e)
         {
+            FundAccount.Visible = false;
+            GetBalance.Visible = false;
             UpdateVirtualWallet.Visible = true;
         }
 
@@ -197,7 +200,7 @@ namespace OwlsEat
 
 
                 VWHolder newVW = new VWHolder();
-                newVW.PaymentMethodName = txtPaymentMethodName.ToString();
+                newVW.PaymentMethodName = txtPaymentMethodName.Text.ToString();
                 newVW.AccountNumber = txtAccountNumber.Text.ToString();
                 newVW.AccountType = ddlAccountType.SelectedValue.ToString();
                 newVW.CurrentBalance = int.Parse(txtInitialBalance.Text.ToString());
