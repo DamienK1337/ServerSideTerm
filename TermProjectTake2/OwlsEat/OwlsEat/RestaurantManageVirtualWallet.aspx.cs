@@ -40,19 +40,6 @@ namespace OwlsEat
                 UpdateInformationError.Add("Enter Amount");
 
             }
-            //if (txtItemImgUrl.Text == "")
-            //{
-            //    UpdateInformationError.Add("Please Upload Image");
-            //}
-            //if (txtDescription.Text == "")
-            //{
-            //    UpdateInformationError.Add("Enter Description");
-            //}
-            //if (txtItemPrice.Text == "")
-            //{
-            //    UpdateInformationError.Add("Enter Price");
-            //}
-
         }
 
         void ValidatePaymentInformation()
