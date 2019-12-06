@@ -49,40 +49,31 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.GridView gvRestaurant;
         
         /// <summary>
-        /// lblRestaurantID control.
+        /// btnSelectRestaurant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRestaurantID;
+        protected global::System.Web.UI.WebControls.Button btnSelectRestaurant;
         
         /// <summary>
-        /// lblMenu control.
+        /// lbltest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMenu;
+        protected global::System.Web.UI.WebControls.Label lbltest;
         
         /// <summary>
-        /// Label4 control.
+        /// ddlMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-        
-        /// <summary>
-        /// gvMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMenu;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
         
         /// <summary>
         /// gvMenuItems control.
@@ -94,12 +85,12 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.GridView gvMenuItems;
         
         /// <summary>
-        /// gvTest control.
+        /// btnAddToCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTest;
+        protected global::System.Web.UI.WebControls.Button btnAddToCart;
     }
 }
