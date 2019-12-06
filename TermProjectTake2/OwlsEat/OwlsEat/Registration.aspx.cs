@@ -189,7 +189,7 @@ namespace OwlsEat
                 else
                 {
 
-
+                    
 
 
 					Merchant m12 = new Merchant();
@@ -360,17 +360,15 @@ namespace OwlsEat
             DBConnect dbConnection = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
 
-            Settings userSettings = new Settings();
-
             if (ddlUserTypeID.SelectedValue == "Restaurant")
             {
                 objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "TPInsertRestaurantPaymentMethod";
+                objCommand.CommandText = "TPInsertPaymentMethod";
                 objCommand.Parameters.AddWithValue("@VWID", Session["userVWID"].ToString());
-                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.ToString());
+                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.Text.ToString());
                 objCommand.Parameters.AddWithValue("@AccountType", ddlAccountType.SelectedValue.ToString());
-                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.ToString());
-                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.ToString());
+                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.Text.ToString());
+                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.Text.ToString());
 
                 int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
                 objCommand.Parameters.Clear();
@@ -388,12 +386,12 @@ namespace OwlsEat
             if (ddlUserTypeID.SelectedValue == "Customer")
             {
                 objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "TPInsertCustomerPaymentMethod";
+                objCommand.CommandText = "TPInsertPaymentMethod";
                 objCommand.Parameters.AddWithValue("@VWID", Session["userVWID"].ToString());
-                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.ToString());
+                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.Text.ToString());
                 objCommand.Parameters.AddWithValue("@AccountType", ddlAccountType.SelectedValue.ToString());
-                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.ToString());
-                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.ToString());
+                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.Text.ToString());
+                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.Text.ToString());
 
                 int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
                 objCommand.Parameters.Clear();
