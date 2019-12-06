@@ -133,7 +133,7 @@ namespace OwlsEat
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
                     WebRequest request = WebRequest.Create(url);
-                    request.Method = "POST";
+                    request.Method = "PUT";
 
                     request.ContentLength = jsonCreditCard.Length;
                     request.ContentType = "application/json";
@@ -202,7 +202,7 @@ namespace OwlsEat
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
                     WebRequest request = WebRequest.Create(url);
-                    request.Method = "POST";
+                    request.Method = "PUT";
 
                     request.ContentLength = jsonCreditCard.Length;
                     request.ContentType = "application/json";
