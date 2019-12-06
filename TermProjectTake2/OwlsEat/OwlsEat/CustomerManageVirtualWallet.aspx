@@ -122,8 +122,7 @@
                 <asp:TextBox runat="server" ID="txtItemID" Visible="False"></asp:TextBox>
                 <br />
                 <br />
-				    <asp:GridView ID="gvTransactions" runat="server">
-			</asp:GridView>
+				
             </div>
 
 
@@ -137,6 +136,11 @@
 
         </div>
 
+
+		<div id="divViewTrans" runat="server" >
+			    <asp:GridView ID="gvTransactions" runat="server">
+			</asp:GridView>
+		</div>
 
     </div>
 

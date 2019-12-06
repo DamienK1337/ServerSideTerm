@@ -113,7 +113,7 @@ namespace OwlsEat
 				newVW.FundsToAdd = int.Parse(txtAmountToFund.Text.ToString());
 				newVW.VWID = Session["userVWID"].ToString();
 				JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
-				String jsonCreditCard = js.Serialize(newVW);
+				String jsonVW = js.Serialize(newVW);
 
 				try
 				{
@@ -123,12 +123,12 @@ namespace OwlsEat
 
 					WebRequest request = WebRequest.Create(url);
 					request.Method = "POST";
-					request.ContentLength = jsonCreditCard.Length;
+					request.ContentLength = jsonVW.Length;
 					request.ContentType = "application/json";
 
 
 					StreamWriter writer = new StreamWriter(request.GetRequestStream());
-					writer.Write(jsonCreditCard);
+					writer.Write(jsonVW);
 					writer.Flush();
 					writer.Close();
 
@@ -164,7 +164,8 @@ namespace OwlsEat
 		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
 		{
 			//ValidateItemInformation();
-			ViewTransaction.Visible = true;
+			ViewTransaction.Visible = false;
+			divViewTrans.Visible = true;
 
 			if (!(UpdateInformationError.Count > 0))
 			{
@@ -176,36 +177,29 @@ namespace OwlsEat
 
 
 				VWHolder newVW = new VWHolder();
-				
+
 				newVW.VWID = Session["userVWID"].ToString();
-				JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
-				String jsonCreditCard = js.Serialize(newVW);
 
 				try
 				{
+
 					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/GetTransactions";
 
-					url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
+					url = url + "/" + newVW.VWID + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
 					WebRequest request = WebRequest.Create(url);
-					request.Method = "GET";
-					request.ContentLength = jsonCreditCard.Length;
-					request.ContentType = "application/json";
-
-
-					StreamWriter writer = new StreamWriter(request.GetRequestStream());
-					writer.Write(jsonCreditCard);
-					writer.Flush();
-					writer.Close();
 
 					WebResponse response = request.GetResponse();
+
+					
 					Stream theDataStream = response.GetResponseStream();
 					StreamReader reader = new StreamReader(theDataStream);
 					String data = reader.ReadToEnd();
 					reader.Close();
 					response.Close();
-
-
+					
+					JavaScriptSerializer js = new JavaScriptSerializer();
+	
 					Transactions[] TransactionData = js.Deserialize<Transactions[]>(data);
 
 					gvTransactions.DataSource = TransactionData;
