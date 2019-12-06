@@ -23,7 +23,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	 <div class="vertical-nav bg-white" id="sidebar">
+     <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
                <img runat="server" id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
@@ -41,43 +41,61 @@
 					<a href="#" class="nav-link text-dark font-italic">
 						<i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
 
-						<asp:DropDownList ID="ddlCuisine" runat="server" OnSelectedIndexChanged="ddlCuisine_SelectedIndexChanged" AutoPostBack="True" AppendDataBoundItems="True">
-							<Items>
-                    <asp:ListItem disabled="disabled">Select Restaurant</asp:ListItem>
-							</Items>
-						</asp:DropDownList>
+
 						
 					</a>
 				</li>
+                  <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic ">
+                    <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnBrowse" CssClass="buttonClass" runat="server" OnClick="lnkBtnBrowse_Click" >Browse Restaurants</asp:LinkButton>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnPurchase" CssClass="buttonClass" runat="server" OnClick="lnkBtnPurchase_Click">Purchase Items In Cart</asp:LinkButton>
+                </a>
+            </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark font-italic">
+                        <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                        <asp:LinkButton ID="LinkButton1" CssClass="buttonClass" runat="server" OnClick="lnkBtnPurchase_Click">Purchase Items In Cart</asp:LinkButton>
+                    </a>
+                </li>
 
-
-			</ul>
+            </ul>
     </div>
 
 
-	<%--Start Content --%>
+	<!--Start Content -->
 
 	<div class="page-content p-5" id="content">
 
-		  <h2 class="display-4 text-white">Customer Account Settings Page</h2>
+		  <h2 class="display-4 text-white">Browse & Manage Purchases Page</h2>
         <div class="separator">
         </div>
 
 
-		<div id="divGvRestaurant" runat="server">
-       <asp:GridView ID="gvRestaurant" runat="server" AutoGenerateColumns="False" OnRowDataBound="GridView1_RowDataBound">
-        <Columns>
-			<asp:TemplateField>
-                 <ItemTemplate>
-                       <asp:CheckBox ID="chbxRestaurant" runat="server" />
-                 </ItemTemplate>
-               </asp:TemplateField>
-			<asp:BoundField DataField="RestaurantName" HeaderText="Restaurant Name" />
-			<asp:BoundField DataField="ImgURL" HeaderText="ImgURL" />
-			
-					
-			
-		</Columns>
+        <div id="divGvRestaurant" runat="server">
+
+            <asp:DropDownList ID="ddlCuisine" runat="server" OnSelectedIndexChanged="ddlCuisine_SelectedIndexChanged" AutoPostBack="True" AppendDataBoundItems="True">
+                <asp:ListItem disabled="disabled">Select Restaurant</asp:ListItem>
+            </asp:DropDownList>
+
+            <asp:GridView ID="gvRestaurant" runat="server" AutoGenerateColumns="False" OnRowDataBound="GridView1_RowDataBound">
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chbxRestaurant" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="RestaurantName" HeaderText="Restaurant Name" />
+                    <asp:BoundField DataField="ImgURL" HeaderText="ImgURL" />
+
+
+
+                </Columns>
     </asp:GridView>
 
 

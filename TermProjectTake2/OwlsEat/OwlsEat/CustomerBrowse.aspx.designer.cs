@@ -22,13 +22,31 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlImage imgAvatar;
         
         /// <summary>
-        /// ddlCuisine control.
+        /// lnkBtnBrowse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCuisine;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnBrowse;
+        
+        /// <summary>
+        /// lnkBtnPurchase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnPurchase;
+        
+        /// <summary>
+        /// LinkButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
         
         /// <summary>
         /// divGvRestaurant control.
@@ -38,6 +56,15 @@ namespace OwlsEat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGvRestaurant;
+        
+        /// <summary>
+        /// ddlCuisine control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCuisine;
         
         /// <summary>
         /// gvRestaurant control.
