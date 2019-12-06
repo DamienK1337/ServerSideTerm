@@ -247,15 +247,6 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.TextBox txtItemID;
         
         /// <summary>
-        /// gvTransactions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTransactions;
-        
-        /// <summary>
         /// btnEditItem control.
         /// </summary>
         /// <remarks>
@@ -263,5 +254,23 @@ namespace OwlsEat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEditItem;
+        
+        /// <summary>
+        /// divViewTrans control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divViewTrans;
+        
+        /// <summary>
+        /// gvTransactions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvTransactions;
     }
 }
