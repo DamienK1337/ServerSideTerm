@@ -10,6 +10,17 @@
         <!-- Custom styles for this template -->
         <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
            <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+	<script type="text/javascript" language="javascript">
+    function uncheckOthers(id)
+    {        
+        var elm = document.getElementsByTagName('input');        
+        for(var i = 0; i < elm.length; i++)
+        {            
+            if(elm.item(i).type == "checkbox" && elm.item(i)!=id)
+                elm.item(i).checked = false;
+        }
+    }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	 <div class="vertical-nav bg-white" id="sidebar">
@@ -51,39 +62,33 @@
 
 
 		<div id="divGvRestaurant" runat="server">
-       <asp:GridView ID="gvRestaurant" runat="server" AutoGenerateColumns="False" OnRowCommand="gvRestaurant_RowCommand">
+       <asp:GridView ID="gvRestaurant" runat="server" AutoGenerateColumns="False" OnRowDataBound="GridView1_RowDataBound">
         <Columns>
+			<asp:TemplateField>
+                 <ItemTemplate>
+                       <asp:CheckBox ID="chbxRestaurant" runat="server" />
+                 </ItemTemplate>
+               </asp:TemplateField>
+			<asp:BoundField DataField="RestaurantId" HeaderText="RestaurantId" />
 			<asp:BoundField DataField="RestaurantName" HeaderText="Restaurant Name" />
 			<asp:BoundField DataField="ImgURL" HeaderText="ImgURL" />
 			
-					<asp:ButtonField  runat="server" Text="Button" CommandName="ViewMenu"/>
+					
 			
 		</Columns>
     </asp:GridView>
 
 
 
-		<asp:Label ID="lblRestaurantID" runat="server" Text="Label"></asp:Label>
 			<br />
-			<asp:Label ID="lblMenu" runat="server" Text="Label"></asp:Label>
 		
 			<br />
-		<asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+				<asp:Button ID="btnSelectRestaurant" runat="server" Text="Select Restaurant" OnClick="btnSelectRestaurant_Click" />
+
+			<asp:Label ID="lbltest" runat="server" Text="Label"></asp:Label>
+			<asp:TextBox ID="txtRestaurantID" runat="server"> </asp:TextBox>
 			</div>
-    	  <asp:GridView ID="gvMenu" runat="server" AutoGenerateColumns="False" OnRowCommand="gvMenu_RowCommand">
-			  <Columns>
-				  <asp:BoundField DataField="MenuName" HeaderText="Menu Name" />
-				  <asp:ButtonField  runat="server" Text="Button" CommandName="ViewItems"/>
-			  </Columns>
-		  </asp:GridView>
-    	  <asp:GridView ID="gvMenuItems" runat="server" AutoGenerateColumns="False">
-			  <Columns>
-				  <asp:BoundField DataField="Title" HeaderText="Item Name" />
-				  <asp:BoundField DataField="Description" HeaderText="Description" />
-				  <asp:BoundField DataField="Price" HeaderText="Price" />
-				    <asp:ButtonField  runat="server" Text="AddToCart" CommandName="AddToCart"/>
-			  </Columns>
-		  </asp:GridView>
+
 		<br />
     </div>
 
@@ -109,18 +114,4 @@
     
 
 
-		<asp:GridView ID="gvTest" runat="server" AutoGenerateColumns="False">
-			<Columns>
-				<asp:BoundField DataField="ItemId" HeaderText="Item Id" />
-			</Columns>
-		</asp:GridView>
-
-
-
-
-
-
-
-	
-    
-</asp:Content>
+		</asp:Content>

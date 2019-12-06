@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -59,8 +60,7 @@ namespace OwlsEat
 			string choice = ddlCuisine.SelectedValue;
 			objCommand.Parameters.Clear();
 			sqlCommand1.CommandText = "TPGetRestaurantsbyCuisine";
-			//SqlParameter UsernameParam = new SqlParameter("@Cuisine", ddlCuisine.SelectedValue);
-			//objCommand.Parameters.AddWithValue("@Cuisine", choice);
+
 
 			SqlParameter CuisineParam = new SqlParameter("@Cuisine", choice);
 			CuisineParam.Direction = System.Data.ParameterDirection.Input;
@@ -72,12 +72,12 @@ namespace OwlsEat
 
 			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
 
-			String[] names = new String[1];
+		
 
-			names[0] = "RestaurantId";
-			gvRestaurant.DataKeyNames = names;
 			gvRestaurant.DataSource = dataSet;
 			gvRestaurant.DataBind();
+
+		
 		}
 
 		protected void ddlCuisine_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,267 +85,85 @@ namespace OwlsEat
 			ShowRestaurantByCuisine();
 		}
 
-        protected void gvRestaurant_RowCommand(Object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
-
-        {
-
-           // Get the index of the row that a command was issued on
-
-            int rowIndex = int.Parse(e.CommandArgument.ToString());
-
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            // Get the ProductNumber from the DataKeys colletion of the row
-            // The values were previously stored in the DataKeys collection during the DataBind method
-            // because the GridView control's property DataKeyNames="ProductNumber"
-
-            String RestaurantId = gvRestaurant.DataKeys[rowIndex].Value.ToString();
-
-            //These IF statements use the GridViewCommandEventArgs object to determine which ButtonField was clicked by the event argument CommandName Property.
-            //The value of CommandName Property of the object e corresponds to the value set in the ASPX markup for the ButtonField’s CommandName attribute.
-
-
-            if (e.CommandName == "ViewMenu")
-            {
-
-                lblRestaurantID.Text = RestaurantId;
-
-                SqlCommand sqlCommand1 = new SqlCommand();
-                sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
-                objCommand.Parameters.Clear();
-                sqlCommand1.CommandText = "TPGetRestaurantMenuById";
-                //SqlParameter UsernameParam = new SqlParameter("@Cuisine", ddlCuisine.SelectedValue);
-                //objCommand.Parameters.AddWithValue("@Cuisine", choice);
-
-                SqlParameter CuisineParam = new SqlParameter("@RestaurantId", RestaurantId);
-                CuisineParam.Direction = System.Data.ParameterDirection.Input;
-                CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
-                CuisineParam.Size = 50;
-                sqlCommand1.Parameters.Add(CuisineParam);
-
-
-
-                DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
-
-                //String[] names = new String[1];
-                String[] MenuName = new String[1];
-
-                //names[0] = "RestaurantId";
-                MenuName[0] = "MenuName";
-
-                gvMenu.DataKeyNames = MenuName;
-                //gvMenu.DataKeyNames = names;
-                gvMenu.DataSource = dataSet;
-                gvMenu.DataBind();
-            }
-
-            else
-
-                Label4.Text = "";
-
-
-
-        }
-
-        protected void gvMenu_RowCommand(Object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
-
-        {
-
-            // Get the index of the row that a command was issued on
-            int rowIndex = int.Parse(e.CommandArgument.ToString());
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
-            // Get the ProductNumber from the DataKeys colletion of the row
-            // The values were previously stored in the DataKeys collection during the DataBind method
-            // because the GridView control's property DataKeyNames="ProductNumber"
-
-            String MenuChoice = gvMenu.DataKeys[rowIndex].Value.ToString();
-            //These IF statements use the GridViewCommandEventArgs object to determine which ButtonField was clicked by the event argument CommandName Property.
-            //The value of CommandName Property of the object e corresponds to the value set in the ASPX markup for the ButtonField’s CommandName attribute.
-
-
-            if (e.CommandName == "ViewItems")
-            {
-
-                lblMenu.Text = MenuChoice;
-
-                SqlCommand sqlCommand1 = new SqlCommand();
-                sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
-                string choice = ddlCuisine.SelectedValue;
-                objCommand.Parameters.Clear();
-                sqlCommand1.CommandText = "TPGetRestaurantMenuItemIDs";
-                //SqlParameter UsernameParam = new SqlParameter("@Cuisine", ddlCuisine.SelectedValue);
-                //objCommand.Parameters.AddWithValue("@Cuisine", choice);
-
-                SqlParameter CuisineParam = new SqlParameter("@RestaurantId", lblRestaurantID.Text);
-                SqlParameter CuisineParam2 = new SqlParameter("@MenuName", lblMenu.Text);
-                CuisineParam.Direction = System.Data.ParameterDirection.Input;
-                CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
-                CuisineParam.Size = 50;
-                sqlCommand1.Parameters.Add(CuisineParam);
-                sqlCommand1.Parameters.Add(CuisineParam2);
-
-
-                DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
-                string[] Items = new string[dataSet.Tables[0].Rows.Count];
-                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                {
-
-                    Items[i] = (dataSet.Tables[0].Rows[i]["ItemId"].ToString());
-
-                }
-                Label4.Text = ConvertStringArrayToString(Items);
-
-                //String[] names = new String[1];
-                String[] MenuName = new String[1];
-
-                //names[0] = "RestaurantId";
-                MenuName[0] = "ItemId";
-
-                gvTest.DataKeyNames = MenuName;
-                //gvMenu.DataKeyNames = names;
-                gvTest.DataSource = dataSet;
-                gvTest.DataBind();
-
-            }
-            else
-
-                lblMenu.Text = "";
-
-
-
-        }
-
-        public void ShowMenuItems()
+		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
-			SqlCommand sqlCommand1 = new SqlCommand();
-			sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
-			string choice = ddlCuisine.SelectedValue;
-			objCommand.Parameters.Clear();
-			sqlCommand1.CommandText = "TPGetRestaurantMenuItemIDs";
-			//SqlParameter UsernameParam = new SqlParameter("@Cuisine", ddlCuisine.SelectedValue);
-			//objCommand.Parameters.AddWithValue("@Cuisine", choice);
-
-			SqlParameter CuisineParam = new SqlParameter("@RestaurantId", lblRestaurantID.Text);
-			SqlParameter CuisineParam2 = new SqlParameter("@MenuName", lblMenu.Text);
-			CuisineParam.Direction = System.Data.ParameterDirection.Input;
-			CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
-			CuisineParam.Size = 50;
-			sqlCommand1.Parameters.Add(CuisineParam);
-			sqlCommand1.Parameters.Add(CuisineParam2);
-
-
-			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
-			string[] Items = new string[dataSet.Tables[0].Rows.Count];
-			for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+			try
 			{
+				if (e.Row.RowType == DataControlRowType.DataRow)
+				{
+					string strScript = "uncheckOthers(" + ((CheckBox)e.Row.Cells[0].FindControl("chbxRestaurant")).ClientID + ");";
+					((CheckBox)e.Row.Cells[0].FindControl("chbxRestaurant")).Attributes.Add("onclick", strScript);
+				}
+			}
+			catch (Exception Ex)
+			{
+				//report error
+			}
+		}
 
-				Items[i] = (dataSet.Tables[0].Rows[i]["ItemId"].ToString());
+		protected void btnSelectRestaurant_Click(object sender, EventArgs e)
+		{
+			ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
+			int count = 0;                              // used to count the number of selected products
+														// Iterate through the rows (records) of the GridView and store the ProductNumber
+														// for each row that is checked
+
+			for (int row = 0; row < gvRestaurant.Rows.Count; row++)
+			{
+				CheckBox CBox;
+				// Get the reference for the chkSelect control in the current row
+
+				CBox = (CheckBox)gvRestaurant.Rows[row].FindControl("chbxRestaurant");
+				if (CBox.Checked)
+
+				{
+					String ItemID = "";
+					// Get the ProductNumber from the BoundField from the GridView for the current row
+
+					// and store the value in the array of selected products.
+
+					ItemID = gvRestaurant.Rows[row].Cells[1].Text;
+					arrProducts.Add(ItemID);
+					count = count + 1;
+					lbltest.Text = arrProducts[0].ToString();
+
+
+
+					SqlCommand sqlCommand1 = new SqlCommand();
+					sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
+					string RestaurantName = arrProducts[0].ToString();
+					objCommand.Parameters.Clear();
+					sqlCommand1.CommandText = "TPGetRestaurantIdUsingRestaurantName";
+
+
+					SqlParameter CuisineParam = new SqlParameter("@RestaurantName", RestaurantName);
+					CuisineParam.Direction = System.Data.ParameterDirection.Input;
+					CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
+					CuisineParam.Size = 50;
+					sqlCommand1.Parameters.Add(CuisineParam);
+
+					DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
+
+					
+
+				}
+
+
+
 
 			}
-			Label4.Text = ConvertStringArrayToString(Items);
 
-			//String[] names = new String[1];
-			String[] MenuName = new String[1];
 
-			//names[0] = "RestaurantId";
-			MenuName[0] = "ItemId";
 
-			gvTest.DataKeyNames = MenuName;
-			//gvMenu.DataKeyNames = names;
-			gvTest.DataSource = dataSet;
-			gvTest.DataBind();
+
+
 
 		}
 
-		//protected void gvMenuItems_RowCommand(Object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
-
-		//{
-
-		//	// Get the index of the row that a command was issued on
-
-		//	int rowIndex = int.Parse(e.CommandArgument.ToString());
-
-		//	//int rowIndex = Convert.ToInt32(e.CommandArgument);
 
 
 
-		//	// Get the ProductNumber from the DataKeys colletion of the row
 
-		//	// The values were previously stored in the DataKeys collection during the DataBind method
-
-		//	// because the GridView control's property DataKeyNames="ProductNumber"
-
-		//	String MenuChoice = gvMenu.DataKeys[rowIndex].Value.ToString();
-
-
-
-		//	//These IF statements use the GridViewCommandEventArgs object to determine which ButtonField was clicked by the event argument CommandName Property.
-
-		//	//The value of CommandName Property of the object e corresponds to the value set in the ASPX markup for the ButtonField’s CommandName attribute.
-
-
-		//	if (e.CommandName == "AddToCart")
-		//	{
-
-		//		lblMenu.Text = MenuChoice;
-
-		//		SqlCommand sqlCommand1 = new SqlCommand();
-		//		sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
-		//		string choice = ddlCuisine.SelectedValue;
-		//		objCommand.Parameters.Clear();
-		//		sqlCommand1.CommandText = "TPGetRestaurantMenuItemIDs";
-		//		//SqlParameter UsernameParam = new SqlParameter("@Cuisine", ddlCuisine.SelectedValue);
-		//		//objCommand.Parameters.AddWithValue("@Cuisine", choice);
-
-		//		SqlParameter CuisineParam = new SqlParameter("@RestaurantId", lblRestaurantID.Text);
-		//		SqlParameter CuisineParam2 = new SqlParameter("@MenuName", lblMenu.Text);
-		//		CuisineParam.Direction = System.Data.ParameterDirection.Input;
-		//		CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
-		//		CuisineParam.Size = 50;
-		//		sqlCommand1.Parameters.Add(CuisineParam);
-		//		sqlCommand1.Parameters.Add(CuisineParam2);
-
-
-		//		DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
-		//		string[] Items = new string[dataSet.Tables[0].Rows.Count];
-		//		for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-		//		{
-
-		//			Items[i] = (dataSet.Tables[0].Rows[i]["ItemId"].ToString());
-
-		//		}
-		//		Label4.Text = ConvertStringArrayToString(Items);
-
-		//		//String[] names = new String[1];
-		//		String[] MenuName = new String[1];
-
-		//		//names[0] = "RestaurantId";
-		//		MenuName[0] = "ItemId";
-
-		//		gvTest.DataKeyNames = MenuName;
-		//		//gvMenu.DataKeyNames = names;
-		//		gvTest.DataSource = dataSet;
-		//		gvTest.DataBind();
-
-		//	}
-		//	else
-
-		//		lblMenu.Text = "";
-
-
-
-		//}
-
-		public string ConvertStringArrayToString(string[] array)
-		{
-			// Concatenate all the elements into a StringBuilder.
-			StringBuilder builder = new StringBuilder();
-			foreach (string value in array)
-			{
-				builder.Append(value);
-				builder.Append(", ");
-			}
-			return builder.ToString();
-		}
 
 
 
