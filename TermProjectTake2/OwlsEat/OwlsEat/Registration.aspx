@@ -19,18 +19,28 @@
 
                                 <div id="RegisterUserDetails" runat="server">
                                     <asp:DropDownList ID="ddlUserTypeID" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlUserTypeID_SelectedIndexChanged">
-                                         <asp:ListItem Selected="True" Value="None"></asp:ListItem>
+                                          <asp:ListItem disabled="disabled" Value="None">Please Select a User Type</asp:ListItem>
                                         <asp:ListItem Value="Customer">Customer</asp:ListItem>
                                         <asp:ListItem Value="Restaurant">Restaurant</asp:ListItem>
                                     </asp:DropDownList>
-                             
+                             </br>
+                             </br>
                                     <div id="RestaurantDetails" runat="server">
+                                         <asp:DropDownList ID="ddlCuisine" CssClass="form-control" required="" runat="server"  AppendDataBoundItems="True" Visible="True">
+                                            <Items>
+                                                <asp:ListItem disabled="disabled">Please Select a Cuisine Type</asp:ListItem>
+                                                <asp:ListItem Value="Spanish">Spanish</asp:ListItem>
+                                                <asp:ListItem Value="Indian">Indian</asp:ListItem>
+                                                <asp:ListItem Value="Japanese">Japanese</asp:ListItem>
+                                                <asp:ListItem Value="Thai">Thai</asp:ListItem>
+                                                <asp:ListItem Value="Italian">Italian</asp:ListItem>
+                                                <asp:ListItem Value="Mexican">Mexican</asp:ListItem>
+                                            </Items>
+                                        </asp:DropDownList>
                                         <asp:Label runat="server" Text="RestaurantName*" ID="lblRestaurant"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtRestuarantName"></asp:TextBox>
                                         <br />
-                                        <asp:Label runat="server" Text="Cuisine" ID="lblCuisine"></asp:Label>
-                                        <asp:TextBox runat="server" ID="txtCuisine"></asp:TextBox>
-                                        <br />
+                                       
                                         <asp:Label runat="server" Text="Please place Image Url" ID="lblImgUrl"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtImgUrl"></asp:TextBox>
                                         <br />
@@ -100,11 +110,34 @@
 									</div>
 								</div>
 
-                              
-
-
                                 <div id="PreferencesDiv" runat="server" visible="false">
-                                    <asp:Label runat="server" Text="Preferences" ID="lblPreferences"></asp:Label>
+                                    <asp:Label runat="server" Text="Preferences & Payment Method" ID="lblPreferences"></asp:Label>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div id="PaymentMethod" runat="server">
+                                        <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
+                                        <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>
+                                        <br />
+                                        <asp:Label runat="server" Text="Account Type" ID="lblAccountType"></asp:Label>
+                                        <asp:DropDownList ID="ddlAccountType" CssClass="form-control" required="" runat="server" AutoPostBack="True" AppendDataBoundItems="True">
+                                            <Items>
+                                                <asp:ListItem disabled="disabled">Select Item</asp:ListItem>
+                                                <asp:ListItem>Savings</asp:ListItem>
+                                                <asp:ListItem>Checking</asp:ListItem>
+                                                <asp:ListItem>Credit</asp:ListItem>
+                                            </Items>
+                                        </asp:DropDownList>
+                                        <asp:Label runat="server" Text="Account Number" ID="lblAccountNumber"></asp:Label>
+                                        <asp:TextBox runat="server" ID="txtAccountNumber"></asp:TextBox>
+                                        <br />
+                                        <asp:Label runat="server" Text="Intitial Balance" ID="lblInitialBalance"></asp:Label>
+                                        <asp:TextBox runat="server" ID="txtInitialBalance"></asp:TextBox>
+                                        <br />
+                                        <br />
+                                    </div>
+                                    <br />
                                     <br />
                                     <asp:Label runat="server" Text="Login Preference: " ID="lblLoginPreference" />
                                     <asp:DropDownList ID="LoginPreferenceDropDown" runat="server">

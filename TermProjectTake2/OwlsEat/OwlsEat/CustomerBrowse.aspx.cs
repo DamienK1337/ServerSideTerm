@@ -19,7 +19,9 @@ namespace OwlsEat
 		SqlCommand objCommand = new SqlCommand();
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!IsPostBack)
+            
+
+            if (!IsPostBack)
 			{
 				if (string.IsNullOrEmpty(Session["userEmail"] as string))
 				{
@@ -29,11 +31,11 @@ namespace OwlsEat
 				{
 					if (!IsPostBack)
 						ShowCuisine();
-					
 
+                    divGvRestaurant.Visible = false;
 
-					//ShowRestaurantByCuisine();
-				}
+                    //ShowRestaurantByCuisine();
+                }
 			}
 		}
 
@@ -44,14 +46,18 @@ namespace OwlsEat
 			sqlCommand.CommandText = "TPGetCuisineType";
 
 			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand);
-			for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-			{
-				ddlCuisine.Items.Insert(i, new ListItem(dataSet.Tables[0].Rows[i][0].ToString()));
-			}
-			//ddlCuisine.DataSource = dataSet;
-			//ddlCuisine.DataBind();
 
-		}
+            //for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+            //{
+            //	ddlCuisine.Items.Insert(i, new ListItem(dataSet.Tables[0].Rows[i][0].ToString()));
+            //}
+
+            ddlCuisine.DataTextField = "Cuisine";
+            ddlCuisine.DataValueField = "Cuisine";
+            ddlCuisine.DataSource = dataSet;
+            ddlCuisine.DataBind();
+
+        }
 
 		public void ShowRestaurantByCuisine()
 		{
@@ -220,5 +226,15 @@ namespace OwlsEat
 
 			}
 		}
-	}
+
+        protected void lnkBtnBrowse_Click(object sender, EventArgs e)
+        {
+            divGvRestaurant.Visible = true;
+        }
+
+        protected void lnkBtnPurchase_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

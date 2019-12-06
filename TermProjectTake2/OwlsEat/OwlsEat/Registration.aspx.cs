@@ -63,7 +63,7 @@ namespace OwlsEat
                 UserRegistrationError.Add("Enter Restaurant Name");
 
             }
-            if (ddlUserTypeID.SelectedValue == "Restaurant" && txtCuisine.Text == "")
+            if (ddlUserTypeID.SelectedValue == "Restaurant" && ddlCuisine.SelectedValue == "None")
             {
                 UserRegistrationError.Add("Enter Cuisine");
 
@@ -161,7 +161,7 @@ namespace OwlsEat
             string RestaurantPassword = txtPassword.Text;
             string RestaurantFirstName = txtFirstName.Text;
             string RestaurantLastName = txtLastName.Text;
-            string RestaurantCuisine = txtCuisine.Text;
+            string RestaurantCuisine = ddlCuisine.SelectedValue.ToString();
             string RestaurantImgUrl = txtImgUrl.Text;
             string RestaurantLocation = FullAddress;
             string restaurantName = txtRestuarantName.Text;
@@ -189,7 +189,7 @@ namespace OwlsEat
                 else
                 {
 
-
+                    
 
 
 					Merchant m12 = new Merchant();
@@ -360,18 +360,25 @@ namespace OwlsEat
             DBConnect dbConnection = new DBConnect();
             SqlCommand objCommand = new SqlCommand();
 
-            Settings userSettings = new Settings();
-
             if (ddlUserTypeID.SelectedValue == "Restaurant")
             {
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPInsertPaymentMethod";
+                objCommand.Parameters.AddWithValue("@VWID", Session["userVWID"].ToString());
+                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.Text.ToString());
+                objCommand.Parameters.AddWithValue("@AccountType", ddlAccountType.SelectedValue.ToString());
+                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.Text.ToString());
+                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.Text.ToString());
 
+                int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
+                objCommand.Parameters.Clear();
 
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPInsertRestaurantPreference";
                 objCommand.Parameters.AddWithValue("@Email", Session["userEmail"].ToString());
                 objCommand.Parameters.AddWithValue("@LoginPreference", LoginPreferenceDropDown.SelectedValue);
 
-                int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
+                int ResponseRecieved1 = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
             }
 
@@ -379,11 +386,22 @@ namespace OwlsEat
             if (ddlUserTypeID.SelectedValue == "Customer")
             {
                 objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPInsertPaymentMethod";
+                objCommand.Parameters.AddWithValue("@VWID", Session["userVWID"].ToString());
+                objCommand.Parameters.AddWithValue("@PaymentMethodName", txtPaymentMethodName.Text.ToString());
+                objCommand.Parameters.AddWithValue("@AccountType", ddlAccountType.SelectedValue.ToString());
+                objCommand.Parameters.AddWithValue("@AccountNumber", txtAccountNumber.Text.ToString());
+                objCommand.Parameters.AddWithValue("@Balance", txtInitialBalance.Text.ToString());
+
+                int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
+                objCommand.Parameters.Clear();
+
+                objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPInsertCustomerPreference";
                 objCommand.Parameters.AddWithValue("@Email", Session["userEmail"].ToString());
                 objCommand.Parameters.AddWithValue("@LoginPreference", LoginPreferenceDropDown.SelectedValue);
 
-                int ResponseRecieved = dbConnection.DoUpdateUsingCmdObj(objCommand);
+                int ResponseRecieved1 = dbConnection.DoUpdateUsingCmdObj(objCommand);
 
             }
             if (ddlUserTypeID.SelectedValue == "Restaurant")
