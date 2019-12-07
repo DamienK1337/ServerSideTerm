@@ -102,11 +102,11 @@ namespace PaymentAPI.Controllers
 			string VWIDReceiver = newTransaction.VWIDReceiver;
 			string VWIDSender = newTransaction.VWIDSender;
 			DateTime dt = DateTime.Now;
-			int amount = int.Parse(newTransaction.Amount);
+			double amount = double.Parse(newTransaction.Amount);
 
-			int NewSenderBalance = newTransaction.FindSenderBalance() - amount;
+			double NewSenderBalance = newTransaction.FindSenderBalance() - amount;
 
-			int NewReceiverBalance = newTransaction.FindReceiverBalance() + amount;
+			double NewReceiverBalance = newTransaction.FindReceiverBalance() + amount;
 			int responsereceived;
 
 
@@ -169,7 +169,7 @@ namespace PaymentAPI.Controllers
         //Put Method For Updating Customer PaymentAccount
 		//Store Procedure Complete
 
-		[HttpPost("UpdatePaymentAccount/{MerchantID}/{Key}")]
+		[HttpPut("UpdatePaymentAccount/{MerchantID}/{Key}")]
 		public void UpdatePaymentAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
             if ((MerchantID == "78735") && (Key == "7636"))
@@ -197,7 +197,7 @@ namespace PaymentAPI.Controllers
 		//Method is POST for now MUST CHANGE TO PUT Later
 		//Funding Account
 		//Store Procedure Complete
-		[HttpPost("FundAccount/{MerchantID}/{Key}")]
+		[HttpPut("FundAccount/{MerchantID}/{Key}")]
 		public Boolean FundAccount([FromBody] VWHolder curVW, string MerchantID, string Key)
 		{
 

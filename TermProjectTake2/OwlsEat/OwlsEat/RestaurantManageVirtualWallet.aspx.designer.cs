@@ -49,6 +49,15 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnUpdatePaymentAccount;
         
         /// <summary>
+        /// lnkBtnViewTransactions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewTransactions;
+        
+        /// <summary>
         /// lblConfirm control.
         /// </summary>
         /// <remarks>
@@ -236,5 +245,23 @@ namespace OwlsEat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdateInfo;
+        
+        /// <summary>
+        /// divViewTrans control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divViewTrans;
+        
+        /// <summary>
+        /// gvTransactions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvTransactions;
     }
 }

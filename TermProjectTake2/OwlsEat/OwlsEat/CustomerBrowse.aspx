@@ -116,25 +116,35 @@
                     <asp:ListItem disabled="disabled">Select Menu Item</asp:ListItem>
                 </Items>
             </asp:DropDownList>
-            <br />
 
-            <asp:GridView ID="gvMenuItems" runat="server" AutoGenerateColumns="False">
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chbxMenuItems" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Title" HeaderText="Title" />
-                    <asp:BoundField DataField="Image" HeaderText="Image" />
+			<br />
 
-                    <asp:BoundField DataField="Description" HeaderText="Description" />
-                    <asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+				<asp:GridView ID="gvMenuItems" runat="server" AutoGenerateColumns="False">
+					<Columns>
+						<asp:TemplateField>
+                 <ItemTemplate>
+                       <asp:CheckBox ID="chbxMenuItems" runat="server" />
+                 </ItemTemplate>
+               </asp:TemplateField>
+							<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
+							<asp:BoundField DataField="Title" HeaderText="Title" />
+						<asp:BoundField DataField="Image" HeaderText="Image" />
+					
+						<asp:BoundField DataField="Description" HeaderText="Description" />
+						<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+						
+					</Columns>
+	 </asp:GridView>
 
-                </Columns>
-            </asp:GridView>
+			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
+			  <asp:GridView ID="GridView1" runat="server">
+		  </asp:GridView>
+			</div>
 
-            <asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click" />
+		
+
+		<br />
+    </div>
         </div>
 
         <br />
