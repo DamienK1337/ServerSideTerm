@@ -196,8 +196,8 @@ namespace OwlsEat
 		{
 			ArrayList arrayMenuItems = new ArrayList();    // used to store the ProductNumber for each selected product
 			int count = 0;                              // used to count the number of selected products
-														// Iterate through the rows (records) of the GridView and store the ProductNumber
-														// for each row that is checked
+			ArrayList OrderItems = new ArrayList(Items);                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
+			ArrayList OrderItems2 = new ArrayList(Items);                                       // for each row that is checked
 
 			for (int row = 0; row < gvMenuItems.Rows.Count; row++)
 			{
@@ -213,10 +213,31 @@ namespace OwlsEat
 
 					// and store the value in the array of selected products.
 
+					Items selectedItem = new Items();
+
+					selectedItem.ItemID = gvMenuItems.Rows[row].Cells[1].Text;
+					selectedItem.Title = gvMenuItems.Rows[row].Cells[2].Text;
+					selectedItem.ImgURL = gvMenuItems.Rows[row].Cells[3].Text;
+					selectedItem.Description = gvMenuItems.Rows[row].Cells[4].Text;
+					string price = gvMenuItems.Rows[row].Cells[5].Text.Split('$')[1];
+					selectedItem.Price = float.Parse(price);
+
+					OrderItems.Add(selectedItem);
+
 					MenuItemName = gvMenuItems.Rows[row].Cells[1].Text;
 					arrayMenuItems.Add(MenuItemName);
 					count = count + 1;
-					lbltest.Text = arrayMenuItems[0].ToString();
+					//lbltest.Text = arrayMenuItems[1].ToString();
+
+					
+
+					Session.Add("Cart", OrderItems);
+					lbltest.Text = Session["Cart"].ToString();
+
+					Items newItems = Session["Cart"] as Items;
+
+					GridView1.DataSource = newItems;
+					GridView1.DataBind();
 
 
 
@@ -225,6 +246,7 @@ namespace OwlsEat
 				}
 
 			}
+
 		}
 
         protected void lnkBtnBrowse_Click(object sender, EventArgs e)

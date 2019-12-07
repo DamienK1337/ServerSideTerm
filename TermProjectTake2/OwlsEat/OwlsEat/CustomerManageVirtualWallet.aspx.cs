@@ -23,6 +23,7 @@ namespace OwlsEat
 		SqlCommand objCommand = new SqlCommand();
 
 		ArrayList UpdateInformationError = new ArrayList();
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (string.IsNullOrEmpty(Session["userEmail"] as string))
@@ -31,8 +32,6 @@ namespace OwlsEat
 			}
 		}
 
-
-
 		void ValidateItemInformation()
 		{
 			if (txtAmountToFund.Text == "")
@@ -40,20 +39,30 @@ namespace OwlsEat
 				UpdateInformationError.Add("Enter Amount");
 
 			}
-			//if (txtItemImgUrl.Text == "")
-			//{
-			//    UpdateInformationError.Add("Please Upload Image");
-			//}
-			//if (txtDescription.Text == "")
-			//{
-			//    UpdateInformationError.Add("Enter Description");
-			//}
-			//if (txtItemPrice.Text == "")
-			//{
-			//    UpdateInformationError.Add("Enter Price");
-			//}
+		}
+
+		void ValidatePaymentInformation()
+		{
+			if (txtPaymentMethodName.Text == "")
+			{
+				UpdateInformationError.Add("Enter Amount");
+
+			}
+			if (txtAccountNumber.Text == "")
+			{
+				UpdateInformationError.Add("Please Upload Image");
+			}
+			if (txtInitialBalance.Text == "")
+			{
+				UpdateInformationError.Add("Enter Description");
+			}
+			if (ddlAccountType.SelectedValue == "Select")
+			{
+				UpdateInformationError.Add("Select Account Type");
+			}
 
 		}
+
 
 		protected void lnkBtnGetBalance_Click(object sender, EventArgs e)
 		{
@@ -67,7 +76,7 @@ namespace OwlsEat
 
 			DataSet myAccount = objDB.GetDataSetUsingCmdObj(objCommand);
 
-			Int32 balance = (Int32)objDB.GetField("Balance", 0);
+			double balance = (double)objDB.GetField("Balance", 0);
 
 			double formatToMoney;
 			string num = balance.ToString();
@@ -76,24 +85,25 @@ namespace OwlsEat
 				string newNum = String.Format("{0:c}", formatToMoney);
 				txtVirtualWalletBalance.Text = newNum;
 			}
-
-
-			GetBalance.Visible = true;
 			FundAccount.Visible = false;
+			GetBalance.Visible = true;
+			UpdateVirtualWallet.Visible = false;
 		}
 
 		protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
 		{
-			GetBalance.Visible = false;
 			FundAccount.Visible = true;
+			GetBalance.Visible = false;
+			UpdateVirtualWallet.Visible = false;
+
 		}
-
-
 
 
 		protected void lnkBtnUpdatePaymentAccount_Click(object sender, EventArgs e)
 		{
-
+			FundAccount.Visible = false;
+			GetBalance.Visible = false;
+			UpdateVirtualWallet.Visible = true;
 		}
 
 		protected void btnFund_Click(object sender, EventArgs e)
@@ -113,7 +123,7 @@ namespace OwlsEat
 				newVW.FundsToAdd = int.Parse(txtAmountToFund.Text.ToString());
 				newVW.VWID = Session["userVWID"].ToString();
 				JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
-				String jsonVW = js.Serialize(newVW);
+				String jsonCreditCard = js.Serialize(newVW);
 
 				try
 				{
@@ -123,12 +133,82 @@ namespace OwlsEat
 
 					WebRequest request = WebRequest.Create(url);
 					request.Method = "PUT";
-					request.ContentLength = jsonVW.Length;
+
+					request.ContentLength = jsonCreditCard.Length;
 					request.ContentType = "application/json";
 
 
 					StreamWriter writer = new StreamWriter(request.GetRequestStream());
-					writer.Write(jsonVW);
+					writer.Write(jsonCreditCard);
+					writer.Flush();
+					writer.Close();
+
+					WebResponse response = request.GetResponse();
+					Stream theDataStream = response.GetResponseStream();
+					StreamReader reader = new StreamReader(theDataStream);
+					String data = reader.ReadToEnd();
+					reader.Close();
+					response.Close();
+					if (data == "true")
+					{
+						Response.Write("Funds added");
+					}
+					else
+					{
+						Response.Write("Error Occured on the database.");
+					}
+				}
+				catch (Exception errorException)
+				{
+					Response.Write(errorException.Message);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < UpdateInformationError.Count; i++)
+				{
+					Response.Write(UpdateInformationError[i] + " <br/>");
+				}
+			}
+		}
+
+		protected void btnUpdateInfo_Click(object sender, EventArgs e)
+		{
+			ValidatePaymentInformation();
+
+			if (!(UpdateInformationError.Count > 0))
+			{
+				Merchant CurrMerchant = new Merchant();
+				APIKey CurrAPIKey = new APIKey();
+
+				CurrMerchant.MerchantID = "78735";
+				CurrAPIKey.Key = "7636";
+
+
+				VWHolder newVW = new VWHolder();
+				newVW.PaymentMethodName = txtPaymentMethodName.Text.ToString();
+				newVW.AccountNumber = txtAccountNumber.Text.ToString();
+				newVW.AccountType = ddlAccountType.SelectedValue.ToString();
+				newVW.CurrentBalance = int.Parse(txtInitialBalance.Text.ToString());
+				newVW.VWID = Session["userVWID"].ToString();
+				JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
+				String jsonCreditCard = js.Serialize(newVW);
+
+				try
+				{
+					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/UpdatePaymentAccount";
+
+					url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
+
+					WebRequest request = WebRequest.Create(url);
+					request.Method = "PUT";
+
+					request.ContentLength = jsonCreditCard.Length;
+					request.ContentType = "application/json";
+
+
+					StreamWriter writer = new StreamWriter(request.GetRequestStream());
+					writer.Write(jsonCreditCard);
 					writer.Flush();
 					writer.Close();
 
@@ -164,7 +244,7 @@ namespace OwlsEat
 		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
 		{
 			//ValidateItemInformation();
-			ViewTransaction.Visible = false;
+			//ViewTransaction.Visible = false;
 			divViewTrans.Visible = true;
 
 			if (!(UpdateInformationError.Count > 0))
@@ -183,7 +263,7 @@ namespace OwlsEat
 				try
 				{
 
-					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/GetTransactions";
+					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/GetTransactions";
 
 					url = url + "/" + newVW.VWID + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
@@ -191,15 +271,15 @@ namespace OwlsEat
 
 					WebResponse response = request.GetResponse();
 
-					
+
 					Stream theDataStream = response.GetResponseStream();
 					StreamReader reader = new StreamReader(theDataStream);
 					String data = reader.ReadToEnd();
 					reader.Close();
 					response.Close();
-					
+
 					JavaScriptSerializer js = new JavaScriptSerializer();
-	
+
 					Transactions[] TransactionData = js.Deserialize<Transactions[]>(data);
 
 					gvTransactions.DataSource = TransactionData;
@@ -222,9 +302,5 @@ namespace OwlsEat
 			}
 		}
 
-		protected void txtItemTitle1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

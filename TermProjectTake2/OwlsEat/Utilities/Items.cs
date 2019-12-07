@@ -13,6 +13,7 @@ namespace Utilities
         public string ImgURL { get; set; }
         public float Price { get; set; }
       
+		public string ItemID { get; set; }
 
         public Items()
         {

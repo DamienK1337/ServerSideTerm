@@ -77,7 +77,7 @@ namespace OwlsEat
 
             DataSet myAccount = objDB.GetDataSetUsingCmdObj(objCommand);
 
-            Int32 balance = (Int32)objDB.GetField("Balance", 0);
+            double balance = (double)objDB.GetField("Balance", 0);
 
             double formatToMoney;
             string num = balance.ToString();
@@ -197,7 +197,7 @@ namespace OwlsEat
 
                 try
                 {
-                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/UpdatePaymentAccount";
+                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/UpdatePaymentAccount";
 
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
@@ -241,5 +241,69 @@ namespace OwlsEat
                 }
             }
         }
-    }
+
+		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
+		{
+			//ValidateItemInformation();
+			//ViewTransaction.Visible = false;
+			divViewTrans.Visible = true;
+
+			if (!(UpdateInformationError.Count > 0))
+			{
+				Merchant CurrMerchant = new Merchant();
+				APIKey CurrAPIKey = new APIKey();
+
+				CurrMerchant.MerchantID = "78735";
+				CurrAPIKey.Key = "7636";
+
+
+				VWHolder newVW = new VWHolder();
+
+				newVW.VWID = Session["userVWID"].ToString();
+
+				try
+				{
+
+					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/GetTransactions";
+
+					url = url + "/" + newVW.VWID + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
+
+					WebRequest request = WebRequest.Create(url);
+
+					WebResponse response = request.GetResponse();
+
+
+					Stream theDataStream = response.GetResponseStream();
+					StreamReader reader = new StreamReader(theDataStream);
+					String data = reader.ReadToEnd();
+					reader.Close();
+					response.Close();
+
+					JavaScriptSerializer js = new JavaScriptSerializer();
+
+					Transactions[] TransactionData = js.Deserialize<Transactions[]>(data);
+
+					gvTransactions.DataSource = TransactionData;
+					gvTransactions.DataBind();
+
+
+
+				}
+				catch (Exception errorException)
+				{
+					Response.Write(errorException.Message);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < UpdateInformationError.Count; i++)
+				{
+					Response.Write(UpdateInformationError[i] + " <br/>");
+				}
+			}
+		}
+
+
+
+	}
 }

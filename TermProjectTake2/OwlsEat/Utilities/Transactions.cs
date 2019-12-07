@@ -18,9 +18,9 @@ namespace Utilities
 		public string Date { get; set; }
 
 
-		public int SenderBalance { get; set; }
+		public double SenderBalance { get; set; }
 
-		public int ReceiverBalance { get; set; }
+		public double ReceiverBalance { get; set; }
 
 
 		public Transactions()

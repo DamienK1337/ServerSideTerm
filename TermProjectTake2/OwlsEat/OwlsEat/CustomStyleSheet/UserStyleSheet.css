@@ -7,7 +7,9 @@
 */
 
 
-
+.hiddencol {
+	display: none;
+}
 
 
 /*NAVBAR ABOVE*/
