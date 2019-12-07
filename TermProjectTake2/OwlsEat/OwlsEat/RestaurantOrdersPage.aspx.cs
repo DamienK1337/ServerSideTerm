@@ -16,13 +16,25 @@ namespace OwlsEat
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+
+			DBConnect objDB = new DBConnect();
+			SqlCommand objCommand = new SqlCommand();
+
+			string strSQL = "SELECT * FROM TPOrders";
+			rptOrders.DataSource = objDB.GetDataSet(strSQL);
+			rptOrders.DataBind();
+
+
+
+
+			if (!IsPostBack)
 
             {
-                DBConnect objDB = new DBConnect();
-                SqlCommand objCommand = new SqlCommand();
+                //DBConnect objDB = new DBConnect();
+                //SqlCommand objCommand = new SqlCommand();
 
-                string strSQL = "SELECT * FROM TPOrders";
+                //string strSQL = "SELECT * FROM TPOrders";
 
                 //objCommand.CommandType = CommandType.StoredProcedure;
                 //objCommand.CommandText = "TPGetOrders";
@@ -35,8 +47,8 @@ namespace OwlsEat
 
                 // Set the datasource of the Repeater and bind the data
 
-                rptOrders.DataSource = objDB.GetDataSet(strSQL);
-                rptOrders.DataBind();
+                //rptOrders.DataSource = objDB.GetDataSet(strSQL);
+                //rptOrders.DataBind();
 
             }
         }

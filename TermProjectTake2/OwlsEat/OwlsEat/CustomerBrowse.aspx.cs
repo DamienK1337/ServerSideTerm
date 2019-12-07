@@ -19,9 +19,9 @@ namespace OwlsEat
 		SqlCommand objCommand = new SqlCommand();
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            
 
-            if (!IsPostBack)
+
+			if (!IsPostBack)
 			{
 				if (string.IsNullOrEmpty(Session["userEmail"] as string))
 				{
@@ -32,10 +32,11 @@ namespace OwlsEat
 					if (!IsPostBack)
 						ShowCuisine();
 
-                    divGvRestaurant.Visible = false;
+					divGvRestaurant.Visible = false;
+					divCart.Visible = false;
 
-                    //ShowRestaurantByCuisine();
-                }
+					//ShowRestaurantByCuisine();
+				}
 			}
 		}
 
@@ -47,17 +48,17 @@ namespace OwlsEat
 
 			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand);
 
-            //for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-            //{
-            //	ddlCuisine.Items.Insert(i, new ListItem(dataSet.Tables[0].Rows[i][0].ToString()));
-            //}
+			//for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+			//{
+			//	ddlCuisine.Items.Insert(i, new ListItem(dataSet.Tables[0].Rows[i][0].ToString()));
+			//}
 
-            ddlCuisine.DataTextField = "Cuisine";
-            ddlCuisine.DataValueField = "Cuisine";
-            ddlCuisine.DataSource = dataSet;
-            ddlCuisine.DataBind();
+			ddlCuisine.DataTextField = "Cuisine";
+			ddlCuisine.DataValueField = "Cuisine";
+			ddlCuisine.DataSource = dataSet;
+			ddlCuisine.DataBind();
 
-        }
+		}
 
 		public void ShowRestaurantByCuisine()
 		{
@@ -79,12 +80,12 @@ namespace OwlsEat
 
 			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
 
-		
+
 
 			gvRestaurant.DataSource = dataSet;
 			gvRestaurant.DataBind();
 
-		
+
 		}
 
 		protected void ddlCuisine_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,8 +113,8 @@ namespace OwlsEat
 		{
 			ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
 			int count = 0;                              // used to count the number of selected products
-			int RID;											// Iterate through the rows (records) of the GridView and store the ProductNumber
-														// for each row that is checked
+			int RID;                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
+																// for each row that is checked
 
 			for (int row = 0; row < gvRestaurant.Rows.Count; row++)
 			{
@@ -132,22 +133,22 @@ namespace OwlsEat
 					ItemID = gvRestaurant.Rows[row].Cells[1].Text;
 					arrProducts.Add(ItemID);
 					count = count + 1;
-				//	lbltest.Text = arrProducts[0].ToString();
+					//	lbltest.Text = arrProducts[0].ToString();
 
 					string RestaurantName = arrProducts[0].ToString();
 
 					//lbltest.Text = RestaurantName;
-					
+
 					objCommand.CommandType = CommandType.StoredProcedure;
 					objCommand.CommandText = "TPGetRestaurantIdUsingRestaurantName";
 
 
 					objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
-					DataSet dataset= objDB.GetDataSetUsingCmdObj(objCommand);
-					
+					DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
 
 
-				    RID= (int)objDB.GetField("RestaurantId", 0);
+
+					RID = (int)objDB.GetField("RestaurantId", 0);
 
 					//lbltest.Text = RID.ToString();
 
@@ -198,7 +199,7 @@ namespace OwlsEat
 
 			int count = 0;                              // used to count the number of selected products
 			ArrayList OrderItems = new ArrayList(Items);                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
-			ArrayList OrderItems2 = new ArrayList(Items);                                       // for each row that is checked
+																									// for each row that is checked
 
 
 			for (int row = 0; row < gvMenuItems.Rows.Count; row++)
@@ -218,10 +219,11 @@ namespace OwlsEat
 					Items selectedItem = new Items();
 
 					selectedItem.ItemID = gvMenuItems.Rows[row].Cells[1].Text;
-					selectedItem.Title = gvMenuItems.Rows[row].Cells[2].Text;
-					selectedItem.ImgURL = gvMenuItems.Rows[row].Cells[3].Text;
-					selectedItem.Description = gvMenuItems.Rows[row].Cells[4].Text;
-					string price = gvMenuItems.Rows[row].Cells[5].Text.Split('$')[1];
+					selectedItem.RestaurantId = gvMenuItems.Rows[row].Cells[2].Text;
+					selectedItem.Title = gvMenuItems.Rows[row].Cells[3].Text;
+					selectedItem.ImgURL = gvMenuItems.Rows[row].Cells[4].Text;
+					selectedItem.Description = gvMenuItems.Rows[row].Cells[5].Text;
+					string price = gvMenuItems.Rows[row].Cells[6].Text.Split('$')[1];
 					selectedItem.Price = float.Parse(price);
 
 					OrderItems.Add(selectedItem);
@@ -231,15 +233,15 @@ namespace OwlsEat
 					count = count + 1;
 					//lbltest.Text = arrayMenuItems[1].ToString();
 
-					
+
 
 					Session.Add("Cart", OrderItems);
 					lbltest.Text = Session["Cart"].ToString();
 
 					Items newItems = Session["Cart"] as Items;
 
-					GridView1.DataSource = newItems;
-					GridView1.DataBind();
+					gvCart.DataSource = newItems;
+					gvCart.DataBind();
 
 
 
@@ -251,14 +253,61 @@ namespace OwlsEat
 
 		}
 
-        protected void lnkBtnBrowse_Click(object sender, EventArgs e)
-        {
-            divGvRestaurant.Visible = true;
-        }
+		protected void lnkBtnBrowse_Click(object sender, EventArgs e)
+		{
+			divGvRestaurant.Visible = true;
+			divCart.Visible = false;
+		}
 
-        protected void lnkBtnPurchase_Click(object sender, EventArgs e)
-        {
+		protected void lnkBtnPurchase_Click(object sender, EventArgs e)
+		{
 
-        }
-    }
+			divGvRestaurant.Visible = false;
+			divCart.Visible = true;
+
+			ArrayList CustCart = new ArrayList(Items);
+
+			CustCart = (ArrayList)Session["Cart"];
+
+			gvCart.DataSource = CustCart;
+			gvCart.DataBind();
+		}
+		protected void lnkBtnManageOrder_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		protected void btnRemoveITems_Click(object sender, EventArgs e)
+		{
+			ArrayList CustCart = new ArrayList(Items);
+
+			CustCart = (ArrayList)Session["Cart"];
+
+			for (int row = 0; row < gvCart.Rows.Count; row++)
+			{
+				CheckBox CBox;
+				// Get the reference for the chkSelect control in the current row
+
+				CBox = (CheckBox)gvCart.Rows[row].FindControl("chbxDeleteCartItem");
+				if (CBox.Checked)
+
+				{
+					//LblCartTest.Text = row.ToString();
+					//LblCartTest.Text = CustCart.Count.ToString();
+					CustCart.RemoveAt(row);
+					Session.Add("Cart", CustCart);
+
+					
+
+
+				}
+
+			}
+
+
+			gvCart.DataSource = CustCart;
+			gvCart.DataBind();
+
+		}
+	}
 }

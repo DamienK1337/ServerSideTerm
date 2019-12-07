@@ -12,7 +12,7 @@ namespace Utilities
         public string Description { get; set; }
         public string ImgURL { get; set; }
         public float Price { get; set; }
-      
+      public string RestaurantId { get; set; }
 		public string ItemID { get; set; }
 
         public Items()
