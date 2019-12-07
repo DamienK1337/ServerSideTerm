@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,41 +15,39 @@ using Utilities;
 
 namespace OwlsEat
 {
-    public partial class RestaurantOrdersPage : System.Web.UI.Page
+    public partial class RestaurantManageOrders : System.Web.UI.Page
     {
-       
+        DBConnect objDB = new DBConnect();
+        SqlCommand objCommand = new SqlCommand();
+
+        ArrayList UpdateInformationError = new ArrayList();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            {
+                Response.Redirect("NoAccess.aspx");
+            }
+            ViewAccountInformation.Visible = false;
             if (!IsPostBack)
 
             {
-                DBConnect objDB = new DBConnect();
-                SqlCommand objCommand = new SqlCommand();
 
                 string strSQL = "SELECT * FROM TPOrders";
-
-                //objCommand.CommandType = CommandType.StoredProcedure;
-                //objCommand.CommandText = "TPGetOrders";
-                //objCommand.Parameters.Clear();
-
-                //objCommand.Parameters.AddWithValue("@RestaurantID", Session["userID"].ToString());
-
-
-                //DataSet myAccount = objDB.GetDataSetUsingCmdObj(objCommand);
-
-                // Set the datasource of the Repeater and bind the data
-
                 rptOrders.DataSource = objDB.GetDataSet(strSQL);
                 rptOrders.DataBind();
-
             }
+
         }
 
-        protected void lnkBtnViewOrders_Click(object sender, EventArgs e)
+        protected void lnkBtnViewAccountInformation_Click(object sender, EventArgs e)
         {
-           
+            lblConfirm.Visible = false;
+            ViewOrders.Visible = true;
+
         }
+
         protected void rptOrders_ItemCommand(Object sender, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
 
         {
@@ -63,5 +66,6 @@ namespace OwlsEat
             lblDisplay.Text = "You selected ItemID " + ItemID;
 
         }
+
     }
 }

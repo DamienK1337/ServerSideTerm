@@ -1,22 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RestaurantMaster.Master" AutoEventWireup="true" CodeBehind="RestaurantOrdersPage.aspx.cs" Inherits="OwlsEat.RestaurantOrdersPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/RestaurantMaster.Master" AutoEventWireup="true" CodeBehind="RestaurantManageOrders.aspx.cs" Inherits="OwlsEat.RestaurantManageOrders" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    
-           <script src = "https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin = "anonymous"> </script>
-        <script src="JS/bootstrap.js"></script>
-        <script src="JS/bootstrap.bundle.min.js"></script>
-        <link href="CSS/bootstrap.min.css" rel="stylesheet" />
-        <!-- Custom styles for this template -->
-        <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
-           <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
-    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"> </script>
+    <script src="JS/bootstrap.js"></script>
+    <script src="JS/bootstrap.bundle.min.js"></script>
+    <link href="CSS/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="CustomStyleSheet/UserStyleSheet.css" rel="stylesheet" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-      <div class="vertical-nav bg-white" id="sidebar">
+    <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
                 <img runat="server" id="imgAvatar" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />
@@ -32,9 +31,22 @@
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark font-italic ">
                     <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-                    <asp:LinkButton ID="lnkBtnViewOrders" CssClass="buttonClass" runat="server" OnClick="lnkBtnViewOrders_Click" >View Orders</asp:LinkButton>
+                    <asp:LinkButton ID="lnkBtnViewCurrentOrders" CssClass="buttonClass" runat="server" OnClick="lnkBtnViewCurrentOrders_Click">View & Update Current Orders</asp:LinkButton>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnChangePassword" CssClass="buttonClass" runat="server" >Change Password</asp:LinkButton>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnChangeSecurityQuestion" CssClass="buttonClass" runat="server" >Update Security Question</asp:LinkButton>
+                </a>
+            </li>
+
         </ul>
     </div>
     <!-- End vertical navbar -->
@@ -53,10 +65,13 @@
 
 
         <div class="View Orders" visible="false" runat="server" id="ViewOrders">
+
+            
+  
               <asp:Label ID="lblDisplay" runat="server" Text=""></asp:Label>
 
-        <br /><br />
- <table>
+
+            <table>
 
             <tr style="color: #CC3300;">
                 <th>OrderID</th>
@@ -99,5 +114,9 @@
             </asp:Repeater>
 
  </table>
+
+    </div>
 </div>
+
+
 </asp:Content>

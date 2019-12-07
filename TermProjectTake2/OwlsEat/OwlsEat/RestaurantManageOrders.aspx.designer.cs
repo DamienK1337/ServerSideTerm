@@ -10,7 +10,7 @@
 namespace OwlsEat {
     
     
-    public partial class RestaurantOrdersPage {
+    public partial class RestaurantManageOrders {
         
         /// <summary>
         /// imgAvatar control.
@@ -22,13 +22,31 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlImage imgAvatar;
         
         /// <summary>
-        /// lnkBtnViewOrders control.
+        /// lnkBtnViewCurrentOrders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewOrders;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewCurrentOrders;
+        
+        /// <summary>
+        /// lnkBtnChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnChangePassword;
+        
+        /// <summary>
+        /// lnkBtnChangeSecurityQuestion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnChangeSecurityQuestion;
         
         /// <summary>
         /// lblConfirm control.
