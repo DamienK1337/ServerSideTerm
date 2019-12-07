@@ -225,7 +225,6 @@ namespace OwlsEat
         }
 
 
-
         protected void btnSubmitPassword_Click(object sender, EventArgs e)
         {
             ValidatePassword();

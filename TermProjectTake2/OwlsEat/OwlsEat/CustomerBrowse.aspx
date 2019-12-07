@@ -60,7 +60,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link text-dark font-italic">
                         <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
-                        <asp:LinkButton ID="LinkButton1" CssClass="buttonClass" runat="server" OnClick="lnkBtnPurchase_Click">Purchase Items In Cart</asp:LinkButton>
+                        <asp:LinkButton ID="lnkBtnManageOrder" CssClass="buttonClass" runat="server" OnClick="lnkBtnManageOrder_Click">Manage Orders</asp:LinkButton>
                     </a>
                 </li>
 
@@ -100,90 +100,44 @@
 
 
 
-			<br />
-		
-			<br />
-				<asp:Button ID="btnSelectRestaurant" runat="server" Text="Select Restaurant" OnClick="btnSelectRestaurant_Click" />
+            <br />
 
-			<asp:Label ID="lbltest" runat="server" Text=""></asp:Label>
-			
+            <br />
+            <asp:Button ID="btnSelectRestaurant" runat="server" Text="Select Restaurant" OnClick="btnSelectRestaurant_Click" />
 
+            <asp:Label ID="lbltest" runat="server" Text=""></asp:Label>
 
 
 
-			 <asp:DropDownList ID="ddlMenu" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" AppendDataBoundItems="True">
+
+
+            <asp:DropDownList ID="ddlMenu" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
-                    <asp:ListItem  disabled="disabled">Select Menu Item</asp:ListItem>
+                    <asp:ListItem disabled="disabled">Select Menu Item</asp:ListItem>
                 </Items>
             </asp:DropDownList>
-			<br />
+            <br />
 
-				<asp:GridView ID="gvMenuItems" runat="server" AutoGenerateColumns="False">
-					<Columns>
-						<asp:TemplateField>
-                 <ItemTemplate>
-                       <asp:CheckBox ID="chbxMenuItems" runat="server" />
-                 </ItemTemplate>
-               </asp:TemplateField>
-							<asp:BoundField DataField="Title" HeaderText="Title" />
-						<asp:BoundField DataField="Image" HeaderText="Image" />
-					
-						<asp:BoundField DataField="Description" HeaderText="Description" />
-						<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
-						
-					</Columns>
-	 </asp:GridView>
+            <asp:GridView ID="gvMenuItems" runat="server" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chbxMenuItems" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                    <asp:BoundField DataField="Image" HeaderText="Image" />
 
-			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
-			</div>
+                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                    <asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
 
-		<br />
+                </Columns>
+            </asp:GridView>
+
+            <asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click" />
+        </div>
+
+        <br />
     </div>
 
-
-
-
-
-
-
-	
-    
-
-
-		
-
-
-
-
-
-
-
-	
-    
-
-
-	
-
-
-
-
-
-
-
-	
-    
-
-
-		
-
-
-
-
-
-
-
-	
-    
-
-
-		</asp:Content>
+</asp:Content>
