@@ -195,9 +195,11 @@ namespace OwlsEat
 		protected void btnAddToCart_Click(object sender, EventArgs e)
 		{
 			ArrayList arrayMenuItems = new ArrayList();    // used to store the ProductNumber for each selected product
+
 			int count = 0;                              // used to count the number of selected products
 			ArrayList OrderItems = new ArrayList(Items);                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
 			ArrayList OrderItems2 = new ArrayList(Items);                                       // for each row that is checked
+
 
 			for (int row = 0; row < gvMenuItems.Rows.Count; row++)
 			{
