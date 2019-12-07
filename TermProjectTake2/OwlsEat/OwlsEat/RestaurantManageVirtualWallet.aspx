@@ -46,6 +46,13 @@
                 </a>
             </li>
 
+			  <li class="nav-item">
+                <a href="#" class="nav-link text-dark font-italic">
+                    <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                    <asp:LinkButton ID="lnkBtnViewTransactions" CssClass="buttonClass" runat="server" OnClick="lnkBtnViewTransactions_Click">View Transactions</asp:LinkButton>
+                </a>
+            </li>
+
         </ul>
     </div>
     <div class="page-content p-5" id="content">
@@ -122,6 +129,10 @@
 
         </div>
 
+		<div id="divViewTrans" runat="server" >
+			    <asp:GridView ID="gvTransactions" runat="server">
+			</asp:GridView>
+		</div>
 
     </div>
 </asp:Content>

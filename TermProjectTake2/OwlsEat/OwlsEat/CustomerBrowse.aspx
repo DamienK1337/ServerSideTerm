@@ -125,6 +125,7 @@
                        <asp:CheckBox ID="chbxMenuItems" runat="server" />
                  </ItemTemplate>
                </asp:TemplateField>
+							<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
 							<asp:BoundField DataField="Title" HeaderText="Title" />
 						<asp:BoundField DataField="Image" HeaderText="Image" />
 					
@@ -135,7 +136,11 @@
 	 </asp:GridView>
 
 			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
+			  <asp:GridView ID="GridView1" runat="server">
+		  </asp:GridView>
 			</div>
+
+		
 
 		<br />
     </div>
