@@ -166,6 +166,15 @@ namespace OwlsEat {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl PaymentMethod;
         
         /// <summary>
+        /// lblCurrentInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCurrentInfo;
+        
+        /// <summary>
         /// lblTitle control.
         /// </summary>
         /// <remarks>

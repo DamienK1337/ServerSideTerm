@@ -11,7 +11,8 @@ namespace OwlsEat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Session["userEmail"] as string))
+            string userType = "Restaurant";
+            if ((string.IsNullOrEmpty(Session["userEmail"] as string)) || (userType != Session["userType"].ToString()))
             {
                 Response.Redirect("NoAccess.aspx");
             }

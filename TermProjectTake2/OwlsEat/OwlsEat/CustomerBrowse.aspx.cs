@@ -226,7 +226,8 @@ namespace OwlsEat
 					selectedItem.ItemID = gvMenuItems.Rows[row].Cells[1].Text;
 					selectedItem.RestaurantId = gvMenuItems.Rows[row].Cells[2].Text;
 					selectedItem.Title = gvMenuItems.Rows[row].Cells[3].Text;
-					selectedItem.ImgURL = gvMenuItems.Rows[row].Cells[4].Text;
+                    System.Web.UI.WebControls.Image img = gvMenuItems.Rows[row].Cells[4].Controls[0] as System.Web.UI.WebControls.Image;
+                    selectedItem.ImgURL = img.ImageUrl.ToString();
 					selectedItem.Description = gvMenuItems.Rows[row].Cells[5].Text;
 					string price = gvMenuItems.Rows[row].Cells[6].Text.Split('$')[1];
 					selectedItem.Price = float.Parse(price);
@@ -262,22 +263,24 @@ namespace OwlsEat
 		{
 			divGvRestaurant.Visible = true;
 			divCart.Visible = false;
-		}
+            divOrders.Visible = false;
+        }
 
 		protected void lnkBtnPurchase_Click(object sender, EventArgs e)
 		{
 
 			divGvRestaurant.Visible = false;
 			divCart.Visible = true;
+            divOrders.Visible = false;
 
 			ArrayList CustCart = new ArrayList(Items);
 
 			CustCart = (ArrayList)Session["Cart"];
 
-			gvCart.DataSource = CustCart;
-			gvCart.DataBind();
+            gvCart.DataSource = CustCart;
+            gvCart.DataBind();
 
-			float OrderTotal = 0;
+            float OrderTotal = 0;
 			
 
 			for (int row = 0; row < gvCart.Rows.Count; row++)
@@ -289,15 +292,17 @@ namespace OwlsEat
 
 			LblOrderTotal.Text = OrderTotal.ToString();
 
-			gvCart.Columns[3].FooterText = "Total: ";
-			gvCart.Columns[4].FooterText = "$ " + OrderTotal.ToString();
+			
+            gvCart.FooterRow.Cells[3].Text = "Total: ";
+            gvCart.FooterRow.Cells[4].Text = "$ " + OrderTotal.ToString();
+            gvCart.ShowFooter = true;
 
-		}
+        }
 		protected void lnkBtnManageOrder_Click(object sender, EventArgs e)
 		{
 
 			divGvRestaurant.Visible = false;
-			divCart.Visible = true;
+			divCart.Visible = false;
 			divOrders.Visible = true;
 			objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPGetCustomerOrders";
@@ -306,11 +311,9 @@ namespace OwlsEat
 			objCommand.Parameters.AddWithValue("CustomerID", Session["userID"].ToString());
 			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
 
-			gvOrders.DataSource = dataset;
-			gvOrders.DataBind();
-
-
-		}
+            rptOrders.DataSource = dataset;
+            rptOrders.DataBind();
+        }
 
 		protected void btnRemoveITems_Click(object sender, EventArgs e)
 		{
