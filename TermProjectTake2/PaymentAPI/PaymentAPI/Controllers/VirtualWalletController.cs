@@ -79,6 +79,7 @@ namespace PaymentAPI.Controllers
 					newTrans.VWIDReceiver = record["VWIDReceiver"].ToString();
 					newTrans.VWIDSender = record["VWIDSender"].ToString();
 					newTrans.Amount = record["Amount"].ToString();
+					newTrans.Type = record["Type"].ToString();
 					newTrans.Date = record["Date"].ToString();
 
 

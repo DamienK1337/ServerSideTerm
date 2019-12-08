@@ -42,9 +42,6 @@
                   <a class="nav-link" href="#">Orders</a>
               </li>
               <li class="nav-item active">
-                  <a class="nav-link" href="#">Cart</a>
-              </li>
-              <li class="nav-item active">
                   <a class="nav-link" href="CustomerManageVirtualWallet.aspx">Manage Virtual Wallet</a>
               </li>
               <li class="nav-item active">

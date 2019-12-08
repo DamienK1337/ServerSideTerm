@@ -23,7 +23,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="vertical-nav bg-white" id="sidebar">
+	 <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
                <img runat="server" id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
@@ -54,7 +54,7 @@
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark font-italic">
                     <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
-                    <asp:LinkButton ID="lnkBtnPurchase" CssClass="buttonClass" runat="server" OnClick="lnkBtnPurchase_Click">Purchase Items In Cart</asp:LinkButton>
+                    <asp:LinkButton ID="lnkBtnPurchase" CssClass="buttonClass" runat="server" OnClick="lnkBtnPurchase_Click">View Cart</asp:LinkButton>
                 </a>
             </li>
                 <li class="nav-item">
@@ -127,6 +127,7 @@
                  </ItemTemplate>
                </asp:TemplateField>
 							<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
+						<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
 							<asp:BoundField DataField="Title" HeaderText="Title" />
 						<asp:BoundField DataField="Image" HeaderText="Image" />
 					
@@ -137,17 +138,48 @@
 	 </asp:GridView>
 
 			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
-			  <asp:GridView ID="GridView1" runat="server">
-		  </asp:GridView>
+
+			
+
 			</div>
 
-		
+		<div id="divCart" runat="server">
+			<asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" ShowFooter="True">
+				<Columns>
+					<asp:TemplateField>
+						<ItemTemplate>
+							<asp:CheckBox ID="chbxDeleteCartItem" runat="server"  />
+						</ItemTemplate>
+						  </asp:TemplateField>
+					<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
+						<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
+							<asp:BoundField DataField="Title" HeaderText="Title" />
+						<asp:BoundField DataField="ImgURL" HeaderText="Image" />
+					
+						<asp:BoundField DataField="Description" HeaderText="Description" />
+						<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+				</Columns>
+
+			</asp:GridView>
+
+			
+
+			<asp:Label ID="LblCartTest" runat="server" Text=""></asp:Label>
+				<asp:Label ID="LblOrderTotal" runat="server" Text="Your Total is "></asp:Label>
+			<asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" OnClick="btnPlaceOrder_Click"  />
+			<asp:Button ID="btnRemoveITems" runat="server" Text="Remove Item(s)" OnClick="btnRemoveITems_Click" />
+			<asp:Button ID="btnClearCart" runat="server" Text="Clear Cart" OnClick="btnClearCart_Click" />
+		</div>
+
+
+		<div id="divOrders" runat="server">
+
+			<asp:GridView ID="gvOrders" runat="server">
+			</asp:GridView>
+		</div>
 
 		<br />
     </div>
-        </div>
-
-        <br />
-    </div>
+      
 
 </asp:Content>

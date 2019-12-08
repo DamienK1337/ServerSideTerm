@@ -94,6 +94,7 @@
     <Content Include="CustomerManageVirtualWallet.aspx" />
     <Content Include="CustomerBrowse.aspx" />
     <Content Include="RestaurantManageOrders.aspx" />
+
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerMaster.Master.cs">
@@ -205,6 +206,7 @@
     <Compile Include="RestaurantManageOrders.aspx.designer.cs">
       <DependentUpon>RestaurantManageOrders.aspx</DependentUpon>
     </Compile>
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\bootstrap-grid.css.map" />
