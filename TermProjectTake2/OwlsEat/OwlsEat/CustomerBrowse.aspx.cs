@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Utilities;
@@ -17,6 +20,7 @@ namespace OwlsEat
 	{
 		DBConnect objDB = new DBConnect();
 		SqlCommand objCommand = new SqlCommand();
+		ArrayList UpdateInformationError = new ArrayList();
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
@@ -271,6 +275,20 @@ namespace OwlsEat
 
 			gvCart.DataSource = CustCart;
 			gvCart.DataBind();
+
+			float OrderTotal = 0;
+			
+
+			for (int row = 0; row < gvCart.Rows.Count; row++)
+			{
+				string price = gvCart.Rows[row].Cells[6].Text.Split('$')[1];
+				OrderTotal = OrderTotal + float.Parse(price);
+
+			}
+
+			LblOrderTotal.Text = OrderTotal.ToString();
+
+
 		}
 		protected void lnkBtnManageOrder_Click(object sender, EventArgs e)
 		{
@@ -309,5 +327,152 @@ namespace OwlsEat
 			gvCart.DataBind();
 
 		}
+
+		protected void btnPlaceOrder_Click(object sender, EventArgs e)
+		{
+
+			float OrderTotal = 0;
+			string addMoney = "Please add funds to Account";
+			string RestaurantId = "";
+			string RestaurantVWID = "";
+
+			for (int row = 0; row < gvCart.Rows.Count; row++)
+			{
+				RestaurantId = gvCart.Rows[row].Cells[2].Text;
+				string price = gvCart.Rows[row].Cells[6].Text.Split('$')[1];
+				OrderTotal = OrderTotal + float.Parse(price);
+
+			}
+
+			LblCartTest.Text = GetVirtualWalletID(RestaurantId);
+			RestaurantVWID = GetVirtualWalletID(RestaurantId);
+
+			if (OrderTotal > GetCurrentBalance(Session["userVWID"].ToString()))
+			{
+				LblCartTest.Text = addMoney;
+			}
+
+			else
+			{
+				Merchant CurrMerchant = new Merchant();
+				APIKey CurrAPIKey = new APIKey();
+
+				CurrMerchant.MerchantID = "78735";
+				CurrAPIKey.Key = "7636";
+
+
+				
+
+				Transactions newTransaction = new Transactions();
+
+				newTransaction.VWIDSender = Session["userVWID"].ToString();
+				newTransaction.VWIDReceiver = RestaurantVWID;
+				newTransaction.Amount = OrderTotal.ToString();
+				newTransaction.Type = "Payment";
+
+
+				JavaScriptSerializer js = new JavaScriptSerializer();  //Converts Object into JSON String
+				String jsonTransaction = js.Serialize(newTransaction);
+
+				try
+				{
+					String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/ProcessPayment";
+
+					url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
+
+					WebRequest request = WebRequest.Create(url);
+					request.Method = "POST";
+
+					request.ContentLength = jsonTransaction.Length;
+					request.ContentType = "application/json";
+
+
+					StreamWriter writer = new StreamWriter(request.GetRequestStream());
+					writer.Write(jsonTransaction);
+					writer.Flush();
+					writer.Close();
+
+					WebResponse response = request.GetResponse();
+					Stream theDataStream = response.GetResponseStream();
+					StreamReader reader = new StreamReader(theDataStream);
+					String data = reader.ReadToEnd();
+					reader.Close();
+					response.Close();
+					if (data == "true")
+					{
+						Response.Write("Funds added");
+					}
+					else
+					{
+						Response.Write("Error Occured on the database.");
+					}
+				}
+				catch (Exception errorException)
+				{
+					Response.Write(errorException.Message);
+				}
+			}
+			
+		}
+
+
+			
+
+		public float GetCurrentBalance(string VWID)
+		{
+			float CurrentBalance=0;
+
+			DataSet MyCurrentBalance = new DataSet();
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPGetCurrentBalance";
+			objCommand.Parameters.Clear();
+
+
+			objCommand.Parameters.AddWithValue("@VWID", VWID);
+			MyCurrentBalance = objDB.GetDataSetUsingCmdObj(objCommand);
+
+			foreach (DataRow record in MyCurrentBalance.Tables[0].Rows)
+			{
+
+				string gcb = record["Balance"].ToString();
+
+				CurrentBalance = int.Parse(gcb);
+
+			}
+
+			return CurrentBalance;
+		}
+
+
+		public string GetVirtualWalletID(string RestaurantId)
+		{
+			string id = "";
+			DataSet MyCurrentBalance = new DataSet();
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPGetVWID";
+			objCommand.Parameters.Clear();
+
+
+			objCommand.Parameters.AddWithValue("@RestaurantId", RestaurantId);
+			MyCurrentBalance = objDB.GetDataSetUsingCmdObj(objCommand);
+
+			foreach (DataRow record in MyCurrentBalance.Tables[0].Rows)
+			{
+
+				 id = record["VWID"].ToString();
+
+				
+
+			}
+
+			return id;
+
+		}
+
+
+
+
+
+
 	}
 }
