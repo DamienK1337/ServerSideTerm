@@ -139,10 +139,12 @@
 
 			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
 
+			
+
 			</div>
 
 		<div id="divCart" runat="server">
-			<asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False">
+			<asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" ShowFooter="True">
 				<Columns>
 					<asp:TemplateField>
 						<ItemTemplate>
@@ -160,12 +162,21 @@
 
 			</asp:GridView>
 
-			<asp:Label ID="LblCartTest" runat="server" Text="Label"></asp:Label>
-				<asp:Label ID="LblOrderTotal" runat="server" Text="Label"></asp:Label>
+			
+
+			<asp:Label ID="LblCartTest" runat="server" Text=""></asp:Label>
+				<asp:Label ID="LblOrderTotal" runat="server" Text="Your Total is "></asp:Label>
 			<asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" OnClick="btnPlaceOrder_Click"  />
 			<asp:Button ID="btnRemoveITems" runat="server" Text="Remove Item(s)" OnClick="btnRemoveITems_Click" />
+			<asp:Button ID="btnClearCart" runat="server" Text="Clear Cart" OnClick="btnClearCart_Click" />
 		</div>
 
+
+		<div id="divOrders" runat="server">
+
+			<asp:GridView ID="gvOrders" runat="server">
+			</asp:GridView>
+		</div>
 
 		<br />
     </div>

@@ -38,6 +38,7 @@ namespace OwlsEat
 
 					divGvRestaurant.Visible = false;
 					divCart.Visible = false;
+					divOrders.Visible = false;
 
 					//ShowRestaurantByCuisine();
 				}
@@ -288,10 +289,26 @@ namespace OwlsEat
 
 			LblOrderTotal.Text = OrderTotal.ToString();
 
+			gvCart.Columns[3].FooterText = "Total: ";
+			gvCart.Columns[4].FooterText = "$ " + OrderTotal.ToString();
 
 		}
 		protected void lnkBtnManageOrder_Click(object sender, EventArgs e)
 		{
+
+			divGvRestaurant.Visible = false;
+			divCart.Visible = true;
+			divOrders.Visible = true;
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPGetCustomerOrders";
+
+
+			objCommand.Parameters.AddWithValue("CustomerID", Session["userID"].ToString());
+			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
+
+			gvOrders.DataSource = dataset;
+			gvOrders.DataBind();
+
 
 		}
 
@@ -349,6 +366,8 @@ namespace OwlsEat
 			}
 			//LblCartTest.Text = InsertTOOrderTable();
 			//LblCartTest.Text = GetVirtualWalletID(RestaurantId);
+			
+
 			RestaurantVWID = GetVirtualWalletID(RestaurantId);
 
 			if (OrderTotal > GetCurrentBalance(Session["userVWID"].ToString()))
@@ -362,7 +381,8 @@ namespace OwlsEat
 			{
 
 
-
+				
+				LblCartTest.Text = "Your Order has been Placed!";
 
 				DBConnect objDB = new DBConnect();
 
@@ -385,6 +405,14 @@ namespace OwlsEat
 
 
 
+				ArrayList CustCart = new ArrayList(Items);
+
+				CustCart.Clear();
+				Session.Add("Cart", CustCart);
+				CustCart = (ArrayList)Session["Cart"];
+
+				gvCart.DataSource = CustCart;
+				gvCart.DataBind();
 
 
 				Merchant CurrMerchant = new Merchant();
@@ -502,45 +530,21 @@ namespace OwlsEat
 
 		}
 
+		protected void btnClearCart_Click(object sender, EventArgs e)
+		{
+			ArrayList CustCart = new ArrayList(Items);
 
-		//public string InsertTOOrderTable()
-		//{
-		//	string OrderedItems = "";
-		//	DateTime dt = DateTime.Now;
+			CustCart = (ArrayList)Session["Cart"];
 
-		//	for (int row = 0; row < gvCart.Rows.Count; row++)
-		//	{
-		//		string ItemName = gvCart.Rows[row].Cells[3].Text;
-		//		OrderedItems = OrderedItems + "  " + ItemName; 
+			CustCart.Clear();
 
-		//	}
+			Session.Add("Cart", CustCart);
 
-		//	DBConnect objDB = new DBConnect();
+			gvCart.DataSource = CustCart;
+			gvCart.DataBind();
 
-		//	SqlCommand objCommand = new SqlCommand();
-		//	objCommand.CommandType = CommandType.StoredProcedure;
-		//	objCommand.CommandText = "TPAddOrder";
-
-		//	objCommand.Parameters.AddWithValue("@RestaurantId", VWID);
-		//	objCommand.Parameters.AddWithValue("@CustomerName", Password);
-		//	objCommand.Parameters.AddWithValue("@CustomerId", Email);
-
-		//	objCommand.Parameters.AddWithValue("@@VWIDSender", AccountNumber);
-
-		//	objCommand.Parameters.AddWithValue("@VWIDReceiver", VWID);
-		//	objCommand.Parameters.AddWithValue("@PurchasedItems", APIKey);
-		//	objCommand.Parameters.AddWithValue("@Total", MerchantID);
-		//	objCommand.Parameters.AddWithValue("@Date", MerchantID);
-
-		//	var result = objDB.DoUpdateUsingCmdObj(objCommand);
-
-
-
-		//	return OrderedItems;
-
-		//}
-
-
-
+			LblCartTest.Text = "Your Cart Has Been Cleared";
+			LblOrderTotal.Text = "0.00";
+		}
 	}
 }
