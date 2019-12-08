@@ -73,19 +73,22 @@
 
             <table>
 
-            <tr style="color: #CC3300;">
-                <th>OrderID</th>
-                 <th>CustomerName</th>
-                <th>PurchasedItems</th>
-                <th>Total</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
 
-            <asp:Repeater ID="rptOrders" runat="server" OnItemCommand="rptOrders_ItemCommand">
 
-                <ItemTemplate>
-                    <tr>
+                <asp:Repeater ID="rptOrders" runat="server" OnItemCommand="rptOrders_ItemCommand">
+                    <HeaderTemplate>
+                        <table border="0" cellpadding="5" cellspacing="0" width="100%" style="border-spacing: 0px;">
+                            <tr style="color: #143fe9;">
+                                <th scope="col">OrderID</th>
+                                <th scope="col">CustomerName</th>
+                                <th scope="col">PurchasedItems</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
                          <td>
                             <asp:Label ID="lblOrderID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "OrderID") %>'></asp:Label>
                         </td>
@@ -106,14 +109,27 @@
                             <asp:Label ID="lblStatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status") %>'></asp:Label>
                         </td>
                         <td>
-                            <asp:Button ID="btnSelect" CssClass="btn-outline-primary" Text="Select Product" runat="server" />
+                               <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="True" onselectedindexchanged="ddlStatus_SelectedIndexChanged">
+                                   <asp:ListItem disabled="disabled">Update Status Here</asp:ListItem>
+                                    <asp:ListItem Value="Submitted">Submitted</asp:ListItem>
+                                    <asp:ListItem Value="Processing">Processing</asp:ListItem>
+                                    <asp:ListItem Value="Finished">Finished</asp:ListItem>
+                                </asp:DropDownList>
                         </td>
                     </tr>
                 </ItemTemplate>
 
+                <SeparatorTemplate>
+                    <tr>
+                        <td colspan="6">
+                            <hr />
+                        </td>
+                    </tr>
+                </SeparatorTemplate>
+
             </asp:Repeater>
 
- </table>
+            </table>
 
     </div>
 </div>

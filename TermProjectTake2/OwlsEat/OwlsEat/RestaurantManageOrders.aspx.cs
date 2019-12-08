@@ -29,22 +29,16 @@ namespace OwlsEat
             {
                 Response.Redirect("NoAccess.aspx");
             }
-            ViewAccountInformation.Visible = false;
+            ViewOrders.Visible = false;
             if (!IsPostBack)
 
             {
+                
 
                 string strSQL = "SELECT * FROM TPOrders";
                 rptOrders.DataSource = objDB.GetDataSet(strSQL);
                 rptOrders.DataBind();
             }
-
-        }
-
-        protected void lnkBtnViewAccountInformation_Click(object sender, EventArgs e)
-        {
-            lblConfirm.Visible = false;
-            ViewOrders.Visible = true;
 
         }
 
@@ -59,13 +53,33 @@ namespace OwlsEat
 
             // Retrieve a value from a control in the Repeater's Items collection
 
-            Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblItemID");
-            String ItemID = myLabel.Text;
+            Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
+            String OrderID = myLabel.Text;
 
 
-            lblDisplay.Text = "You selected ItemID " + ItemID;
+            lblDisplay.Text = "You selected OrderID " + OrderID;
 
+            DropDownList ddlStatus = e.Item.FindControl("ddlStatus") as DropDownList;
+            if (ddlStatus != null)
+            {
+
+                foreach (RepeaterItem dataItem in rptOrders.Items)
+                {
+                    string ProductSelected = ((DropDownList)dataItem.FindControl("ddlStatus")).SelectedItem.Text; //No error
+
+                }
+            }
         }
 
+        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Event Code here.
+        }
+
+        protected void lnkBtnViewCurrentOrders_Click(object sender, EventArgs e)
+        {
+            lblConfirm.Visible = false;
+            ViewOrders.Visible = true;
+        }
     }
 }
