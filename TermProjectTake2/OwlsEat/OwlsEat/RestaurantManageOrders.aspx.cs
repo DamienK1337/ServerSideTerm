@@ -49,31 +49,56 @@ namespace OwlsEat
             // Retrieve the row index for the item that fired the ItemCommand event
 
             int rowIndex = e.Item.ItemIndex;
-
+           
 
             // Retrieve a value from a control in the Repeater's Items collection
 
             Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
-            String OrderID = myLabel.Text;
-
+            DropDownList ddl1 = (DropDownList)rptOrders.Items[rowIndex].FindControl("ddlStatus");
+            String OrderID = ddl1.SelectedValue.ToString();
 
             lblDisplay.Text = "You selected OrderID " + OrderID;
 
             DropDownList ddlStatus = e.Item.FindControl("ddlStatus") as DropDownList;
             if (ddlStatus != null)
             {
+                
 
-                foreach (RepeaterItem dataItem in rptOrders.Items)
-                {
-                    string ProductSelected = ((DropDownList)dataItem.FindControl("ddlStatus")).SelectedItem.Text; //No error
-
-                }
             }
         }
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Event Code here.
+            ViewOrders.Visible = true; //Event Code here.
+
+
+            DropDownList ddlStatus = (DropDownList)sender;
+            RepeaterItem item = (RepeaterItem)ddlStatus.NamingContainer;
+            //if (item != null)
+            //{
+            //    Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
+            //    if (list != null)
+            //    {
+
+            //    }
+            //}
+
+
+            //foreach (RepeaterItem dataItem in rptOrders.Items)
+            //{
+            //    string ProductSelected = ((DropDownList)dataItem.FindControl("ddlStatus")).SelectedValue.ToString(); //No error
+            //    //lblDisplay.Text = ProductSelected;
+            //    //Response.Write(ProductSelected);
+            //    foreach (RepeaterItem item in rptOrders.Items)
+            //    {
+            //        int rowIndex = item.ItemIndex;
+            //        Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
+            //        String OrderID = myLabel.Text;
+            //        lblDisplay.Text = OrderID;
+            //        Response.Write(OrderID);
+            //    }
+
+            //}
         }
 
         protected void lnkBtnViewCurrentOrders_Click(object sender, EventArgs e)
