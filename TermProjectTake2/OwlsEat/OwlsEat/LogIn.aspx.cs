@@ -82,8 +82,10 @@ namespace OwlsEat
                 {
                     lblMessage.Text = "You logged in good job!";
                     //might need to switch this to a UserAccount Object, not sure tho
+
                     Session.Add("userEmail", txtEmail.Text);
-                    Session.Add("userPassword", txtPassword.Text);
+					Session.Add("userName", objDB.GetField("FirstName", 0) + " " + objDB.GetField("LastName", 0));
+					Session.Add("userPassword", txtPassword.Text);
                     Session.Add("userID", objDB.GetField("CustomerID", 0));
                     Session.Add("userVWID", objDB.GetField("VWID", 0));
                     Session.Add("userType", UserType);
