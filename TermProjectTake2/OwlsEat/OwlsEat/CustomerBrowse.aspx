@@ -161,8 +161,8 @@
 			</asp:GridView>
 
 			<asp:Label ID="LblCartTest" runat="server" Text="Label"></asp:Label>
-
-			<asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order"  />
+				<asp:Label ID="LblOrderTotal" runat="server" Text="Label"></asp:Label>
+			<asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" OnClick="btnPlaceOrder_Click"  />
 			<asp:Button ID="btnRemoveITems" runat="server" Text="Remove Item(s)" OnClick="btnRemoveITems_Click" />
 		</div>
 
