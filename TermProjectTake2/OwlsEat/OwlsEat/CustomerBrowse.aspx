@@ -91,7 +91,10 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="RestaurantName" HeaderText="Restaurant Name" />
-                    <asp:BoundField DataField="ImgURL" HeaderText="ImgURL" />
+                    <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="ImgUrl">
+                        <ControlStyle Height="60px" Width="80px" />
+                    </asp:ImageField>
+                
 
 
 
@@ -127,17 +130,19 @@
                  </ItemTemplate>
                </asp:TemplateField>
 							<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
-						<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
-							<asp:BoundField DataField="Title" HeaderText="Title" />
-						<asp:BoundField DataField="Image" HeaderText="Image" />
-					
-						<asp:BoundField DataField="Description" HeaderText="Description" />
-						<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
-						
-					</Columns>
-	 </asp:GridView>
+                        <asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
+                        <asp:BoundField DataField="Title" HeaderText="Title" />
+                        <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="Image">
+                            <ControlStyle Height="60px" Width="80px" />
+                        </asp:ImageField>
 
-			<asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
+                        <asp:BoundField DataField="Description" HeaderText="Description" />
+                        <asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+
+                    </Columns>
+                </asp:GridView>
+
+            <asp:Button ID="btnAddToCart" runat="server" Text="Add Item(s) to Cart" OnClick="btnAddToCart_Click"  />
 
 			
 
@@ -152,12 +157,15 @@
 						</ItemTemplate>
 						  </asp:TemplateField>
 					<asp:BoundField DataField="ItemId" HeaderText="ItemID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
-						<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID"  ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
-							<asp:BoundField DataField="Title" HeaderText="Title" />
-						<asp:BoundField DataField="ImgURL" HeaderText="Image" />
-					
-						<asp:BoundField DataField="Description" HeaderText="Description" />
-						<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+						<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
+                   
+                    <asp:BoundField DataField="Title" HeaderText="Title" />
+                    <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="ImgUrl">
+                        <ControlStyle Height="60px" Width="80px" />
+                    </asp:ImageField>
+
+                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                    <asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
 				</Columns>
 
 			</asp:GridView>
@@ -174,8 +182,55 @@
 
 		<div id="divOrders" runat="server">
 
-			<asp:GridView ID="gvOrders" runat="server">
-			</asp:GridView>
+            <table>
+
+                <asp:Repeater ID="rptOrders" runat="server">
+                    <HeaderTemplate>
+                        <table border="0" cellpadding="5" cellspacing="0" width="100%" style="border-spacing: 0px;">
+                            <tr style="color: #143fe9;">
+                                <th scope="col">OrderID</th>
+                                <th scope="col">CustomerName</th>
+                                <th scope="col">PurchasedItems</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                         <td>
+                            <asp:Label ID="lblOrderID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "OrderID") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblCustomerName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblPurchasedItems" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PurchasedItems") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblTotal" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Total", "{0:c}") %>'></asp:Label>
+                        </td>
+
+                        <td>
+                            <asp:Label ID="lblDate" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Date") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblStatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status") %>'></asp:Label>
+                        </td>
+                    </tr>
+                </ItemTemplate>
+
+                <SeparatorTemplate>
+                    <tr>
+                        <td colspan="6">
+                            <hr />
+                        </td>
+                    </tr>
+                </SeparatorTemplate>
+
+            </asp:Repeater>
+
+            </table>
 		</div>
 
 		<br />

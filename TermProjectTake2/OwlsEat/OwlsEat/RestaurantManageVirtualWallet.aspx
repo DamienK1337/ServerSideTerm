@@ -99,6 +99,9 @@
 
 
             <div id="PaymentMethod" runat="server">
+
+                 <asp:Label runat="server" Text="" ID="lblCurrentInfo"></asp:Label>
+                </br>
                 <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
                 <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>
                 <br />

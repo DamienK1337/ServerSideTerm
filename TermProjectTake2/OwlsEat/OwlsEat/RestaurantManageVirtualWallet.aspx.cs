@@ -105,6 +105,19 @@ namespace OwlsEat
             FundAccount.Visible = false;
             GetBalance.Visible = false;
             UpdateVirtualWallet.Visible = true;
+
+            string str = "Select PaymentMethodName, AccountNumber, AccountType, Balance from TPVWHOLDER where VWID =" + Session["userVWID"].ToString() + ";";
+
+            DataSet Myds = objDB.GetDataSet(str);
+
+            string PayMeth = (string)objDB.GetField("PaymentMethodName", 0);
+            string AccNum = (string)objDB.GetField("AccountNumber", 0);
+            string accType = (string)objDB.GetField("AccountType", 0);
+            double bal = (double)objDB.GetField("Balance", 0);
+
+            lblCurrentInfo.Text = PayMeth + "  " + AccNum + "  " + accType + "  " + bal;
+
+
         }
 
         protected void btnFund_Click(object sender, EventArgs e)
@@ -179,6 +192,7 @@ namespace OwlsEat
 
             if (!(UpdateInformationError.Count > 0))
             {
+
                 Merchant CurrMerchant = new Merchant();
                 APIKey CurrAPIKey = new APIKey();
 
