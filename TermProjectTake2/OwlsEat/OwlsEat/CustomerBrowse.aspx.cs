@@ -335,16 +335,20 @@ namespace OwlsEat
 			string addMoney = "Please add funds to Account";
 			string RestaurantId = "";
 			string RestaurantVWID = "";
+			string OrderedItems = "";
+			DateTime dt = DateTime.Now;
 
 			for (int row = 0; row < gvCart.Rows.Count; row++)
 			{
 				RestaurantId = gvCart.Rows[row].Cells[2].Text;
 				string price = gvCart.Rows[row].Cells[6].Text.Split('$')[1];
+				string ItemName = gvCart.Rows[row].Cells[3].Text;
+				OrderedItems = OrderedItems + "  " + ItemName;
 				OrderTotal = OrderTotal + float.Parse(price);
 
 			}
-
-			LblCartTest.Text = GetVirtualWalletID(RestaurantId);
+			//LblCartTest.Text = InsertTOOrderTable();
+			//LblCartTest.Text = GetVirtualWalletID(RestaurantId);
 			RestaurantVWID = GetVirtualWalletID(RestaurantId);
 
 			if (OrderTotal > GetCurrentBalance(Session["userVWID"].ToString()))
@@ -352,8 +356,37 @@ namespace OwlsEat
 				LblCartTest.Text = addMoney;
 			}
 
+			
+
 			else
 			{
+
+
+
+
+				DBConnect objDB = new DBConnect();
+
+				SqlCommand objCommand = new SqlCommand();
+				objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.CommandText = "TPAddOrder";
+
+				objCommand.Parameters.AddWithValue("@RestaurantId", RestaurantId);
+				objCommand.Parameters.AddWithValue("@CustomerName", Session["userName"].ToString());
+				objCommand.Parameters.AddWithValue("@CustomerId", Session["userID"].ToString());
+
+				objCommand.Parameters.AddWithValue("@VWIDSender", Session["userVWID"].ToString());
+
+				objCommand.Parameters.AddWithValue("@VWIDReceiver", RestaurantVWID);
+				objCommand.Parameters.AddWithValue("@PurchasedItems", OrderedItems);
+				objCommand.Parameters.AddWithValue("@Total", OrderTotal);
+				objCommand.Parameters.AddWithValue("@Date", dt);
+
+				var result = objDB.DoUpdateUsingCmdObj(objCommand);
+
+
+
+
+
 				Merchant CurrMerchant = new Merchant();
 				APIKey CurrAPIKey = new APIKey();
 
@@ -470,7 +503,42 @@ namespace OwlsEat
 		}
 
 
+		//public string InsertTOOrderTable()
+		//{
+		//	string OrderedItems = "";
+		//	DateTime dt = DateTime.Now;
 
+		//	for (int row = 0; row < gvCart.Rows.Count; row++)
+		//	{
+		//		string ItemName = gvCart.Rows[row].Cells[3].Text;
+		//		OrderedItems = OrderedItems + "  " + ItemName; 
+
+		//	}
+
+		//	DBConnect objDB = new DBConnect();
+
+		//	SqlCommand objCommand = new SqlCommand();
+		//	objCommand.CommandType = CommandType.StoredProcedure;
+		//	objCommand.CommandText = "TPAddOrder";
+
+		//	objCommand.Parameters.AddWithValue("@RestaurantId", VWID);
+		//	objCommand.Parameters.AddWithValue("@CustomerName", Password);
+		//	objCommand.Parameters.AddWithValue("@CustomerId", Email);
+
+		//	objCommand.Parameters.AddWithValue("@@VWIDSender", AccountNumber);
+
+		//	objCommand.Parameters.AddWithValue("@VWIDReceiver", VWID);
+		//	objCommand.Parameters.AddWithValue("@PurchasedItems", APIKey);
+		//	objCommand.Parameters.AddWithValue("@Total", MerchantID);
+		//	objCommand.Parameters.AddWithValue("@Date", MerchantID);
+
+		//	var result = objDB.DoUpdateUsingCmdObj(objCommand);
+
+
+
+		//	return OrderedItems;
+
+		//}
 
 
 
