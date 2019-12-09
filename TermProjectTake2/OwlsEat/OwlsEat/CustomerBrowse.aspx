@@ -84,7 +84,7 @@
 
             <asp:DropDownList ID="ddlCuisine" runat="server" OnSelectedIndexChanged="ddlCuisine_SelectedIndexChanged" AutoPostBack="True" AppendDataBoundItems="True">
                 <asp:ListItem disabled="disabled">Select Restaurant</asp:ListItem>
-				 <asp:ListItem Value= "SearchByName" >Search by Restaurant Name</asp:ListItem>
+				
             </asp:DropDownList>
 
 
