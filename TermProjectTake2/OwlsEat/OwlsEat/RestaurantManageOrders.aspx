@@ -18,7 +18,7 @@
     <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
-                <img runat="server" id="imgAvatar" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />
+                <img runat="server" src="self.png" id="imgAvatar" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />               
                 <div class="media-body">
                     <p class="font-weight-light text-muted mb-0">Restaurant Manager</p>
                 </div>

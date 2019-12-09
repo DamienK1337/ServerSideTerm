@@ -25,11 +25,24 @@ namespace OwlsEat
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (string.IsNullOrEmpty(Session["userEmail"] as string))
             {
                 Response.Redirect("NoAccess.aspx");
+              
             }
+
+            objCommand.Parameters.Clear();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPGetAllByRestaurantID";
+
+            objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+            DataSet RestaruantLogo = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            string Logo = (string)objDB.GetField("ImgURL", 0);
+            imgAvatar.Src = Logo;
             ViewOrders.Visible = false;
+
             if (!IsPostBack)
 
             {
