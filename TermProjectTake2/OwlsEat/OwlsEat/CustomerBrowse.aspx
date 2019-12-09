@@ -26,7 +26,7 @@
 	 <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
-               <img runat="server" id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
+               <img runat="server" src="~/CustomStyleSheet/logo.png"   id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
                 <div class="media-body">
                     <p class="font-weight-light text-muted mb-0">Customer</p>
                 </div>
@@ -190,54 +190,59 @@
 
 			</div>
 
-		<div id="divCart" runat="server">
-			<asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" ShowFooter="True" BorderColor="Blue" ForeColor="White" GridLines="Horizontal" >
-				<Columns>
-					<asp:TemplateField>
-						<ItemTemplate>
-							<asp:CheckBox ID="chbxDeleteCartItem" runat="server" />
-						</ItemTemplate>
-					</asp:TemplateField>
-					<asp:BoundField DataField="ItemId" HeaderText="ItemID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol">
-						<HeaderStyle CssClass="hiddencol"></HeaderStyle>
-
-						<ItemStyle CssClass="hiddencol"></ItemStyle>
-					</asp:BoundField>
-					<asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol">
-
-						<HeaderStyle CssClass="hiddencol"></HeaderStyle>
-
-						<ItemStyle CssClass="hiddencol"></ItemStyle>
-					</asp:BoundField>
-
-					<asp:BoundField DataField="Title" HeaderText="Title" />
-					<asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="ImgUrl">
-						<ControlStyle Height="60px" Width="80px" />
-					</asp:ImageField>
-
-					<asp:BoundField DataField="Description" HeaderText="Description" />
-					<asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
-				</Columns>
-
-				<RowStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-
-			</asp:GridView>
+        <div id="divCart" runat="server" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
-
-			<asp:Label ID="LblCartTest" runat="server" Text=""></asp:Label>
-			<asp:Label ID="LblOrderTotal" runat="server" Text=""></asp:Label>
-			<div id="divCartControls" runat="server">
-
-			
-			<asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" OnClick="btnPlaceOrder_Click" />
-			<asp:Button ID="btnRemoveITems" runat="server" Text="Remove Item(s)" OnClick="btnRemoveITems_Click" />
-			<asp:Button ID="btnClearCart" runat="server" Text="Clear Cart" OnClick="btnClearCart_Click" />
-			</div>
-		</div>
+            <div class="gvCart" align="center">
 
 
-		<div id="divOrders" runat="server">
+                <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" ShowFooter="True" BorderColor="Blue" ForeColor="White" GridLines="Horizontal">
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chbxDeleteCartItem" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="ItemId" HeaderText="ItemID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol">
+                            <HeaderStyle CssClass="hiddencol"></HeaderStyle>
+
+                            <ItemStyle CssClass="hiddencol"></ItemStyle>
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RestaurantId" HeaderText="ResaurantID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol">
+
+                            <HeaderStyle CssClass="hiddencol"></HeaderStyle>
+
+                            <ItemStyle CssClass="hiddencol"></ItemStyle>
+                        </asp:BoundField>
+
+                        <asp:BoundField DataField="Title" HeaderText="Title" />
+                        <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="ImgUrl">
+                            <ControlStyle Height="60px" Width="80px" />
+                        </asp:ImageField>
+
+                        <asp:BoundField DataField="Description" HeaderText="Description" />
+                        <asp:BoundField DataField="Price" DataFormatString="${0:###,###,###.00}" HeaderText="Price" />
+                    </Columns>
+
+                    <RowStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                </asp:GridView>
+
+            </div>
+
+            <asp:Label ID="LblCartTest" runat="server" Text=""></asp:Label>
+            <asp:Label ID="LblOrderTotal" runat="server" Text=""></asp:Label>
+            <div id="divCartControls" runat="server">
+
+
+                <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" OnClick="btnPlaceOrder_Click" />
+                <asp:Button ID="btnRemoveITems" runat="server" Text="Remove Item(s)" OnClick="btnRemoveITems_Click" />
+                <asp:Button ID="btnClearCart" runat="server" Text="Clear Cart" OnClick="btnClearCart_Click" />
+            </div>
+        </div>
+
+
+		<div id="divOrders" runat="server" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <table>
 

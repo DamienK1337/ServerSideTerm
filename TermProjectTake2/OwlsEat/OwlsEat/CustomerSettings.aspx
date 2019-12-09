@@ -18,7 +18,7 @@
     <div class="vertical-nav bg-white" id="sidebar">
         <div class="py-4 px-2 mb-8 bg-dark">
             <div class="media d-flex align-items-center">
-               <img runat="server" id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
+               <img runat="server" src="~/CustomStyleSheet/logo.png" id="imgAvatar" width="65"  class="mr-3 rounded-circle img-thumbnail shadow-sm"/>
                 <div class="media-body">
                     <p class="font-weight-light text-muted mb-0">Customer</p>
                 </div>
@@ -64,7 +64,7 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="View Account Information" visible="false" runat="server" id="ViewAccountInformation">
+        <div class="View Account Information" visible="false" runat="server" id="ViewAccountInformation" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="CustomerDetails" runat="server">
                 <asp:Label runat="server" Text="First Name*" ID="lblFirstName"></asp:Label>
@@ -119,7 +119,7 @@
 
         </div>
 
-        <div class="Change Password" visible="false" runat="server" id="ChangePassword">
+        <div class="Change Password" visible="false" runat="server" id="ChangePassword" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="SubmitPassword" runat="server">
                 <asp:Label runat="server" Text="Please Submit Current Password" ID="lblCurrentPassword"></asp:Label>
@@ -144,7 +144,7 @@
 
         </div>
 
-        <div class="Securtiy Questions" visible="false" runat="server" id="ChangeSecurtiyQuestions">
+        <div class="Securtiy Questions" visible="false" runat="server" id="ChangeSecurtiyQuestions" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="SubmitQuestions" runat="server">
                 <asp:Label runat="server" Text="Please Submit Current Password" ID="lblCurrentPassword1"></asp:Label>

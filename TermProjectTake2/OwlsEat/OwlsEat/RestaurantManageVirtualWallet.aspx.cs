@@ -31,6 +31,15 @@ namespace OwlsEat
             {
                 Response.Redirect("NoAccess.aspx");
             }
+            objCommand.Parameters.Clear();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPGetAllByRestaurantID";
+
+            objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+            DataSet RestaruantLogo = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            string Logo = (string)objDB.GetField("ImgURL", 0);
+            imgAvatar.Src = Logo;
         }
 
         void ValidateItemInformation()
@@ -67,6 +76,11 @@ namespace OwlsEat
 
         protected void lnkBtnGetBalance_Click(object sender, EventArgs e)
         {
+            FundAccount.Visible = false;
+            GetBalance.Visible = true;
+            UpdateVirtualWallet.Visible = false;
+            divViewTrans.Visible = false;
+
             //string VWID = 
 
             objCommand.CommandType = CommandType.StoredProcedure;
@@ -86,9 +100,7 @@ namespace OwlsEat
                 string newNum = String.Format("{0:c}", formatToMoney);
                 txtVirtualWalletBalance.Text = newNum;
             }
-            FundAccount.Visible = false;
-            GetBalance.Visible = true;
-            UpdateVirtualWallet.Visible = false;
+
         }
 
         protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
@@ -96,6 +108,7 @@ namespace OwlsEat
             FundAccount.Visible = true;
             GetBalance.Visible = false;
             UpdateVirtualWallet.Visible = false;
+            divViewTrans.Visible = false;
 
         }
 
@@ -105,6 +118,7 @@ namespace OwlsEat
             FundAccount.Visible = false;
             GetBalance.Visible = false;
             UpdateVirtualWallet.Visible = true;
+            divViewTrans.Visible = false;
 
             string str = "Select PaymentMethodName, AccountNumber, AccountType, Balance from TPVWHOLDER where VWID =" + Session["userVWID"].ToString() + ";";
 
@@ -258,11 +272,14 @@ namespace OwlsEat
 
 		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
 		{
-			//ValidateItemInformation();
-			//ViewTransaction.Visible = false;
-			divViewTrans.Visible = true;
+            //ValidateItemInformation();
+            //ViewTransaction.Visible = false;
+            FundAccount.Visible = false;
+            GetBalance.Visible = false;
+            UpdateVirtualWallet.Visible = false;
+            divViewTrans.Visible = true;
 
-			if (!(UpdateInformationError.Count > 0))
+            if (!(UpdateInformationError.Count > 0))
 			{
 				Merchant CurrMerchant = new Merchant();
 				APIKey CurrAPIKey = new APIKey();

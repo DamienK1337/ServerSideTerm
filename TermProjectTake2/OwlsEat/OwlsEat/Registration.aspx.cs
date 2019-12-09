@@ -292,6 +292,25 @@ namespace OwlsEat
                         RegisterUserDetails.Visible = false;
                         PreferencesDiv.Visible = true;
 
+                        Email objEmail = new Email();
+                        String strTO = txtEmail.Text.ToString();
+                        String strFROM = "OwlEats@lol.com";
+                        String strSubject = "Thank you for signing up to our website!";
+                        String strMessage = "We hope that you are able to find many customers!";
+
+                        try
+
+                        {
+                            objEmail.SendMail(strTO, strFROM, strSubject, strMessage);
+                            Response.Write("The email was sent.");
+                        }
+
+                        catch (Exception ex)
+
+                        {
+                            Response.Write("The email wasn't sent because one of the required fields was missing.");
+                        }
+
                     }
                     else
                     {

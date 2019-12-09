@@ -32,25 +32,47 @@ namespace OwlsEat
                 Response.Redirect("NoAccess.aspx");
             }
 
+            objCommand.Parameters.Clear();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPGetAllByRestaurantID";
+
+            objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+            DataSet RestaruantLogo = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            string Logo = (string)objDB.GetField("ImgURL", 0);
+            imgAvatar.Src = Logo;
+
+
+
             string userId = Session["userID"].ToString();
 
+          
 
             if (!IsPostBack)
             {
-                String strSQL = "SELECT * FROM TPItems where RestaurantID=" + Session["userid"].ToString() + ";";
+                objCommand.Parameters.Clear();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPGetItemsbyRestaurantId";
 
-                gvItems.DataSource = objDB.GetDataSet(strSQL);
+                objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+                DataSet Items = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                gvItems.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
                 gvItems.DataBind();
 
-                ddlItemID.DataSource = objDB.GetDataSet(strSQL);
+                ddlItemID.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
                 ddlItemID.DataTextField = "Title";
                 ddlItemID.DataValueField = "ItemID";
                 ddlItemID.DataBind();
 
-                String strSQL1 = "SELECT * FROM TPMenu where RestaurantID=" + Session["userid"].ToString() + ";";
+                objCommand.Parameters.Clear();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPGetMenusByRestarauntID";
 
+                objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+                DataSet Menus = objDB.GetDataSetUsingCmdObj(objCommand);
 
-                ddlEditMenus.DataSource = objDB.GetDataSet(strSQL1);
+                ddlEditMenus.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
                 ddlEditMenus.DataTextField = "MenuName";
                 ddlEditMenus.DataValueField = "MenuID";
                 ddlEditMenus.DataBind();
@@ -152,7 +174,6 @@ namespace OwlsEat
             lblConfirm.Visible = false;
 
         }
-
 
         protected void btnCreateItem_Click(object sender, EventArgs e)
         {
@@ -274,16 +295,18 @@ namespace OwlsEat
 
                     else
                     {
+                        lblConfirm1.Text = "Menu already exists";
+                        lblConfirm1.Visible = true;
                         for (int i = 0; i < UpdateInformationError.Count; i++)
                         {
-                            lblConfirm1.Text = "Failed";
-                            lblConfirm1.Visible = true;
+                            
                             Response.Write(UpdateInformationError[i] + "<br/>");
                         }
                     }
                 }
             }
         }
+
         protected void lnkBtnViewItems_Click(object sender, EventArgs e)
         {
             lblConfirm.Visible = false;
@@ -608,7 +631,6 @@ namespace OwlsEat
                 }
             }
         }
-
 
         protected void btnRemove_Click(object sender, EventArgs e)
         {

@@ -58,7 +58,7 @@
     <div class="page-content p-5" id="content">
 
 
-        <h2 class="display-4 text-white">Manage Virtual Wallet Page</h2>
+        <h2 class="display-4 text-white">Restaurant Manage Virtual Wallet Page</h2>
         <div class="separator">
         </div>
 
@@ -66,7 +66,7 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="Get balance" visible="false" runat="server" id="GetBalance">
+        <div class="Get balance" visible="false" runat="server" id="GetBalance" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="Balance" runat="server">
                 <asp:Label runat="server" Text="Virtual Wallet Balance" ID="lblBalance"></asp:Label>
@@ -78,7 +78,7 @@
 
         </div>
 
-        <div class="Fund Account" visible="false" runat="server" id="FundAccount">
+        <div class="Fund Account" visible="false" runat="server" id="FundAccount" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
             <div id="FundTheAccount" runat="server">
@@ -95,7 +95,7 @@
 
         </div>
 
-        <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet">
+        <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
             <div id="PaymentMethod" runat="server">
@@ -132,10 +132,13 @@
 
         </div>
 
-		<div id="divViewTrans" runat="server" >
-			    <asp:GridView ID="gvTransactions" runat="server">
-			</asp:GridView>
-		</div>
+		<div id="divViewTrans" runat="server" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
+
+            <div class="gvDiv" align="center">
+                <asp:GridView ID="gvTransactions" runat="server">
+                </asp:GridView>
+            </div>
+        </div>
 
     </div>
 </asp:Content>
