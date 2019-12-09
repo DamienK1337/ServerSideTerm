@@ -66,9 +66,14 @@ namespace OwlsEat
 
 		protected void lnkBtnGetBalance_Click(object sender, EventArgs e)
 		{
-			//string VWID = 
 
-			objCommand.CommandType = CommandType.StoredProcedure;
+            FundAccount.Visible = false;
+            GetBalance.Visible = true;
+            UpdateVirtualWallet.Visible = false;
+            divViewTrans.Visible = false;
+            //string VWID = 
+
+            objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPGetCurrentBalance";
 			objCommand.Parameters.Clear();
 
@@ -85,9 +90,7 @@ namespace OwlsEat
 				string newNum = String.Format("{0:c}", formatToMoney);
 				txtVirtualWalletBalance.Text = newNum;
 			}
-			FundAccount.Visible = false;
-			GetBalance.Visible = true;
-			UpdateVirtualWallet.Visible = false;
+
 		}
 
 		protected void lnkBtnFundAccount_Click(object sender, EventArgs e)
@@ -95,7 +98,7 @@ namespace OwlsEat
 			FundAccount.Visible = true;
 			GetBalance.Visible = false;
 			UpdateVirtualWallet.Visible = false;
-
+            divViewTrans.Visible = false;
 		}
 
 
@@ -104,6 +107,7 @@ namespace OwlsEat
 			FundAccount.Visible = false;
 			GetBalance.Visible = false;
 			UpdateVirtualWallet.Visible = true;
+            divViewTrans.Visible = false;
 		}
 
 		protected void btnFund_Click(object sender, EventArgs e)
@@ -243,9 +247,10 @@ namespace OwlsEat
 
 		protected void lnkBtnViewTransactions_Click(object sender, EventArgs e)
 		{
-			//ValidateItemInformation();
-			//ViewTransaction.Visible = false;
-			divViewTrans.Visible = true;
+            FundAccount.Visible = false;
+            GetBalance.Visible = false;
+            UpdateVirtualWallet.Visible = false;
+            divViewTrans.Visible = true;
 
 			if (!(UpdateInformationError.Count > 0))
 			{
