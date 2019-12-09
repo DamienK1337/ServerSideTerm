@@ -20,7 +20,7 @@
             <div class="media d-flex align-items-center">
                 <img runat="server" src="~/CustomStyleSheet/logo.png" id="imgAvatar" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />
                 <div class="media-body">
-                    <p class="font-weight-light text-muted mb-0">Restaurant Manager</p>
+                    <p class="font-weight-light text-muted mb-0">Customer</p>
                 </div>
             </div>
         </div>
@@ -135,10 +135,13 @@
 
        </div>
 
-       <div id="divViewTrans" runat="server">
-           <div class="gvDiv" align="center" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
+       <div id="divViewTrans" runat="server" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
+
+           <div class="gvDiv" align="center">
+               
                <asp:GridView ID="gvTransactions" runat="server">
                </asp:GridView>
+
            </div>
        </div>
 
