@@ -274,10 +274,11 @@ namespace OwlsEat
 
                     else
                     {
+                        lblConfirm1.Text = "Menu already exists";
+                        lblConfirm1.Visible = true;
                         for (int i = 0; i < UpdateInformationError.Count; i++)
                         {
-                            lblConfirm1.Text = "Failed";
-                            lblConfirm1.Visible = true;
+                            
                             Response.Write(UpdateInformationError[i] + "<br/>");
                         }
                     }

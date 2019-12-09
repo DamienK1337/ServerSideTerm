@@ -7,6 +7,14 @@
 */
 
 
+
+.label, .textbox {
+    width: 50px; /*or something you like, it will assign a fixed width to all them*/
+    text-align: left;
+    float: left;
+    display: block;
+}
+
 .hiddencol {
 	display: none;
 }
