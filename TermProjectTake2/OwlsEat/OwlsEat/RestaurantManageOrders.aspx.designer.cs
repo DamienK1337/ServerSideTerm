@@ -31,24 +31,6 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnViewCurrentOrders;
         
         /// <summary>
-        /// lnkBtnChangePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnChangePassword;
-        
-        /// <summary>
-        /// lnkBtnChangeSecurityQuestion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnChangeSecurityQuestion;
-        
-        /// <summary>
         /// lblConfirm control.
         /// </summary>
         /// <remarks>
@@ -76,12 +58,12 @@ namespace OwlsEat {
         protected global::System.Web.UI.WebControls.Label lblDisplay;
         
         /// <summary>
-        /// rptOrders control.
+        /// gvOrders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptOrders;
+        protected global::System.Web.UI.WebControls.GridView gvOrders;
     }
 }

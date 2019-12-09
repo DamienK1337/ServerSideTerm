@@ -59,7 +59,13 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="View Account Information" visible="false" runat="server" id="ViewAccountInformation">
+        <div class="View Account Information" visible="false" runat="server" id="ViewAccountInformation" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <div id="RestaurantDetails" runat="server">
                 <asp:Label runat="server" Text="Restaurant Name*" ID="lblRestaurant"></asp:Label>
@@ -107,7 +113,13 @@
 
         </div>
 
-        <div class="Change Password" visible="false" runat="server" id="ChangePassword">
+        <div class="Change Password" visible="false" runat="server" id="ChangePassword" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <div id="SubmitPassword" runat="server">
                 <asp:Label runat="server" Text="Please Submit Current Password" ID="lblCurrentPassword"></asp:Label>
@@ -132,7 +144,13 @@
 
         </div>
 
-        <div class="Securtiy Questions" visible="false" runat="server" id="ChangeSecurtiyQuestions">
+        <div class="Securtiy Questions" visible="false" runat="server" id="ChangeSecurtiyQuestions" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <div id="SubmitQuestions" runat="server">
                 <asp:Label runat="server" Text="Please Submit Current Password" ID="lblCurrentPassword1"></asp:Label>

@@ -33,73 +33,80 @@ namespace OwlsEat
             if (!IsPostBack)
 
             {
-                
 
                 string strSQL = "SELECT * FROM TPOrders";
-                rptOrders.DataSource = objDB.GetDataSet(strSQL);
-                rptOrders.DataBind();
+                gvOrders.DataSource = objDB.GetDataSet(strSQL);
+                gvOrders.DataBind();
             }
 
         }
 
-        protected void rptOrders_ItemCommand(Object sender, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
-
-            // Retrieve the row index for the item that fired the ItemCommand event
-
-            int rowIndex = e.Item.ItemIndex;
-           
-
-            // Retrieve a value from a control in the Repeater's Items collection
-
-            Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
-            DropDownList ddl1 = (DropDownList)rptOrders.Items[rowIndex].FindControl("ddlStatus");
-            String OrderID = ddl1.SelectedValue.ToString();
-
-            lblDisplay.Text = "You selected OrderID " + OrderID;
-
-            DropDownList ddlStatus = e.Item.FindControl("ddlStatus") as DropDownList;
-            if (ddlStatus != null)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+                //Find the DropDownList in the Row
+                DropDownList ddlStatus = (e.Row.FindControl("ddlStatus") as DropDownList);
 
+
+                // Select the status of OrderID in DropDownList
+                string Status = (e.Row.FindControl("lblStatus") as Label).Text;
+                ddlStatus.Items.FindByValue(Status).Selected = true;
+
+                string OrderID = (e.Row.FindControl("lblOrderID") as Label).Text;
+                ddlStatus.Items.FindByText(Status).Selected = true;
+                
             }
         }
+
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ViewOrders.Visible = true; //Event Code here.
-
 
             DropDownList ddlStatus = (DropDownList)sender;
-            RepeaterItem item = (RepeaterItem)ddlStatus.NamingContainer;
-            //if (item != null)
-            //{
-            //    Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
-            //    if (list != null)
-            //    {
+            GridViewRow row = (GridViewRow)ddlStatus.NamingContainer;
 
-            //    }
-            //}
+            Label lblOrderID = (Label)row.FindControl("lblOrderID");
+
+            string text = ddlStatus.SelectedItem.Text;
+            string value = ddlStatus.SelectedItem.Value;
+
+            string OrderID = lblOrderID.Text;
+
+            lblOrderID.Text = OrderID;
+
+            ViewOrders.Visible = true; //Event Code here.
+
+            //string status = ddlStatus.SelectedIndex.ToString();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "TPUpdateOrderStatus";
+
+            objCommand.Parameters.AddWithValue("@Status", text);
 
 
-            //foreach (RepeaterItem dataItem in rptOrders.Items)
-            //{
-            //    string ProductSelected = ((DropDownList)dataItem.FindControl("ddlStatus")).SelectedValue.ToString(); //No error
-            //    //lblDisplay.Text = ProductSelected;
-            //    //Response.Write(ProductSelected);
-            //    foreach (RepeaterItem item in rptOrders.Items)
-            //    {
-            //        int rowIndex = item.ItemIndex;
-            //        Label myLabel = (Label)rptOrders.Items[rowIndex].FindControl("lblOrderID");
-            //        String OrderID = myLabel.Text;
-            //        lblDisplay.Text = OrderID;
-            //        Response.Write(OrderID);
-            //    }
+            //objCommand.Parameters[0].Value = s;
+            objCommand.Parameters.AddWithValue("@OrderID", OrderID);
+            var ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
+            objCommand.Parameters.Clear();
+            if (ResponseReceived == 1)
+            {
+                string strSQL = "SELECT * FROM TPOrders";
+                gvOrders.DataSource = objDB.GetDataSet(strSQL);
+                gvOrders.DataBind();
+                lblConfirm.Text = "Thank you for Updating the Order!";
+                lblConfirm.Visible = true;
+            }
 
-            //}
+
+            else
+            {
+
+                lblConfirm.Text = "Failed";
+                lblConfirm.Visible = true;
+
+            }
         }
+
 
         protected void lnkBtnViewCurrentOrders_Click(object sender, EventArgs e)
         {

@@ -68,7 +68,13 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="Create Items" visible="false" runat="server" id="CreateItems">
+        <div class="Create Items" visible="false" runat="server" id="CreateItems" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <div id="ItemDetails" runat="server">
                 <asp:Label runat="server" Text="Title*" ID="lblItemTitle"></asp:Label>
@@ -95,7 +101,13 @@
 
         </div>
 
-        <div class="Create Menu" visible="false" runat="server" id="CreateMenu">
+        <div class="Create Menu" visible="false" runat="server" id="CreateMenu" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
 
             <div id="MenuDetails" runat="server">
@@ -116,7 +128,7 @@
 
             </div>
 
-              <div id="AddItemsToMenu" runat="server">
+              <div id="AddItemsToMenu" runat="server" align="center" >
 
             <asp:GridView ID="gvItems" runat="server"  AutoGenerateColumns="False">
                 <Columns>
@@ -127,13 +139,15 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
                     <asp:BoundField DataField="Description" HeaderText="Description" />
-                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="Image">
+                        <ControlStyle Height="60px" Width="80px" />
+                    </asp:ImageField>
                     <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
                     <asp:BoundField DataField="Title" HeaderText="Title" />
                 </Columns>
             </asp:GridView>
 
-         <asp:Button CssClass="btn-outline-primary" ID="btnAddItemstoMenu" runat="server" Text="Add Items To Menu" OnClick="btnAddItemstoMenu_Click" />
+                  <asp:Button CssClass="btn-outline-primary" ID="btnAddItemstoMenu" runat="server" Text="Add Items To Menu" OnClick="btnAddItemstoMenu_Click" />
 
               </div>
 
@@ -141,7 +155,13 @@
 
         </div>
 
-        <div class="View And Edit Items" visible="false" runat="server" id="ViewAndEditItems">
+        <div class="View And Edit Items" visible="false" runat="server" id="ViewAndEditItems" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <asp:DropDownList ID="ddlItemID" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
@@ -177,7 +197,13 @@
 
         </div>
 
-        <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu">
+        <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu" style="    
+    border: 5px solid black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;">
 
             <asp:DropDownList ID="ddlEditMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlEditMenus_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
@@ -224,7 +250,9 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
                     <asp:BoundField DataField="Description" HeaderText="Description" />
-                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="Image">
+                        <ControlStyle Height="60px" Width="80px" />
+                    </asp:ImageField>
                     <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
                     <asp:BoundField DataField="Title" HeaderText="Title" />
                 </Columns>
@@ -245,7 +273,9 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="ItemID" HeaderText="Item ID" />
                     <asp:BoundField DataField="Description" HeaderText="Description" />
-                    <asp:BoundField DataField="Image" HeaderText="Image" />
+                    <asp:ImageField ControlStyle-Height="100" ControlStyle-Width="100" DataImageUrlField="Image">
+                        <ControlStyle Height="60px" Width="80px" />
+                    </asp:ImageField>
                     <asp:BoundField DataField="Price" DataFormatString="{0:c}" HeaderText="Price" />
                     <asp:BoundField DataField="Title" HeaderText="Title" />
                 </Columns>
