@@ -38,9 +38,7 @@
               <li class="nav-item active">
                   <a class="nav-link" href="CustomerBrowse.aspx">Browse & Manage Purchases</a>
               </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="#">Orders</a>
-              </li>
+             
               <li class="nav-item active">
                   <a class="nav-link" href="CustomerManageVirtualWallet.aspx">Manage Virtual Wallet</a>
               </li>

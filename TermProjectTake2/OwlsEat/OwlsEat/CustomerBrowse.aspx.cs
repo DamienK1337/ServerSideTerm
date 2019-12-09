@@ -24,7 +24,7 @@ namespace OwlsEat
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			LblSearchError.Text = "";
 
 			if (!IsPostBack)
 			{
@@ -44,7 +44,7 @@ namespace OwlsEat
 					divCenterGvRestaurant.Visible = false;
 					divMenuSlect.Visible = false;
 					divGVMenuItems.Visible = false;
-					divSearch.Visible = false;
+					divSearch.Visible = true;
 					//ShowRestaurantByCuisine();
 				}
 			}
@@ -115,6 +115,7 @@ namespace OwlsEat
 			divMenuSlect.Visible = false;
 			divGVMenuItems.Visible = false;
 			lbltest.Text = "";
+			txtSearch.Text = "";
 		}
 
 		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -604,33 +605,50 @@ namespace OwlsEat
 		protected void btnSearch_Click(object sender, EventArgs e)
 		{
 			string RestaurantName = txtSearch.Text;
-
+			LblSearchError.Text = "";
 			objCommand.CommandType = CommandType.StoredProcedure;
 			objCommand.CommandText = "TPGetRestaurantsByName";
-
 			
 
-			objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
-			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
 
-			int response = objDB.DoUpdateUsingCmdObj(objCommand);
+			objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
+			
+			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
+		
+
 			gvRestaurant.DataSource = dataset;
 			gvRestaurant.DataBind();
 
-			if (response == -1)
+
+			try
 			{
-				LblCuisine.Text = "The Restaurant you entered was not found";
-				divCenterGvRestaurant.Visible = false;
-			}
-
-			else
-			{
-
-				LblCuisine.Text = "Please Select a Cuisine";
-
-
+				int RestaurantExists = (int)objDB.GetField("RestaurantId", 0);
+				LblSearchError.Text = "";
 				divCenterGvRestaurant.Visible = true;
 			}
+
+			catch
+			{
+				LblSearchError.Text = "The Restaurant you entered " + txtSearch.Text + " was not found";
+			}
+
+
+
+			//if (RestaurantExists == 0)
+			//{
+			//	LblSearchError.Text = "The Restaurant you entered " + txtSearch.Text +" was not found";
+			//	divCenterGvRestaurant.Visible = true; 
+
+			//}
+
+			//else if (RestaurantExists != 0)
+			//{
+
+			//	LblCuisine.Text = "Please Select a Cuisine";
+			//	LblSearchError.Text = "";
+
+			//	divCenterGvRestaurant.Visible = true;
+			//}
 			
 		}
 	}
