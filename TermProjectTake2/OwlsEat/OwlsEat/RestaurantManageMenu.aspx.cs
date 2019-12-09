@@ -187,6 +187,7 @@ namespace OwlsEat
                 string ItemDescription = txtDescription.Text;
                 float ItemPrice = float.Parse(txtItemPrice.Text);
 
+                objCommand.Parameters.Clear();
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPInsertItem";
 
@@ -260,6 +261,8 @@ namespace OwlsEat
                     string MenuImgUrl = txtMenuImage.Text;
                     string MenuDescription = txtMenuDescription.Text;
 
+
+                    objCommand.Parameters.Clear();
 
                     objCommand.CommandType = CommandType.StoredProcedure;
                     objCommand.CommandText = "TPInsertMenu";
@@ -341,6 +344,7 @@ namespace OwlsEat
                 float ItemPrice = float.Parse(txtItemPrice1.Text);
                 int ItemID = int.Parse(txtItemID.Text);
 
+                objCommand.Parameters.Clear();
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPUpdateItemInfo";
 
@@ -376,6 +380,8 @@ namespace OwlsEat
             btnEditItem.Visible = true;
 
             DBConnect objdb = new DBConnect();
+
+            objCommand.Parameters.Clear();
 
             string selectedItem = ddlItemID.SelectedValue;
             objCommand.CommandType = CommandType.StoredProcedure;
@@ -432,6 +438,7 @@ namespace OwlsEat
             foreach (string s in arrProducts)
             {
 
+                objCommand.Parameters.Clear();
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPAddItemsToMenu";
 
@@ -468,6 +475,7 @@ namespace OwlsEat
 
             DBConnect objdb = new DBConnect();
 
+            objCommand.Parameters.Clear();
             string selectedItem = ddlEditMenus.SelectedValue;
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPGetMenusByMenuID";
@@ -501,6 +509,7 @@ namespace OwlsEat
                 string MenuDesc = txtMenuImgUrl.Text;
                 int MenuID = int.Parse(txtMenuID.Text);
 
+                objCommand.Parameters.Clear();
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPUpdateMenuInfo";
 
@@ -603,6 +612,7 @@ namespace OwlsEat
                 foreach (string s in arrProducts)
                 {
 
+                    objCommand.Parameters.Clear();
                     objCommand.CommandType = CommandType.StoredProcedure;
                     objCommand.CommandText = "TPAddItemsToMenu";
 
@@ -665,6 +675,7 @@ namespace OwlsEat
             foreach (string s in arrProducts)
             {
 
+                objCommand.Parameters.Clear();
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPRemoveItemsFromMenu";
 
