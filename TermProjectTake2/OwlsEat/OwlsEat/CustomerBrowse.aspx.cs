@@ -36,8 +36,8 @@ namespace OwlsEat
 				{
 					if (!IsPostBack)
 						ShowCuisine();
-					ArrayList OrderItems = new ArrayList(Items);
-					Session.Add("Cart", OrderItems);
+					//ArrayList OrderItems = new ArrayList(Items);
+					//Session.Add("Cart", OrderItems);
 					divGvRestaurant.Visible = false;
 					divCart.Visible = false;
 					divOrders.Visible = false;
