@@ -16,6 +16,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
+    
+
+
+    <div class="page-content text-center ml-5" id="content">
+        <br />
+
+        <br />
+        <h2 class="display-4 text-white text-center">Welcome To OwlEats!</h2>
+        <div class="separator">
+        </div>
+        <h2 class="display-4 text-white text-center">If you've just created your account please add funds to your Virtual Wallet using the Manage Virtual Wallet Tab</h2>
+        <div id="divImage" runat="server" class="display-3 text-white text-center">
+            <image src="https://www.logolynx.com/images/logolynx/7c/7c5086d757222dc16838a9bba7542938.png" />
+        </div>
+
+    </div>
 
 
 </asp:Content>
