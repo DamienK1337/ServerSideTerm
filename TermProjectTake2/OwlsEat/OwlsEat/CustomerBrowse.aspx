@@ -78,7 +78,10 @@
 
 
         <div id="divGvRestaurant" runat="server">
+			<asp:Label ID="LblSearchError" runat="server" Text=""></asp:Label>
+			<br />
 				<asp:Label ID="LblCuisine" runat="server" Text="Please Select a Cuisine"></asp:Label>
+
             <asp:DropDownList ID="ddlCuisine" runat="server" OnSelectedIndexChanged="ddlCuisine_SelectedIndexChanged" AutoPostBack="True" AppendDataBoundItems="True">
                 <asp:ListItem disabled="disabled">Select Restaurant</asp:ListItem>
 				 <asp:ListItem Value= "SearchByName" >Search by Restaurant Name</asp:ListItem>

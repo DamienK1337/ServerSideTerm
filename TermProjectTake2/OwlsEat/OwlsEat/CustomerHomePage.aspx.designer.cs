@@ -13,30 +13,12 @@ namespace OwlsEat {
     public partial class CustomerHomePage {
         
         /// <summary>
-        /// DivBrowsebyCusine control.
+        /// divImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBrowsebyCusine;
-        
-        /// <summary>
-        /// ddlCuisine control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCuisine;
-        
-        /// <summary>
-        /// gvRestaurant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRestaurant;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divImage;
     }
 }
