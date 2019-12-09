@@ -398,7 +398,7 @@ namespace OwlsEat
 				RestaurantId = gvCart.Rows[row].Cells[2].Text;
 				string price = gvCart.Rows[row].Cells[6].Text.Split('$')[1];
 				string ItemName = gvCart.Rows[row].Cells[3].Text;
-				OrderedItems = OrderedItems + "  " + ItemName;
+				OrderedItems = OrderedItems + ", " + ItemName;
 				OrderTotal = OrderTotal + float.Parse(price);
 
 				
@@ -516,8 +516,28 @@ namespace OwlsEat
 					response.Close();
 					if (data == "true")
 					{
-						Response.Write("Funds added");
-					}
+						Response.Write("Payment Processed");
+
+                        Email objEmail = new Email();
+                        String strTO = Session["userEmail"].ToString();
+                        String strFROM = "OwlEats@lol.com";
+                        String strSubject = "Thank you for your Order!";
+                        String strMessage = "We hope that we can serve you more soon! The " +
+                            "items that "+ Session["userName"].ToString() + " ordered are: " + OrderedItems + " for a total cost of: " + OrderTotal;
+
+                        try
+
+                        {
+                            objEmail.SendMail(strTO, strFROM, strSubject, strMessage);
+                            Response.Write("The email was sent.");
+                        }
+
+                        catch (Exception ex)
+
+                        {
+                            Response.Write("The email wasn't sent because one of the required fields was missing.");
+                        }
+                    }
 					else
 					{
 						Response.Write("Error Occured on the database.");

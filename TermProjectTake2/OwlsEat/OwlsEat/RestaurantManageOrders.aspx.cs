@@ -46,9 +46,15 @@ namespace OwlsEat
             if (!IsPostBack)
 
             {
+                objCommand.Parameters.Clear();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPGetOrders";
 
-                string strSQL = "SELECT * FROM TPOrders";
-                gvOrders.DataSource = objDB.GetDataSet(strSQL);
+                objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+                DataSet Items = objDB.GetDataSetUsingCmdObj(objCommand);
+
+
+                gvOrders.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
                 gvOrders.DataBind();
             }
 
@@ -91,6 +97,7 @@ namespace OwlsEat
             ViewOrders.Visible = true; //Event Code here.
 
             //string status = ddlStatus.SelectedIndex.ToString();
+            objCommand.Parameters.Clear();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "TPUpdateOrderStatus";
 

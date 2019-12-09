@@ -72,7 +72,7 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="Get balance" visible="false" runat="server" id="GetBalance">
+        <div class="Get balance" visible="false" runat="server" id="GetBalance" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="Balance" runat="server">
                 <asp:Label runat="server" Text="Virtual Wallet Balance" ID="lblBalance"></asp:Label>
@@ -84,7 +84,7 @@
 
         </div>
 
-        <div class="Fund Account" visible="false" runat="server" id="FundAccount">
+        <div class="Fund Account" visible="false" runat="server" id="FundAccount" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
             <div id="FundTheAccount" runat="server">
@@ -101,45 +101,47 @@
 
         </div>
 
-        <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet">
+       <div class="Update Virtual Wallet" visible="false" runat="server" id="UpdateVirtualWallet" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
-            <div id="PaymentMethod" runat="server">
-                <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
-                <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>
-                <br />
-                <asp:Label runat="server" Text="Account Type" ID="lblAccountType"></asp:Label>
-                <asp:DropDownList ID="ddlAccountType" CssClass="form-control" required="" runat="server" AutoPostBack="True"  AppendDataBoundItems="True">
-                    <Items>
-                        <asp:ListItem disabled="disabled">Select Item</asp:ListItem>
-                        <asp:ListItem>Savings</asp:ListItem>
-                        <asp:ListItem>Checking</asp:ListItem>
-                        <asp:ListItem>Credit</asp:ListItem>
-                    </Items>
-                </asp:DropDownList>
-                <asp:Label runat="server" Text="Account Number" ID="lblAccountNumber"></asp:Label>
-                <asp:TextBox runat="server" ID="txtAccountNumber"></asp:TextBox>
-                <br />
-                <asp:Label runat="server" Text="Intitial Balance" ID="lblInitialBalance"></asp:Label>
-                <asp:TextBox runat="server" ID="txtInitialBalance"></asp:TextBox>
-                <br />
-                <br />
-            </div>
+           <div id="PaymentMethod" runat="server">
+               <asp:Label runat="server" Text="Payment Method Name" ID="lblTitle"></asp:Label>
+               <asp:TextBox runat="server" ID="txtPaymentMethodName"></asp:TextBox>
+               <br />
+               <asp:Label runat="server" Text="Account Type" ID="lblAccountType"></asp:Label>
+               <asp:DropDownList ID="ddlAccountType" CssClass="form-control" required="" runat="server" AutoPostBack="True" AppendDataBoundItems="True">
+                   <Items>
+                       <asp:ListItem disabled="disabled">Select Item</asp:ListItem>
+                       <asp:ListItem>Savings</asp:ListItem>
+                       <asp:ListItem>Checking</asp:ListItem>
+                       <asp:ListItem>Credit</asp:ListItem>
+                   </Items>
+               </asp:DropDownList>
+               <asp:Label runat="server" Text="Account Number" ID="lblAccountNumber"></asp:Label>
+               <asp:TextBox runat="server" ID="txtAccountNumber"></asp:TextBox>
+               <br />
+               <asp:Label runat="server" Text="Intitial Balance" ID="lblInitialBalance"></asp:Label>
+               <asp:TextBox runat="server" ID="txtInitialBalance"></asp:TextBox>
+               <br />
+               <br />
+           </div>
 
 
-            <asp:Button CssClass="btn-outline-primary" ID="btnUpdateInfo" runat="server" Text="Update Info" OnClick="btnUpdateInfo_Click" />
+           <asp:Button CssClass="btn-outline-primary" ID="btnUpdateInfo" runat="server" Text="Update Info" OnClick="btnUpdateInfo_Click" />
 
-            <br />
+           <br />
 
 
 
-        </div>
+       </div>
 
-		<div id="divViewTrans" runat="server" >
-			    <asp:GridView ID="gvTransactions" runat="server">
-			</asp:GridView>
-		</div>
+       <div id="divViewTrans" runat="server">
+           <div class="gvDiv" align="center" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
+               <asp:GridView ID="gvTransactions" runat="server">
+               </asp:GridView>
+           </div>
+       </div>
 
-    </div>
+   </div>
 
 </asp:Content>
