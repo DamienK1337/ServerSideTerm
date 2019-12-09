@@ -58,7 +58,7 @@
     <div class="page-content p-5" id="content">
 
 
-        <h2 class="display-4 text-white">Manage Virtual Wallet Page</h2>
+        <h2 class="display-4 text-white">Restaurant Manage Virtual Wallet Page</h2>
         <div class="separator">
         </div>
 

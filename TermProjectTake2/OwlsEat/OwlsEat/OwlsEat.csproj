@@ -73,6 +73,7 @@
     <Content Include="CSS\bootstrap-reboot.min.css" />
     <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\bootstrap.min.css" />
+    <Content Include="CustomStyleSheet\logo.png" />
     <Content Include="JS\bootstrap.bundle.js" />
     <Content Include="JS\bootstrap.bundle.min.js" />
     <Content Include="JS\bootstrap.js" />
@@ -94,7 +95,6 @@
     <Content Include="CustomerManageVirtualWallet.aspx" />
     <Content Include="CustomerBrowse.aspx" />
     <Content Include="RestaurantManageOrders.aspx" />
-
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerMaster.Master.cs">
@@ -206,7 +206,6 @@
     <Compile Include="RestaurantManageOrders.aspx.designer.cs">
       <DependentUpon>RestaurantManageOrders.aspx</DependentUpon>
     </Compile>
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\bootstrap-grid.css.map" />

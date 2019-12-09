@@ -68,13 +68,7 @@
         <asp:Label runat="server" Text="" ID="lblConfirm" Visible="False"></asp:Label>
 
 
-        <div class="Create Items" visible="false" runat="server" id="CreateItems" style="    
-    border: 5px solid black;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: white;">
+        <div class="Create Items" visible="false" runat="server" id="CreateItems" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div id="ItemDetails" runat="server">
                 <asp:Label runat="server" Text="Title*" ID="lblItemTitle"></asp:Label>
@@ -101,13 +95,7 @@
 
         </div>
 
-        <div class="Create Menu" visible="false" runat="server" id="CreateMenu" style="    
-    border: 5px solid black;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: white;">
+        <div class="Create Menu" visible="false" runat="server" id="CreateMenu" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
 
             <div id="MenuDetails" runat="server">
@@ -155,13 +143,7 @@
 
         </div>
 
-        <div class="View And Edit Items" visible="false" runat="server" id="ViewAndEditItems" style="    
-    border: 5px solid black;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: white;">
+        <div class="View And Edit Items" visible="false" runat="server" id="ViewAndEditItems" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <asp:DropDownList ID="ddlItemID" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlItemID_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
@@ -197,13 +179,7 @@
 
         </div>
 
-        <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu" style="    
-    border: 5px solid black;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: white;">
+        <div class="View And Edit Menu" visible="false" runat="server" id="ViewAndEditMenu" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <asp:DropDownList ID="ddlEditMenus" CssClass="form-control" required="" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlEditMenus_SelectedIndexChanged" AppendDataBoundItems="True">
                 <Items>
