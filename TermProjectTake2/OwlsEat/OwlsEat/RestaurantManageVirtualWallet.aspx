@@ -135,7 +135,13 @@
 		<div id="divViewTrans" runat="server" style="border: 5px solid black; text-align: center; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: white;">
 
             <div class="gvDiv" align="center">
-                <asp:GridView ID="gvTransactions" runat="server">
+                <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False">
+					<Columns>
+						<asp:BoundField DataField="VWIDReceiver" HeaderText="VWID Receiver" />
+						<asp:BoundField DataField="VWIDSender" HeaderText="VWID Sender" />
+						<asp:BoundField DataField="Amount" DataFormatString="${0:###,###,###.00}" HeaderText="Amount" />
+						<asp:BoundField DataField="Type" HeaderText="Type" />
+					</Columns>
                 </asp:GridView>
             </div>
         </div>
