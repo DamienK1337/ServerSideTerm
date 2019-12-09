@@ -24,6 +24,8 @@ namespace Utilities
 
 		public string Date { get; set; }
 
+		public string RestaurantName { get; set; }
+
 		public Orders()
 		{
 

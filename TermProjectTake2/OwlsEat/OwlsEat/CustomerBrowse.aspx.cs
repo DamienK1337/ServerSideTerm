@@ -390,6 +390,7 @@ namespace OwlsEat
 			string RestaurantVWID = "";
 			string OrderedItems = "";
 			DateTime dt = DateTime.Now;
+			string RestaurantName = "";
 
 			for (int row = 0; row < gvCart.Rows.Count; row++)
 			{
@@ -399,10 +400,26 @@ namespace OwlsEat
 				OrderedItems = OrderedItems + "  " + ItemName;
 				OrderTotal = OrderTotal + float.Parse(price);
 
+				
+
+
+
+
 			}
+
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPGetRestaurantName";
+
+
+			objCommand.Parameters.AddWithValue("@RestaurantId", int.Parse(RestaurantId));
+			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
+
+
+
+			RestaurantName = (string)objDB.GetField("RestaurantName", 0);
 			//LblCartTest.Text = InsertTOOrderTable();
 			//LblCartTest.Text = GetVirtualWalletID(RestaurantId);
-			
+
 
 			RestaurantVWID = GetVirtualWalletID(RestaurantId);
 
@@ -425,7 +442,7 @@ namespace OwlsEat
 				SqlCommand objCommand = new SqlCommand();
 				objCommand.CommandType = CommandType.StoredProcedure;
 				objCommand.CommandText = "TPAddOrder";
-
+				//objCommand.Parameters.Clear();
 				objCommand.Parameters.AddWithValue("@RestaurantId", RestaurantId);
 				objCommand.Parameters.AddWithValue("@CustomerName", Session["userName"].ToString());
 				objCommand.Parameters.AddWithValue("@CustomerId", Session["userID"].ToString());
@@ -436,6 +453,7 @@ namespace OwlsEat
 				objCommand.Parameters.AddWithValue("@PurchasedItems", OrderedItems);
 				objCommand.Parameters.AddWithValue("@Total", OrderTotal);
 				objCommand.Parameters.AddWithValue("@Date", dt);
+				objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
 
 				var result = objDB.DoUpdateUsingCmdObj(objCommand);
 
