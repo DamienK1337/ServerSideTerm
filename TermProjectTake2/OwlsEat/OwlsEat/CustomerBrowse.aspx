@@ -242,9 +242,9 @@
                     <HeaderTemplate>
                         <table border="0" cellpadding="5" cellspacing="0" width="100%" style="border-spacing: 0px;">
                             <tr style="color: #143fe9;">
-                                <th scope="col">OrderID</th>
-                                <th scope="col">CustomerName</th>
-                                <th scope="col">PurchasedItems</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Restaurant Name</th>
+                                <th scope="col">Purchased Items</th>
                                 <th scope="col">Total</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Status</th>
@@ -256,7 +256,7 @@
                             <asp:Label ID="lblOrderID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "OrderID") %>'></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="lblCustomerName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName") %>'></asp:Label>
+                            <asp:Label ID="lblCustomerName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "RestaurantName") %>'></asp:Label>
                         </td>
                         <td>
                             <asp:Label ID="lblPurchasedItems" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PurchasedItems") %>'></asp:Label>
