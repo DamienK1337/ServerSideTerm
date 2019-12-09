@@ -21,6 +21,7 @@ namespace OwlsEat
 		DBConnect objDB = new DBConnect();
 		SqlCommand objCommand = new SqlCommand();
 		ArrayList UpdateInformationError = new ArrayList();
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
@@ -35,11 +36,15 @@ namespace OwlsEat
 				{
 					if (!IsPostBack)
 						ShowCuisine();
-
+					ArrayList OrderItems = new ArrayList(Items);
+					Session.Add("Cart", OrderItems);
 					divGvRestaurant.Visible = false;
 					divCart.Visible = false;
 					divOrders.Visible = false;
-
+					divCenterGvRestaurant.Visible = false;
+					divMenuSlect.Visible = false;
+					divGVMenuItems.Visible = false;
+					divSearch.Visible = false;
 					//ShowRestaurantByCuisine();
 				}
 			}
@@ -68,34 +73,48 @@ namespace OwlsEat
 		public void ShowRestaurantByCuisine()
 		{
 
-			SqlCommand sqlCommand1 = new SqlCommand();
-			sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
-			string choice = ddlCuisine.SelectedValue;
-			objCommand.Parameters.Clear();
-			sqlCommand1.CommandText = "TPGetRestaurantsbyCuisine";
+
+			if (ddlCuisine.SelectedValue == "SearchByName")
+			{
+				
+				divSearch.Visible = true;
+				divCenterGvRestaurant.Visible = false;
+			}
+
+			else
+			{
+				SqlCommand sqlCommand1 = new SqlCommand();
+				sqlCommand1.CommandType = System.Data.CommandType.StoredProcedure;
+				string choice = ddlCuisine.SelectedValue;
+				objCommand.Parameters.Clear();
+				sqlCommand1.CommandText = "TPGetRestaurantsbyCuisine";
 
 
-			SqlParameter CuisineParam = new SqlParameter("@Cuisine", choice);
-			CuisineParam.Direction = System.Data.ParameterDirection.Input;
-			CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
-			CuisineParam.Size = 50;
-			sqlCommand1.Parameters.Add(CuisineParam);
+				SqlParameter CuisineParam = new SqlParameter("@Cuisine", choice);
+				CuisineParam.Direction = System.Data.ParameterDirection.Input;
+				CuisineParam.SqlDbType = System.Data.SqlDbType.VarChar;
+				CuisineParam.Size = 50;
+				sqlCommand1.Parameters.Add(CuisineParam);
 
 
 
-			DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
+				DataSet dataSet = objDB.GetDataSetUsingCmdObj(sqlCommand1);
 
 
 
-			gvRestaurant.DataSource = dataSet;
-			gvRestaurant.DataBind();
-
+				gvRestaurant.DataSource = dataSet;
+				gvRestaurant.DataBind();
+			}
 
 		}
 
 		protected void ddlCuisine_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			ShowRestaurantByCuisine();
+			divCenterGvRestaurant.Visible = true;
+			divMenuSlect.Visible = false;
+			divGVMenuItems.Visible = false;
+			lbltest.Text = "";
 		}
 
 		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -119,7 +138,7 @@ namespace OwlsEat
 			ArrayList arrProducts = new ArrayList();    // used to store the ProductNumber for each selected product
 			int count = 0;                              // used to count the number of selected products
 			int RID;                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
-																// for each row that is checked
+			divMenuSlect.Visible = true;													// for each row that is checked
 
 			for (int row = 0; row < gvRestaurant.Rows.Count; row++)
 			{
@@ -181,31 +200,33 @@ namespace OwlsEat
 
 		protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
 		{
-
+			divGVMenuItems.Visible = true;
 			string Menuid = ddlMenu.SelectedValue;
 
-			objCommand.CommandType = CommandType.StoredProcedure;
-			objCommand.CommandText = "TPGetMenuItemsbyMenuId";
+			
+
+				objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.CommandText = "TPGetMenuItemsbyMenuId";
 
 
-			objCommand.Parameters.AddWithValue("@MenuID", Menuid);
-			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
+				objCommand.Parameters.AddWithValue("@MenuID", Menuid);
+				DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
 
-			gvMenuItems.DataSource = dataset;
-			gvMenuItems.DataBind();
+				gvMenuItems.DataSource = dataset;
+				gvMenuItems.DataBind();
 
+			}
 
-
-		}
+		
 
 		protected void btnAddToCart_Click(object sender, EventArgs e)
 		{
 			ArrayList arrayMenuItems = new ArrayList();    // used to store the ProductNumber for each selected product
 
 			int count = 0;                              // used to count the number of selected products
-			ArrayList OrderItems = new ArrayList(Items);                                            // Iterate through the rows (records) of the GridView and store the ProductNumber
-																									// for each row that is checked
-
+														// Iterate through the rows (records) of the GridView and store the ProductNumber
+														// for each row that is checked
+			ArrayList OrderItems = new ArrayList(Items);
 
 			for (int row = 0; row < gvMenuItems.Rows.Count; row++)
 			{
@@ -242,7 +263,7 @@ namespace OwlsEat
 
 
 					Session.Add("Cart", OrderItems);
-					lbltest.Text = Session["Cart"].ToString();
+					lbltest.Text = "Item(s) added to Cart";
 
 					Items newItems = Session["Cart"] as Items;
 
@@ -268,14 +289,20 @@ namespace OwlsEat
 
 		protected void lnkBtnPurchase_Click(object sender, EventArgs e)
 		{
-
-			divGvRestaurant.Visible = false;
-			divCart.Visible = true;
-            divOrders.Visible = false;
-
+			
 			ArrayList CustCart = new ArrayList(Items);
 
 			CustCart = (ArrayList)Session["Cart"];
+
+			int arrcount = CustCart.Count;
+			
+
+			
+			divGvRestaurant.Visible = false;
+			divCart.Visible = true;
+            divOrders.Visible = false;
+		
+			
 
             gvCart.DataSource = CustCart;
             gvCart.DataBind();
@@ -290,14 +317,20 @@ namespace OwlsEat
 
 			}
 
-			LblOrderTotal.Text = OrderTotal.ToString();
+			//LblOrderTotal.Text = OrderTotal.ToString();
 
+			try
+			{
+				gvCart.FooterRow.Cells[3].Text = "Total: ";
+				gvCart.FooterRow.Cells[4].Text = "$ " + OrderTotal.ToString();
+				gvCart.ShowFooter = true;
+			}
+			catch
+			{
+
+			}
 			
-            gvCart.FooterRow.Cells[3].Text = "Total: ";
-            gvCart.FooterRow.Cells[4].Text = "$ " + OrderTotal.ToString();
-            gvCart.ShowFooter = true;
-
-        }
+		}
 		protected void lnkBtnManageOrder_Click(object sender, EventArgs e)
 		{
 
@@ -548,6 +581,39 @@ namespace OwlsEat
 
 			LblCartTest.Text = "Your Cart Has Been Cleared";
 			LblOrderTotal.Text = "0.00";
+		}
+
+		protected void btnSearch_Click(object sender, EventArgs e)
+		{
+			string RestaurantName = txtSearch.Text;
+
+			objCommand.CommandType = CommandType.StoredProcedure;
+			objCommand.CommandText = "TPGetRestaurantsByName";
+
+			
+
+			objCommand.Parameters.AddWithValue("@RestaurantName", RestaurantName);
+			DataSet dataset = objDB.GetDataSetUsingCmdObj(objCommand);
+
+			int response = objDB.DoUpdateUsingCmdObj(objCommand);
+			gvRestaurant.DataSource = dataset;
+			gvRestaurant.DataBind();
+
+			if (response == -1)
+			{
+				LblCuisine.Text = "The Restaurant you entered was not found";
+				divCenterGvRestaurant.Visible = false;
+			}
+
+			else
+			{
+
+				LblCuisine.Text = "Please Select a Cuisine";
+
+
+				divCenterGvRestaurant.Visible = true;
+			}
+			
 		}
 	}
 }
