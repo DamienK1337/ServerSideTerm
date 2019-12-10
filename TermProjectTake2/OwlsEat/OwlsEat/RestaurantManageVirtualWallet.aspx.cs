@@ -120,16 +120,16 @@ namespace OwlsEat
             UpdateVirtualWallet.Visible = true;
             divViewTrans.Visible = false;
 
-            string str = "Select PaymentMethodName, AccountNumber, AccountType, Balance from TPVWHOLDER where VWID =" + Session["userVWID"].ToString() + ";";
+            //string str = "Select PaymentMethodName, AccountNumber, AccountType, Balance from TPVWHOLDER where VWID =" + Session["userVWID"].ToString() + ";";
 
-            DataSet Myds = objDB.GetDataSet(str);
+            //DataSet Myds = objDB.GetDataSet(str);
 
-            string PayMeth = (string)objDB.GetField("PaymentMethodName", 0);
-            string AccNum = (string)objDB.GetField("AccountNumber", 0);
-            string accType = (string)objDB.GetField("AccountType", 0);
-            double bal = (double)objDB.GetField("Balance", 0);
+            //string PayMeth = (string)objDB.GetField("PaymentMethodName", 0);
+            //string AccNum = (string)objDB.GetField("AccountNumber", 0);
+            //string accType = (string)objDB.GetField("AccountType", 0);
+            //double bal = (double)objDB.GetField("Balance", 0);
 
-            lblCurrentInfo.Text = PayMeth + "  " + AccNum + "  " + accType + "  " + bal;
+            //lblCurrentInfo.Text = PayMeth + "  " + AccNum + "  " + accType + "  " + bal;
 
 
         }
@@ -155,7 +155,7 @@ namespace OwlsEat
 
                 try
                 {
-                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPITest/api/service/PaymentGateway/FundAccount";
+                    String url = "http://cis-iis2.temple.edu/Fall2019/CIS3342_tuf05666/WebAPI/api/service/PaymentGateway/FundAccount";
 
                     url = url + "/" + CurrMerchant.MerchantID + "/" + CurrAPIKey.Key;
 
