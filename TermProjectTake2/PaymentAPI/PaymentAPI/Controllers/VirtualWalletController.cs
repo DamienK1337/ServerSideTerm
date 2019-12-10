@@ -210,16 +210,16 @@ namespace PaymentAPI.Controllers
                 int currentBal = curVW.GetCurrentBalance();
 
                 int AmountToAdd = curVW.FundsToAdd;
-
+				
                 int NewBalance = currentBal + AmountToAdd;
+				DateTime dt = DateTime.Now;
 
-                
 
-                //DataSet MyCurrentBalance = new DataSet();
-                objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.Parameters.Clear();
+				//DataSet MyCurrentBalance = new DataSet();
+				objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "TPAddToBalance";
-                objCommand.Parameters.Clear();
-
+             
                
 
                 objCommand.Parameters.AddWithValue("@VWID", VWID);
@@ -227,7 +227,24 @@ namespace PaymentAPI.Controllers
 
                 int ResponseReceived;
                 ResponseReceived = objDB.DoUpdateUsingCmdObj(objCommand);
-                if(ResponseReceived == 1)
+
+				objCommand.Parameters.Clear();
+				objCommand.CommandType = CommandType.StoredProcedure;
+				objCommand.CommandText = "TPAddTransaction";
+			
+
+
+				objCommand.Parameters.AddWithValue("@VWIDReceiver", VWID);
+				objCommand.Parameters.AddWithValue("@VWIDSender", VWID);
+				objCommand.Parameters.AddWithValue("@Amount", AmountToAdd);
+				objCommand.Parameters.AddWithValue("@Type", "Fund");
+				objCommand.Parameters.AddWithValue("@Date", dt);
+
+				int responsereceived = objDB.DoUpdateUsingCmdObj(objCommand);
+
+
+
+				if (ResponseReceived == 1)
                 {
                     return true;
                 }
