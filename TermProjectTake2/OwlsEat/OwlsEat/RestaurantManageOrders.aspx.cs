@@ -110,8 +110,14 @@ namespace OwlsEat
             objCommand.Parameters.Clear();
             if (ResponseReceived == 1)
             {
-                string strSQL = "SELECT * FROM TPOrders";
-                gvOrders.DataSource = objDB.GetDataSet(strSQL);
+                objCommand.Parameters.Clear();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "TPGetOrders";
+
+                objCommand.Parameters.AddWithValue("@RestaurantId", Session["userid"].ToString());
+                DataSet Items = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                gvOrders.DataSource = objDB.GetDataSetUsingCmdObj(objCommand);
                 gvOrders.DataBind();
                 lblConfirm.Text = "Thank you for Updating the Order!";
                 lblConfirm.Visible = true;
